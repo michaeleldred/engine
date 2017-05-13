@@ -1,0 +1,47 @@
+buildscript {
+	repositories {
+		jcenter();
+		maven {
+			url "https://plugins.gradle.org/m2/"
+    	}
+	}
+	dependencies {
+		classpath 'edu.sc.seis.gradle:launch4j:2.3.0'
+		classpath "gradle.plugin.edu.sc.seis:macAppBundle:2.1.6"
+	}
+}
+
+repositories {
+	mavenCentral();
+	flatDir {
+		dirs "Lib"
+	}
+}
+
+apply plugin: 'java'
+
+dependencies {
+	compileOnly name: "android"
+	compile files( "Lib/json-20160212.jar" )
+	compile files( "Lib/luaj-jse-3.0.1.jar" )
+	compile files( "Lib/lwjgl.jar" )
+	testCompile "junit:junit:4.11"
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = [ "Source" ];
+		}
+		resources {
+			srcDirs = [ "Data" ];
+		}
+		output.classesDir = "Build/Obj/Classes"
+	}
+	test {
+		java {
+			srcDirs = [ "Tests" ];
+		}
+		output.classesDir = "Build/Obj/Classes"
+	}
+}
