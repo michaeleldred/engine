@@ -82,7 +82,7 @@ public class EntityManagerTest {
 		manager.receive( evt );
 		
 		manager.update();
-		
+
 		assertTrue( gs.events.contains( evt ) );
 	}
 	
