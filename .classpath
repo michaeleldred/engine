@@ -2,12 +2,15 @@
 <classpath>
 	<classpathentry kind="src" path="Source"/>
 	<classpathentry kind="src" path="Tests"/>
-	<classpathentry kind="lib" path="build/libs/engine.jar"/>
-	<classpathentry kind="lib" path="Lib/android.jar"/>
 	<classpathentry kind="lib" path="Lib/json-20160212.jar"/>
 	<classpathentry kind="lib" path="Lib/luaj-jse-3.0.1.jar"/>
-	<classpathentry kind="lib" path="Lib/lwjgl.jar"/>
+	<classpathentry kind="lib" path="Lib/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="engine/Lib/Native"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="Lib/android.jar"/>
 	<classpathentry kind="output" path="build/Obj/Classes"/>
 </classpath>

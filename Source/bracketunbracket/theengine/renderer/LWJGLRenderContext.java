@@ -31,9 +31,6 @@ public class LWJGLRenderContext extends RenderContext {
 	public final long window;
 	private GameWindow gameWindow;
 	
-	private final int WINDOW_WIDTH = 800;
-	private final int WINDOW_HEIGHT = 600;
-	
 	private final static int MAX_BATCH_SPRITES = RenderCommand.MAX_OBJECTS;
 	
 	private LWJGLShader progTex;
@@ -41,17 +38,22 @@ public class LWJGLRenderContext extends RenderContext {
 	
 	private Vector2 offset = new Vector2( 0 , 0 );
 	
+	private float winwidth;
+	private float winheight;
+	
 	@SuppressWarnings("unused")
 	private GLFWWindowSizeCallback callback;
 
-	public LWJGLRenderContext( GameWindow gameWin ) {
+	public LWJGLRenderContext( GameWindow gameWin , float winwidth , float winheight ) {
+		this.winwidth = winwidth;
+		this.winheight = winheight;
 		
 		glfwSetErrorCallback( GLFWErrorCallback.createPrint( System.err ) );
 		
 		glfwInit();
 		glfwDefaultWindowHints();
 		
-		window = glfwCreateWindow( WINDOW_WIDTH , WINDOW_HEIGHT , "TEST" , NULL , NULL );
+		window = glfwCreateWindow( (int)winwidth , (int)winheight , "TEST" , NULL , NULL );
 		
 		if( window == NULL ) {
 			throw new RuntimeException( "window == NULL" );
@@ -75,7 +77,7 @@ public class LWJGLRenderContext extends RenderContext {
 		
 		
 		this.gameWindow = gameWin;
-		gameWin.resize( WINDOW_WIDTH , WINDOW_HEIGHT );
+		gameWin.resize( winwidth , winheight );
 		
 		Vector2 dim = gameWindow.getScaledDimensions();
 		
@@ -83,7 +85,7 @@ public class LWJGLRenderContext extends RenderContext {
 		float height = dim.y;
 		
 		System.out.println( "( " + width + " , " + height + " ) " );
-		System.out.println( ( width / height ) + " = " + ((float)WINDOW_WIDTH/(float)WINDOW_HEIGHT));
+		System.out.println( ( width / height ) + " = " + ((float)winwidth/(float)winheight));
 		
 		glOrtho( -(width/2) , (width/2) , (height/2) , -(height/2) , -1 , 1 );
 		glDisable( GL_DEPTH_TEST );
@@ -222,7 +224,7 @@ public class LWJGLRenderContext extends RenderContext {
 		glUniformMatrix4fv( loc , false , buffer );
 		
 		loc = glGetUniformLocation( prog.program , "screen" );
-		glUniform2f( loc , WINDOW_WIDTH , WINDOW_HEIGHT ); 
+		glUniform2f( loc , winwidth , winheight ); 
 		
 		int verthandle = glGetAttribLocation( prog.program , "pos" );
 		glEnableVertexAttribArray( verthandle );
@@ -261,6 +263,8 @@ public class LWJGLRenderContext extends RenderContext {
 		glfwSwapBuffers( window );
 		
 		glfwPollEvents();
+		
+		glClear( GL_COLOR_BUFFER_BIT );
 	}
 
 	public void destroy() {

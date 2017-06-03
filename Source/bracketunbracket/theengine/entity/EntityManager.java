@@ -33,6 +33,8 @@ public class EntityManager implements EventListener {
 	private final List<Entity> addedEntities = new ArrayList<Entity>();
 	private final List<Entity> removeEntities = new ArrayList<Entity>();
 	
+	private final List<Event> newEvents = new ArrayList<Event>();
+	
 	private final EventManager eventManager = new EventManager();
 	
 	public EntityManager() {
@@ -44,6 +46,20 @@ public class EntityManager implements EventListener {
 	 */
 	public void update() {
 		updating = true;
+		
+		// Update events for next frame
+		for( Event event : newEvents ) {
+			for( GameSystem system : systems ) {
+				system.receive( event );
+			}
+			
+			for( Entity e : entities ) {
+				e.receiveEvent( event );
+			}
+		}
+		
+		newEvents.clear();
+		
 		for( GameSystem system : systems ) {
 			system.tick( entities );
 		}
@@ -115,12 +131,6 @@ public class EntityManager implements EventListener {
 	 */
 	@Override
 	public void receive( Event event ) {
-		for( GameSystem system : systems ) {
-			system.receive( event );
-		}
-		
-		for( Entity e : entities ) {
-			e.receiveEvent( event );
-		}
+		newEvents.add( event );
 	}
 }

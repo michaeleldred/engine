@@ -6,9 +6,13 @@ package bracketunbracket.theengine.input;
 import static org.lwjgl.glfw.GLFW.*;
 
 import java.nio.DoubleBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.glfw.GLFWKeyCallback;
 
+import bracketunbracket.theengine.event.Event;
 import bracketunbracket.theengine.event.EventManager;
 import bracketunbracket.theengine.math.Vector2;
 import bracketunbracket.theengine.renderer.GameWindow;
@@ -20,6 +24,7 @@ public class LWJGLInputManager {
 	
 	private DoubleBuffer xPos;
 	private DoubleBuffer yPos;
+	public GLFWKeyCallback keyCall;
 	
 	private long window = 0;
 	
@@ -29,12 +34,26 @@ public class LWJGLInputManager {
 	boolean last[] = new boolean[ 5 ];
 	private boolean focus = true;
 	
+	private List<Event> keyEvents = new ArrayList<Event>();
+	private Object lock = new Object();
+	
 	public LWJGLInputManager( long window , EventManager manager , GameWindow gameWin ) {
 		this.window = window;
 		xPos = BufferUtils.createDoubleBuffer( 1 );
 		yPos = BufferUtils.createDoubleBuffer( 1 );
 		this.manager = manager;
 		this.gameWin = gameWin;
+		
+		glfwSetKeyCallback( window , keyCall = new GLFWKeyCallback() {
+				@Override
+				public void invoke( long window , int key , int scancode , int action , int mode ) {
+					if( action != GLFW_REPEAT ) {
+						synchronized( lock ) {
+							keyEvents.add( new KeyEvent( key , action ) );
+						}
+					}
+				}
+			});
 	}
 	
 	public void update() {
@@ -79,5 +98,14 @@ public class LWJGLInputManager {
 		if( state == GLFW_PRESS )
 			manager.sendEvent( new PointerEvent( PointerEvent.RIGHT , x , y , true ) );
 		
+		
+		/////////////////////////////////////////
+		// Keyboard events
+		synchronized( lock ) {
+			for( Event e : keyEvents ) {
+				manager.sendEvent( e );
+			}
+			keyEvents.clear();
+		}
 	}
 }

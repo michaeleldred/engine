@@ -5,11 +5,13 @@ package bracketunbracket.theengine.entity;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import bracketunbracket.theengine.event.Event;
+import bracketunbracket.theengine.event.GameEvent;
 
 public class EntityManagerTest {
 	@Test
@@ -78,6 +80,8 @@ public class EntityManagerTest {
 		
 		Event evt = new Event();
 		manager.receive( evt );
+		
+		manager.update();
 		
 		assertTrue( gs.events.contains( evt ) );
 	}
@@ -152,5 +156,32 @@ public class EntityManagerTest {
 		assertFalse( manager.entities.contains( ent ) );
 	}
 	
-	
+	@Test
+	public void SystemGetsEventsInNextFrame() {
+		EntityManager manager = new EntityManager();
+		MockSystem mock = new MockSystem();
+		manager.addSystem( mock );
+		manager.addSystem( new GameSystem() {
+			
+			@Override
+			public void tick( List<Entity> entities ) {
+				manager.receive( new GameEvent( "turn" ) );
+			}
+		});
+		
+		manager.update();
+		assertEquals( 0 , mock.received.size() );
+		
+		manager.update();
+		assertEquals( 1 ,  mock.received.size() );
+	}
+}
+
+class MockSystem extends GameSystem {
+	public List<Event> received = new ArrayList<Event>();
+	@Override
+	public void tick(List<Entity> entities) {
+		received.addAll( this.events );
+		
+	}
 }
