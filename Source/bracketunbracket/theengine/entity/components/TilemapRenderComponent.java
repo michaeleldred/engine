@@ -1,12 +1,14 @@
 package bracketunbracket.theengine.entity.components;
 
-import bracketunbracket.theengine.entity.Component;
+import bracketunbracket.theengine.renderer.Color;
 
-public class TilemapRenderComponent extends Component {
-	public float transparency = 1.0f;
-	public int layer = 0;
+public class TilemapRenderComponent extends RenderComponent {
 	
 	public TilemapRenderComponent( int layer ) {
-		this.layer = layer;
+		this( layer , new Color( 1.0f , 1.0f , 1.0f ) );
+	}
+	
+	public TilemapRenderComponent( int layer , Color color  ) {
+		super( color , 0 , 0 , layer );
 	}
 }

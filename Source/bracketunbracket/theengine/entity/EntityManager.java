@@ -62,6 +62,7 @@ public class EntityManager implements EventListener {
 		
 		for( GameSystem system : systems ) {
 			system.tick( entities );
+			system.events.clear();
 		}
 		updating = false;
 		entities.addAll( addedEntities );

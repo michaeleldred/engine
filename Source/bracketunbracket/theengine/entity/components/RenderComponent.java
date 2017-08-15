@@ -1,6 +1,7 @@
 package bracketunbracket.theengine.entity.components;
 
 import bracketunbracket.theengine.entity.Component;
+import bracketunbracket.theengine.math.Vector2;
 import bracketunbracket.theengine.renderer.Color;
 import bracketunbracket.theengine.renderer.RenderObject;
 
@@ -12,7 +13,7 @@ public class RenderComponent extends Component {
 	}
 	
 	public RenderComponent( Color color , float width , float height , int layer ) {
-		obj = new RenderObject( null , color , width , height , layer );
+		obj = new RenderObject( new Vector2() , color , width , height , layer );
 	}
 	
 	public RenderComponent( String texture , float width , float height ) {

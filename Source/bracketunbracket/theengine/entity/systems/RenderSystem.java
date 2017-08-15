@@ -70,14 +70,18 @@ public class RenderSystem extends GameSystem {
 			
 			TileMap tm = e.getComponentByType( TileMapComponent.class ).map;
 			Vector2 pos = e.getComponentByType( PositionComponent.class ).position;
-			float alpha = e.getComponentByType( TilemapRenderComponent.class ).transparency;
-			int layer = e.getComponentByType( TilemapRenderComponent.class ).layer;
+			float alpha = e.getComponentByType( TilemapRenderComponent.class ).obj.color.alpha;
+			int layer = e.getComponentByType( TilemapRenderComponent.class ).obj.layer;
 
 			
 			int midX = tm.width / 2;
 			int midY = tm.height / 2;
 			
-			RenderObject map = new RenderObject( pos , new Color( 1.0f , 1.0f , 1.0f ) , 0 , 0 , layer );
+			RenderObject map = e.getComponentByType( TilemapRenderComponent.class ).obj;
+			map.position = pos;
+			map.clearChildren();
+			
+			//TODO: Store the map for later?
 			
 			for( int i = -midX; i < midX; i++ ) {
 				for( int j = -midY; j < midY; j++ ) {

@@ -32,4 +32,15 @@ public class RenderObjectTest {
 		
 		assertEquals( parent , child.parent );
 	}
+	@Test
+	public void ClearChildren() {
+		RenderObject parent = new RenderObject( new Vector2( 100 , -100 ) , null , 10 , 10 , 0 );
+		RenderObject child = new RenderObject( new Vector2( -5 , 10 ) , null , 10 , 10 , 0 );
+		
+		parent.addChild( child );
+		
+		parent.clearChildren();
+		
+		assertEquals( 0 , parent.children.size() );
+	}
 }

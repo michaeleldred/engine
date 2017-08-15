@@ -74,7 +74,7 @@ public class EntityManagerTest {
 	@Test
 	public void EventPassedToSystems() {
 		EntityManager manager = new EntityManager();
-		MockGameSystem gs = new MockGameSystem();
+		MockSystem gs = new MockSystem();
 		
 		manager.addSystem( gs );
 		
@@ -83,7 +83,7 @@ public class EntityManagerTest {
 		
 		manager.update();
 
-		assertTrue( gs.events.contains( evt ) );
+		assertTrue( gs.received.contains( evt ) );
 	}
 	
 	@Test

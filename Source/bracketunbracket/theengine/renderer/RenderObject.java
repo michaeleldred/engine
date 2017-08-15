@@ -121,4 +121,8 @@ public class RenderObject {
 			return false;
 		}
 	}
+
+	public void clearChildren() {
+		this.children.clear();
+	}
 }
