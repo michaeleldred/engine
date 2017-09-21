@@ -175,10 +175,25 @@ public class EntityManagerTest {
 		manager.update();
 		assertEquals( 1 ,  mock.received.size() );
 	}
+	
+	@Test
+	public void SystemGetsInitialized() {
+		EntityManager manager = new EntityManager();
+		MockSystem mock = new MockSystem();
+		
+		manager.addSystem( mock );
+		
+		assertTrue( mock.init );
+	}
 }
 
 class MockSystem extends GameSystem {
 	public List<Event> received = new ArrayList<Event>();
+	public boolean init = false;
+	@Override
+	public void init() {
+		this.init = true;
+	}
 	@Override
 	public void tick(List<Entity> entities) {
 		received.addAll( this.events );

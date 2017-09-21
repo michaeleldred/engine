@@ -120,6 +120,7 @@ public class EntityManager implements EventListener {
 		newSystem.eventManager = eventManager;
 		
 		systems.add( newSystem ); 
+		newSystem.init();
 	}
 	
 	public void removeSystem( GameSystem system ) {

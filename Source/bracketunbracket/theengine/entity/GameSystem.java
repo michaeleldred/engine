@@ -25,6 +25,9 @@ public abstract class GameSystem {
 	 */
 	public abstract void tick( List<Entity> entities );
 	
+	public void init() {
+	}
+	
 	public void receive( Event event ) {
 		events.add( event );
 	}
