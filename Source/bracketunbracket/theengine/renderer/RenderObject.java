@@ -19,6 +19,8 @@ public class RenderObject {
 	public Image image;
 	public boolean flip = false;
 	public String effect = null;
+	public float scale = 1.0f;
+	public Animation animation;
 	
 	public RenderObject parent;
 	
@@ -52,6 +54,16 @@ public class RenderObject {
 		this.rotation = source.rotation;
 	}
 	
+	/**
+	 * Add a animation to change the way a RenderObject is drawn.
+	 * 
+	 * @param animation
+	 */
+	public void addAnimation( Animation animation ) {
+		this.animation = animation;
+		animation.setSource( this );
+	}
+	
 	public void addChild( RenderObject obj ) {
 		obj.parent = this;
 		children.add( obj );
@@ -73,6 +85,7 @@ public class RenderObject {
 		this.imName = source.imName;
 		this.rotation = source.rotation;
 		this.image = source.image;
+		this.scale = source.scale;
 	}
 	
 	@Override

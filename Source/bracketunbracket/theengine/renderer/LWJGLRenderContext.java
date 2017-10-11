@@ -84,8 +84,8 @@ public class LWJGLRenderContext extends RenderContext {
 		float width = dim.x;
 		float height = dim.y;
 		
-		System.out.println( "( " + width + " , " + height + " ) " );
-		System.out.println( ( width / height ) + " = " + ((float)winwidth/(float)winheight));
+		//System.out.println( "( " + width + " , " + height + " ) " );
+		//System.out.println( ( width / height ) + " = " + ((float)winwidth/(float)winheight));
 		
 		glOrtho( -(width/2) , (width/2) , (height/2) , -(height/2) , -1 , 1 );
 		glDisable( GL_DEPTH_TEST );
@@ -146,6 +146,10 @@ public class LWJGLRenderContext extends RenderContext {
 				w = current.width / 2.0f;
 				h = current.height / 2.0f;
 			}
+			
+			// Set the scale
+			w *= current.scale;
+			h *= current.scale;
 			
 			vertData[ vert++ ] = pos.x - w; vertData[ vert++ ] = pos.y + h;
 			vertData[ vert++ ] = pos.x - w; vertData[ vert++ ] = pos.y - h;

@@ -97,6 +97,10 @@ public class Renderer {
 				command.shader = shaders.get( obj.effect );
 			}
 			
+			// Update the anumation
+			if( obj.animation != null )
+				obj.animation.update( 0.016666667f );
+			
 			// Add the object to the command
 			command.add( obj );
 		}

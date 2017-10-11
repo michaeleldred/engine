@@ -226,4 +226,34 @@ public class RendererTest {
 		assertEquals( box , c.commands.get( 0 ).getObjects().get( 4 ) );
 	}
 	
+	@Test
+	public void AnimationsGetUpdated() {
+		Renderer renderer = new Renderer( new MockRenderContext() );
+		
+		RenderObject obj = new RenderObject( null , null , 0 , 0 , 0 );
+		MockAnimation anim = new MockAnimation( obj , 100.0f );
+		obj.animation = anim;
+		
+		renderer.add( obj );
+		
+		renderer.render();
+		
+		assertNotEquals( 0.0f , anim.delta , 0.01f );
+	}
+	
+}
+
+class MockAnimation extends Animation {
+
+	public MockAnimation( RenderObject source , float length ) {
+		super( source , length );
+	}
+
+	public float delta = 0.0f;
+	
+	@Override
+	public void update( float delta ) {
+		this.delta += delta;
+	}
+	
 }
