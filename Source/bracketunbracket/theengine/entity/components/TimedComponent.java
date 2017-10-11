@@ -22,14 +22,26 @@ public class TimedComponent extends Component {
 	public final int length;
 	public int current = 0;
 	
+	public boolean global = false;
+	
 	/**
 	 * 
 	 * @param length The amount of ticks before the event is triggered
 	 * @param event  The event that is sent after {@code length} ticks.
 	 */
 	public TimedComponent( int length , Event event ) {
+		this( length , event , false );
+	}
+	
+	/**
+	 * 
+	 * @param length The amount of ticks before the event is triggered
+	 * @param event  The event that is sent after {@code length} ticks.
+	 */
+	public TimedComponent( int length , Event event , boolean global ) {
 		this.length = length;
 		this.event = event;
+		this.global = global;
 	}
 
 }

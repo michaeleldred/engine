@@ -236,6 +236,10 @@ class GLRenderer implements GLSurfaceView.Renderer {
 					h = current.height / 2.0f;
 				}
 				
+				// Set the scale
+				w *= current.scale;
+				h *= current.scale;
+				
 				vertData[ vert++ ] = pos.x - w; vertData[ vert++ ] = pos.y + h;
 				vertData[ vert++ ] = pos.x - w; vertData[ vert++ ] = pos.y - h;
 				vertData[ vert++ ] = pos.x + w; vertData[ vert++ ] = pos.y - h;

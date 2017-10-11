@@ -30,6 +30,10 @@ public class TimedSystem extends GameSystem {
 		for( TimedComponent tc : timers ) {
 			if( ++tc.current >= tc.length ) {
 				current.receiveEvent( tc.event );
+				
+				if( tc.global )
+					manager.receive( tc.event );
+				
 				tc.current = 0;
 			}
 		}
