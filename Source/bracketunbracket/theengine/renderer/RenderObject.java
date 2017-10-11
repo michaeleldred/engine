@@ -20,7 +20,7 @@ public class RenderObject {
 	public boolean flip = false;
 	public String effect = null;
 	public float scale = 1.0f;
-	public Animation animation;
+	public List<Animation> animations = new ArrayList<Animation>();
 	
 	public RenderObject parent;
 	
@@ -60,7 +60,7 @@ public class RenderObject {
 	 * @param animation
 	 */
 	public void addAnimation( Animation animation ) {
-		this.animation = animation;
+		animations.add( animation );
 		animation.setSource( this );
 	}
 	

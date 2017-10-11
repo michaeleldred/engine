@@ -98,8 +98,8 @@ public class Renderer {
 			}
 			
 			// Update the anumation
-			if( obj.animation != null )
-				obj.animation.update( 0.016666667f );
+			for( Animation anim : obj.animations )
+				anim.update( 0.016666667f );
 			
 			// Add the object to the command
 			command.add( obj );

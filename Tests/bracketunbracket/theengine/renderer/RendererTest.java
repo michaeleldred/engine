@@ -232,7 +232,7 @@ public class RendererTest {
 		
 		RenderObject obj = new RenderObject( null , null , 0 , 0 , 0 );
 		MockAnimation anim = new MockAnimation( obj , 100.0f );
-		obj.animation = anim;
+		obj.addAnimation( anim );
 		
 		renderer.add( obj );
 		
