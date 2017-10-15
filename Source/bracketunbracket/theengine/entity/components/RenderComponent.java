@@ -8,12 +8,16 @@ import bracketunbracket.theengine.renderer.RenderObject;
 public class RenderComponent extends Component {
 	public RenderObject obj = null;
 	
+	public RenderComponent( RenderObject obj ) {
+		this.obj = obj;
+	}
+	
 	public RenderComponent( Color color , float width , float height ) {
 		this( color , width , height , 0 );
 	}
 	
 	public RenderComponent( Color color , float width , float height , int layer ) {
-		obj = new RenderObject( new Vector2() , color , width , height , layer );
+		this( new RenderObject( new Vector2() , color , width , height , layer ) );
 	}
 	
 	public RenderComponent( String texture , float width , float height ) {
@@ -25,6 +29,6 @@ public class RenderComponent extends Component {
 	}
 	
 	public RenderComponent( String texture , float width , float height , int layer , Color color ) {
-		obj = new RenderObject( null , color , width , height , texture , layer , 0.0f  );
+		this( new RenderObject( null , color , width , height , texture , layer , 0.0f  ) );
 	}
 }

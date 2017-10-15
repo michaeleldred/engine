@@ -61,6 +61,7 @@ public class Renderer {
 		for( int i = 0; i < objects.size(); i++ ) {
 			RenderObject obj = objects.get( i );
 			
+			
 			// First check for children to draw before this
 			if( obj.children.size() > 0 && !added.contains( obj ) ) {
 				
@@ -69,6 +70,7 @@ public class Renderer {
 				
 				// Add all of the children at the current spot
 				for( int j = obj.children.size() - 1; j >= 0; j-- ) {
+					
 					objects.add( i , obj.children.get( j ) );
 				}
 				

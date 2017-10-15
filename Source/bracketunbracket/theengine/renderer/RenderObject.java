@@ -27,17 +27,17 @@ public class RenderObject {
 	public final List<RenderObject> children = new ArrayList<RenderObject>();
 	
 	public RenderObject( Vector2 position , Color color , float width , float height , int layer ) {
-		this.position = position;
-		this.width = width;
-		this.height = height;
-		this.color = color;
-		this.layer = layer;
+		this( position , color , width , height , null , layer , 0.0f );
 	}
 	
 	public RenderObject( Vector2 position , Color color , float width , float height , String texName , int layer , float rotation ) {
 		this.position = position;
 		this.width = width;
 		this.height = height;
+		
+		if( color == null )
+			color = new Color( 1,  1 , 1 );
+		
 		this.color = color;
 		this.imName = texName;
 		this.layer = layer;
@@ -45,13 +45,8 @@ public class RenderObject {
 	}
 	
 	public RenderObject( RenderObject source ) {
-		this.position = source.position;
-		this.width = source.width;
-		this.height = source.height;
-		this.layer = source.layer;
-		this.color = new Color( source.color );
-		this.imName = source.imName;
-		this.rotation = source.rotation;
+		this( source.position , new Color( source.color ) , source.width , source.height , source.imName , source.layer , source.rotation );
+		this.parent = source.parent;
 	}
 	
 	/**
@@ -75,13 +70,19 @@ public class RenderObject {
 		return parent.getAbsolutePosition().clone().add( position );
 	}
 	
+	public Color getColor() {
+		if( parent == null )
+			return color;
+		return parent.getColor().mult( this.color );
+	}
+	
 	public void set( RenderObject source ) {
 		this.position = source.position;
 		this.width = source.width;
 		this.height = source.height;
 		this.layer = source.layer;
 		if( source.color != null )
-			this.color = new Color( source.color );
+			this.color = new Color( source.getColor() );
 		this.imName = source.imName;
 		this.rotation = source.rotation;
 		this.image = source.image;

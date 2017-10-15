@@ -129,10 +129,10 @@ public class LWJGLRenderContext extends RenderContext {
 			Vector2 pos = current.getAbsolutePosition();
 			
 			float r,g,b,a;
-			r = current.color.red;
-			g = current.color.green;
-			b = current.color.blue;
-			a = current.color.alpha;
+			r = current.getColor().red;
+			g = current.getColor().green;
+			b = current.getColor().blue;
+			a = current.getColor().alpha;
 			
 			Image image = current.image;
 			

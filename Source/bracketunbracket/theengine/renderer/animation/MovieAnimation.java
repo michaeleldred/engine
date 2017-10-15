@@ -1,4 +1,6 @@
-package bracketunbracket.theengine.renderer;
+package bracketunbracket.theengine.renderer.animation;
+
+import bracketunbracket.theengine.renderer.Animation;
 
 /**
  * @author Michael

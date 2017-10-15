@@ -216,12 +216,11 @@ class GLRenderer implements GLSurfaceView.Renderer {
 				Vector2 pos = current.getAbsolutePosition();
 				
 				float r,g,b,a;
-				a = current.color.alpha;
+				a = current.getColor().alpha;
 				
-				r = current.color.red * a;
-				g = current.color.green * a;
-				b = current.color.blue * a;
-				a = current.color.alpha;
+				r = current.getColor().red * a;
+				g = current.getColor().green * a;
+				b = current.getColor().blue * a;
 				
 				Image image = current.image;
 				

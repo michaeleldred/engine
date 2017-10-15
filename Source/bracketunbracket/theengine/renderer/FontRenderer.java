@@ -51,7 +51,7 @@ public class FontRenderer {
 	
 	public RenderObject getRenderObject( String string , Vector2 location ) {
 		List<RenderObject> objs = render( string , new Vector2( 0 , 0 ) );
-		RenderObject parent = new RenderObject( location , new Color( 0.0f , 0.0f , 0.0f , 0.0f ), 0 , 0 , 10 );
+		RenderObject parent = new RenderObject( location , new Color( 1.0f , 1.0f , 1.0f , 1.0f ), 0 , 0 , 10 );
 		
 		for( RenderObject obj : objs ) {
 			parent.addChild( obj );
@@ -62,7 +62,7 @@ public class FontRenderer {
 
 	public void render( String string, Renderer renderer , Vector2 location ) {
 		List<RenderObject> objs = render( string , new Vector2( 0 , 0 ) );
-		RenderObject parent = new RenderObject( location , new Color( 0.0f , 0.0f , 0.0f , 0.0f ), 0 , 0 , 10 );
+		RenderObject parent = new RenderObject( location , new Color( 1.0f , 1.0f , 1.0f , 1.0f ), 0 , 0 , 10 );
 		
 		for( RenderObject obj : objs ) {
 			parent.addChild( obj );

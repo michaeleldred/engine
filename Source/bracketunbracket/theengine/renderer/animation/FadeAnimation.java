@@ -1,7 +1,9 @@
-package bracketunbracket.theengine.renderer;
+package bracketunbracket.theengine.renderer.animation;
+
+import bracketunbracket.theengine.renderer.Animation;
 
 /**
- * @author Michael
+ * @author Michael Eldred
  */
 public class FadeAnimation extends Animation {
 
@@ -16,7 +18,7 @@ public class FadeAnimation extends Animation {
 	}
 
 	@Override
-	public void update(float delta) {
+	public void update( float delta ) {
 
 		total += delta;
 		

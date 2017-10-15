@@ -13,7 +13,7 @@ public class Color {
 	public float red = 0.0f;
 	public float green = 0.0f;
 	public float blue = 0.0f;
-	public float alpha = 0.0f;
+	public float alpha = 1.0f;
 	
 	public Color( float red , float green , float blue ) {
 		this( red , green , blue , 1.0f );
@@ -43,5 +43,14 @@ public class Color {
 					this.blue == other.blue && this.alpha == other.alpha;
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "rgba( " + red + ", " + green + ", " + blue + ", " + alpha + " )"; 
+	}
+	
+	public Color mult( Color other ) {
+		return new Color( red * other.red , green * other.green, blue * other.blue , alpha * other.alpha );
 	}
 }

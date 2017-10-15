@@ -1,4 +1,6 @@
-package bracketunbracket.theengine.renderer;
+package bracketunbracket.theengine.renderer.animation;
+
+import bracketunbracket.theengine.renderer.Animation;
 
 /**
  * @author Michael
@@ -16,7 +18,7 @@ public class ScaleAnimation extends Animation {
 	}
 	
 	/**
-	 * @see bracketunbracket.theengine.renderer.Animation#update(float)
+	 * @see bracketunbracket.theengine.renderer.animation#update(float)
 	 */
 	@Override
 	public void update( float delta ) {

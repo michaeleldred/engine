@@ -32,7 +32,7 @@ public class RenderSystem extends GameSystem {
 	
 	@Override
 	public void tick(List<Entity> entities) {
-		RenderObject root = new RenderObject( new Vector2() , new Color( 1.0f , 1.0f , 1.0f , 0.0f ), 0.0f, 0.0f, -1 );
+		RenderObject root = new RenderObject( new Vector2() , new Color( 1.0f , 1.0f , 1.0f , 1.0f ), 0.0f, 0.0f, -1 );
 		for( Event evt : events ) {
 			if( evt instanceof GameEvent ) {
 				GameEvent e = ((GameEvent)evt);
@@ -102,6 +102,7 @@ public class RenderSystem extends GameSystem {
 						t.obj.imName = texture;
 					
 					t.obj.position = new Vector2( x , y );
+				
 					
 					map.addChild( t.obj );
 				}

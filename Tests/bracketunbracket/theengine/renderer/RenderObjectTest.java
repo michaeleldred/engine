@@ -24,6 +24,17 @@ public class RenderObjectTest {
 	}
 	
 	@Test
+	public void GetColorFromParent() {
+		RenderObject parent = new RenderObject( new Vector2( 100 , -100 ) , new Color( 1.0f , 1.0f , 1.0f , 1.0f ) , 10 , 10 , 0 );
+		RenderObject child = new RenderObject( new Vector2( -5 , 10 ) , new Color( 1.0f , 1.0f , 1.0f , 1.0f ) , 10 , 10 , 0 );
+		parent.addChild( child );
+		
+		parent.color.alpha = 0.5f;
+		
+		assertEquals( new Color( 1.0f , 1.0f , 1.0f , 0.5f ) , child.getColor() );
+	}
+	
+	@Test
 	public void ChildIsAssignedParent() {
 		RenderObject parent = new RenderObject( new Vector2( 100 , -100 ) , null , 10 , 10 , 0 );
 		RenderObject child = new RenderObject( new Vector2( -5 , 10 ) , null , 10 , 10 , 0 );
