@@ -175,6 +175,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	
 	public void onDrawFrame( GL10 gl ) {
 		glClear( GL_COLOR_BUFFER_BIT );
+		glViewport( 0 , 0 , (int)window.getWidth() , (int)window.getHeight() );
 		
 		for( AndroidTexture t : context.getTextures().values() ) {
 			if( !t.isLoaded() ) {
@@ -355,9 +356,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	}
 
 	public void onSurfaceChanged( GL10 gl , int width , int height ) {
-		Log.d( "POS" , "width: " + width );
 		window.resize( width , height );
-		Log.d( "POS" , "window: " + window.bounds );
 	}
 
 	public void onSurfaceCreated( GL10 gl , EGLConfig config ) {
