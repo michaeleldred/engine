@@ -39,12 +39,13 @@ sourceSets {
 		resources {
 			srcDirs = [ "Data" ];
 		}
-		output.classesDir = "Build/Obj/Classes"
+
+		output.classesDir = new File( buildDir , "Build/Obj/Classes" )
 	}
 	test {
 		java {
 			srcDirs = [ "Tests" ];
 		}
-		output.classesDir = "Build/Obj/Classes"
+		output.classesDir = new File( "Build/Obj/" , "Classes" )
 	}
 }
