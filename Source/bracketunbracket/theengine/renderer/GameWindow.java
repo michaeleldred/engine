@@ -81,8 +81,10 @@ public class GameWindow {
 		this.width = newWidth;
 		this.height = newHeight;
 		
-		this.bounds.w = getScaledDimensions().x;
-		this.bounds.h = getScaledDimensions().y;
+		Vector2 newDim = getScaledDimensions();
+		
+		this.bounds.w = newDim.x;
+		this.bounds.h = newDim.y;
 		
 		this.bounds.x = -this.bounds.w / 2;
 		this.bounds.y = -this.bounds.h / 2;

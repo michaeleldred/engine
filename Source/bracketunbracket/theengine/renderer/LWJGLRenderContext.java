@@ -68,8 +68,7 @@ public class LWJGLRenderContext extends RenderContext {
 			
 			@Override
 			public void invoke( long window , int width , int height ) {
-				// TODO: Make this work
-				// gameWindow.resize( width , height );
+				gameWindow.resize( width , height );
 			}
 		});
 		
@@ -83,9 +82,6 @@ public class LWJGLRenderContext extends RenderContext {
 		
 		float width = dim.x;
 		float height = dim.y;
-		
-		//System.out.println( "( " + width + " , " + height + " ) " );
-		//System.out.println( ( width / height ) + " = " + ((float)winwidth/(float)winheight));
 		
 		glOrtho( -(width/2) , (width/2) , (height/2) , -(height/2) , -1 , 1 );
 		glDisable( GL_DEPTH_TEST );
@@ -221,6 +217,13 @@ public class LWJGLRenderContext extends RenderContext {
 		if( !prog.loaded ) {
 			prog.load();
 		}
+		
+		Vector2 dim = gameWindow.getScaledDimensions();
+		float width = dim.x;
+		float height = dim.y;
+		
+		glOrtho( -(width/2) , (width/2) , (height/2) , -(height/2) , -1 , 1 );
+		glViewport( 0 , 0 , (int)gameWindow.getWidth() , (int)gameWindow.getHeight() );
 		
 		glUseProgram( prog.program );
 		
