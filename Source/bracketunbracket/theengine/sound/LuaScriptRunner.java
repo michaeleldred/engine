@@ -35,11 +35,12 @@ public class LuaScriptRunner extends ScriptRunner {
 	}
 	
 	@Override
-	public void run( String scriptname ) {
+	public LuaValue run( String scriptname ) {
 		LuaScript s = (LuaScript)scripts.get( scriptname );
 		
 		LuaClosure c = (LuaClosure)globals.load( s.script );
-		c.call();
+		LuaValue retVal = c.call();
+		return retVal;
 	}
 
 	@Override

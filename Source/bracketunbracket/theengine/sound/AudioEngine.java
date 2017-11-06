@@ -3,6 +3,8 @@ package bracketunbracket.theengine.sound;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.luaj.vm2.lib.jse.CoerceLuaToJava;
+
 import bracketunbracket.theengine.event.Event;
 import bracketunbracket.theengine.event.EventListener;
 import bracketunbracket.theengine.input.WindowEvent;
@@ -22,12 +24,21 @@ public class AudioEngine implements EventListener {
 		audioContext.play( string );
 	}
 	
+	public void play( ScriptedSound sound ) {
+		audioContext.play( sound );
+	}
+	
 	public void playMusic( String string ) {
 		audioContext.playMusic( string );
 	}
 	
 	public void doScript( String name ) {
-		runner.run( name );
+		ScriptedSound val = (ScriptedSound)CoerceLuaToJava.coerce( runner.run( name ) , ScriptedSound.class );
+		play( val );
+	}
+	
+	public ScriptedSound getSound( String name ) {
+		return new ScriptedSound( name );
 	}
 	
 	public void setMute( boolean mute ) {
