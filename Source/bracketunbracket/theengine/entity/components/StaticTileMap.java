@@ -11,18 +11,18 @@ import java.util.Queue;
 /**
  * @author Michael Eldred
  */
-public class TileMap {
+public class StaticTileMap {
 
-	public final int width;
-	public final int height;
+	public int width;
+	public int height;
 	
-	final Tile[][] tiles;
+	protected Tile[][] tiles;
 	
 	private final static int[][] TILE_MATRIX = new int[][] {
 		{ 0 , -1 } , { 0 , 1 } , { 1 , 0 } , { -1 , 0 },
 	};
 	
-	public TileMap( int width , int height ) {
+	public StaticTileMap( int width , int height ) {
 		this.width = width;
 		this.height = height;
 		

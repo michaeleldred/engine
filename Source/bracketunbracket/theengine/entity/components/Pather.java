@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Finds a path for the character on a {@link TileMap}.
+ * Finds a path for the character on a {@link StaticTileMap}.
  * 
  * @author Michael Eldred
  */
@@ -39,9 +39,9 @@ public class Pather {
 		}
 	}
 	
-	private final TileMap tilemap;
+	private final StaticTileMap tilemap;
 	
-	public Pather( TileMap tilemap ) {
+	public Pather( StaticTileMap tilemap ) {
 		this.tilemap = tilemap;
 	}
 	

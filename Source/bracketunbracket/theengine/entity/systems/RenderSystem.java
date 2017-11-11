@@ -11,7 +11,7 @@ import bracketunbracket.theengine.entity.GameSystem;
 import bracketunbracket.theengine.entity.components.PositionComponent;
 import bracketunbracket.theengine.entity.components.RenderComponent;
 import bracketunbracket.theengine.entity.components.Tile;
-import bracketunbracket.theengine.entity.components.TileMap;
+import bracketunbracket.theengine.entity.components.StaticTileMap;
 import bracketunbracket.theengine.entity.components.TileMapComponent;
 import bracketunbracket.theengine.entity.components.TilemapRenderComponent;
 import bracketunbracket.theengine.event.Event;
@@ -68,7 +68,7 @@ public class RenderSystem extends GameSystem {
 		List<Entity> sorted = sort( entities , PositionComponent.class , TileMapComponent.class );
 		for( Entity e : sorted ) {
 			
-			TileMap tm = e.getComponentByType( TileMapComponent.class ).map;
+			StaticTileMap tm = e.getComponentByType( TileMapComponent.class ).map;
 			Vector2 pos = e.getComponentByType( PositionComponent.class ).position;
 			float alpha = e.getComponentByType( TilemapRenderComponent.class ).obj.color.alpha;
 			int layer = e.getComponentByType( TilemapRenderComponent.class ).obj.layer;
