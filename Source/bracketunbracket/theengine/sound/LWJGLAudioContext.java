@@ -74,7 +74,6 @@ public class LWJGLAudioContext extends AudioContext {
 		LWJGLSound s = (LWJGLSound)get( name );
 		alSourcei( source , AL_BUFFER , s.buffer );
 		alSourcei( source , AL_LOOPING,  AL_FALSE );
-		System.out.println( "NO PITCH" );
 		if( isMute )
 			alSourcef( source , AL_GAIN , 0.0f );
 		
@@ -86,7 +85,6 @@ public class LWJGLAudioContext extends AudioContext {
 		LWJGLSound s = (LWJGLSound)get( sound.sound );
 		alSourcei( source , AL_BUFFER , s.buffer );
 		alSourcei( source , AL_LOOPING,  AL_FALSE );
-		System.out.println( "PITCH: " + sound.pitch );
 		alSourcef( source , AL_PITCH , sound.pitch );
 		
 		

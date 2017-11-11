@@ -60,14 +60,108 @@ public class TileMap {
 		return null;
 	}
 	
+	/**
+	 * Gets the width in passable tiles. The width is the distance of the first
+	 * passable tile on the left, to the last one on the right.
+	 *
+	 * 
+	 * @return The actual width of the tiles in the algorithm
+	 */
+	public int getActualWidth() {
+		int first = -1,last = -1;
+		
+		// Get the first tile
+		for( int i = 0; i < tiles.length; i++ ) {
+			for( int j = 0; j < tiles[ i ].length; j++ ) {
+				
+				if( tiles[ i ][ j ] != null && 
+					tiles[ i ][ j ].isPassable() ) {
+					first = i;
+					
+					break;
+				}
+			
+			}
+			
+			if( first > -1 )
+				break;
+		}
+		
+		
+		// Get the last pasable tile
+		for( int i = tiles.length - 1; i >= 0; i-- ) {
+			for( int j = 0; j < tiles[ i ].length; j++ ) {
+				if( tiles[ i ][ j ] != null && 
+					tiles[ i ][ j ].isPassable() ) {
+					last = i;
+					
+					break;
+				}
+				
+			}
+			
+			if( last != -1 )
+				break;
+		}
+		
+		
+		// Add 1 to include the first tile.
+		return last - first + 1;
+	}
+	
+	/**
+	 * Gets the height in passable tiles. The height is the distance of the first
+	 * passable tile on the top, to the last one on the bottom.
+	 *
+	 * 
+	 * @return The actual width of the tiles in the algorithm
+	 */
+	public int getActualHeight() {
+		int first = -1,last = -1;
+		
+		// Get the first tile
+		for( int j = 0; j < tiles[ 0 ].length; j++ ) {
+			for( int i = 0; i < tiles.length; i++ ) {
+				
+				if( tiles[ i ][ j ] != null && 
+					tiles[ i ][ j ].isPassable() ) {
+					first = j;
+					
+					break;
+				}
+			
+			}
+			
+			if( first > -1 )
+				break;
+		}
+
+		
+		
+		// Get the last pasable tile
+		for( int j = tiles[ 0 ].length - 1; j >= 0; j-- ) {
+			for( int i = 0; i < tiles.length; i++ ) {
+				if( tiles[ i ][ j ] != null && 
+					tiles[ i ][ j ].isPassable() ) {
+					last = j;
+					
+					break;
+				}
+				
+			}
+			
+			if( last != -1 )
+				break;
+		}
+		
+		
+		// Add 1 to include the first tile.
+		return last - first + 1;
+	}
+	
 	public Tile remove( int x , int y ) {
 		Tile temp = tiles[ x ][ y ];
 		
-		// If there was a tile, reset it's coordinates
-		/*if( temp != null ) {
-			temp.x = -1;
-			temp.y = -1;
-		}*/
 		tiles[ x ][ y ] = null;
 		return temp;
 	}
@@ -123,6 +217,39 @@ public class TileMap {
 		}
 		
 		return retVal;
+	}
+
+	public int getFirstX() {
+		// Get the first tile
+		for( int i = 0; i < tiles.length; i++ ) {
+			for( int j = 0; j < tiles[ i ].length; j++ ) {
+						
+				if( tiles[ i ][ j ] != null && 
+					tiles[ i ][ j ].isPassable() ) {
+					return i;
+							
+				}
+					
+			}
+		}
+		
+		// Didn't find a valid value
+		return -1;
+	}
+
+	public int getFirstY() {
+		for( int j = 0; j < tiles[ 0 ].length; j++ ) {
+			for( int i = 0; i < tiles.length; i++ ) {
+				
+				if( tiles[ i ][ j ] != null && 
+					tiles[ i ][ j ].isPassable() ) {
+					return j;
+				}
+			
+			}
+		}
+		
+		return -1;
 	}
 	
 }

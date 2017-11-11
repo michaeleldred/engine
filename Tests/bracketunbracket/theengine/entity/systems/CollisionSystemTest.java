@@ -84,7 +84,7 @@ public class CollisionSystemTest {
 		Entity twoColliders = new Entity();
 		twoColliders.add( new PositionComponent() );
 		twoColliders.add( new CollisionComponent( "collider" , 40 , 40 ) );
-		twoColliders.add( new CollisionComponent( "collider" , 30 , 30 ) );
+		twoColliders.add( new CollisionComponent( "collider2" , 30 , 30 ) );
 		
 		entities.add( twoColliders );
 		entities.add( e1 );

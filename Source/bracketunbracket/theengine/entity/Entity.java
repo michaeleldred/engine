@@ -33,7 +33,7 @@ public class Entity {
 	public void add( Component comp ) {
 		
 		comp.parent = this;
-		
+		/*
 		List<Component> c = components.get( comp.getClass() );
 		if( c == null ) {
 			c = new ArrayList<Component>();
@@ -41,6 +41,21 @@ public class Entity {
 			components.put( comp.getClass() , c );
 		} else {
 			c.add( comp );
+		}*/
+		
+		Class<?> insertClass = comp.getClass();
+		while( insertClass != Object.class && insertClass != null ) {
+			
+			List<Component> c = components.get( insertClass );
+			if( c == null ) {
+				c = new ArrayList<Component>();
+				c.add( comp );
+				components.put( (Class<? extends Component>) insertClass , c );
+			} else {
+				c.add( comp );
+			}
+			
+			insertClass = insertClass.getSuperclass();
 		}
 		
 		events.add( new ComponentChangeEvent( comp ) );
