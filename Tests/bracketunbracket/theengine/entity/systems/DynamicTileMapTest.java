@@ -56,4 +56,49 @@ public class DynamicTileMapTest {
 		assertEquals( 5 , map.height );
 		assertEquals( t , map.get( 0 , 2 ) );
 	}
+	
+	@Test
+	public void RemoveMapEdgeRow() {
+		DynamicTileMap map = new DynamicTileMap( 2 , 2 );
+		Tile t = new Tile();
+		map.add( t , 1 , 1 );
+		map.add( new Tile() , 0 , 0 );
+		
+		map.removeRow( 0 );
+		
+		assertEquals( 1 , map.height );
+		assertEquals( t , map.get( 1 , 0 ) );
+		
+		map = new DynamicTileMap( 2 , 2 );
+		map.add( t , 0 , 0 );
+		map.add( new Tile() , 1 , 1 );
+		
+		map.removeRow( 1 );
+		
+		assertEquals( 1 , map.height );
+		assertEquals( t , map.get( 0 , 0 ) );
+	}
+	
+	@Test
+	public void RemoveMapEdgeColumn() {
+		DynamicTileMap map = new DynamicTileMap( 2 , 2 );
+		Tile t = new Tile();
+		map.add( t , 1 , 1 );
+		map.add( new Tile() , 0 , 0 );
+		
+		map.removeColumn( 0 );
+		
+		assertEquals( 1 , map.width );
+		assertEquals( t , map.get( 0 , 1 ) );
+		
+		map = new DynamicTileMap( 2 , 2 );
+		t = new Tile();
+		map.add( t , 0 , 0 );
+		map.add( new Tile() , 1 , 1 );
+		
+		map.removeColumn( 1 );
+		
+		assertEquals( 1 , map.width );
+		assertEquals( t , map.get( 0 , 0 ) );
+	}
 }

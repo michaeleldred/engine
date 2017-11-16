@@ -11,7 +11,7 @@ public class MovieAnimation extends Animation {
 	private int frameNum = 0;
 	private float total = 0.0f;
 	
-	public MovieAnimation( float length , String ...frames ) {
+	public MovieAnimation( boolean loop , float length , String ...frames ) {
 		super( length );
 		this.frames = frames;
 	}

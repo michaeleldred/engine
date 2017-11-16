@@ -60,11 +60,42 @@ public class DynamicTileMap extends StaticTileMap {
 		super.add( tile , x , y );
 	}
 	
-	@Override
-	public Tile get( int x , int y ) {
-		if( x >= 0 && y >= 0 && x < width && y < height )
-			return tiles[ x ][ y ];
-		return null;
+	public void removeRow( int row ) {
+		if( row < 0 || row >= height )
+			throw new IndexOutOfBoundsException();
+		 
+		if( row == 0 ) {
+			for( int i = 0; i < tiles.length; i++ ) {
+				Tile[] newArray = new Tile[ height - 1 ];
+				System.arraycopy( tiles[ i ] , 1 , newArray , 0 , height - 1 );
+				tiles[ i ] = newArray;
+			}
+		} else if( row == height ) {
+			for( int i = 0; i < tiles.length; i++ ) {
+				Tile[] newArray = new Tile[ height - 1 ];
+				System.arraycopy( tiles[ i ] , 0 , newArray , 0 , height - 1 );
+				tiles[ i ] = newArray;
+			}
+		}
+		
+		this.height -= 1;
+		updateTiles();
+	}
+	
+	public void removeColumn( int col ) {
+		if( col < 0 || col >= width )
+			throw new IndexOutOfBoundsException();
+		
+		Tile[][] newArray = new Tile[ width - 1 ][ height ]; 
+		if( col == 0 ) {
+			System.arraycopy( tiles , 1 , newArray , 0 , width - 1 );
+		} else if( col == width - 1 ) {
+			System.arraycopy( tiles , 0 , newArray, 0 , width - 1 );
+		}
+		
+		this.width -= 1;
+		this.tiles = newArray;
+		updateTiles();
 	}
 
 	private void updateTiles() {

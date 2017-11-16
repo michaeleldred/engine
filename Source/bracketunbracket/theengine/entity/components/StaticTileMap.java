@@ -160,6 +160,8 @@ public class StaticTileMap {
 	}
 	
 	public Tile remove( int x , int y ) {
+		if( x >= width || y >= height || x < 0 || y < 0 )
+			return null;
 		Tile temp = tiles[ x ][ y ];
 		
 		tiles[ x ][ y ] = null;
@@ -224,10 +226,8 @@ public class StaticTileMap {
 		for( int i = 0; i < tiles.length; i++ ) {
 			for( int j = 0; j < tiles[ i ].length; j++ ) {
 						
-				if( tiles[ i ][ j ] != null && 
-					tiles[ i ][ j ].isPassable() ) {
+				if( tiles[ i ][ j ] != null ) {
 					return i;
-							
 				}
 					
 			}
@@ -241,8 +241,7 @@ public class StaticTileMap {
 		for( int j = 0; j < tiles[ 0 ].length; j++ ) {
 			for( int i = 0; i < tiles.length; i++ ) {
 				
-				if( tiles[ i ][ j ] != null && 
-					tiles[ i ][ j ].isPassable() ) {
+				if( tiles[ i ][ j ] != null ) {
 					return j;
 				}
 			

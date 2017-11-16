@@ -30,6 +30,7 @@ public class Entity {
 	 * 
 	 * @param c The component to add
 	 */
+	@SuppressWarnings("unchecked")
 	public void add( Component comp ) {
 		
 		comp.parent = this;

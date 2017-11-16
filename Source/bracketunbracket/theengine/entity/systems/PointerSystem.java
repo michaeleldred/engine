@@ -33,6 +33,10 @@ public class PointerSystem extends GameSystem {
 	@Override
 	public void tick(List<Entity> entities) {
 		// Go through events and update states
+		
+		for( int i = 0; i < states.length; i++ ) {
+			states[ i ] = null;
+		}
 		for( Event e : events ) {
 			if( e instanceof PointerEvent ) {
 				PointerEvent evt = (PointerEvent)e;
@@ -49,7 +53,7 @@ public class PointerSystem extends GameSystem {
 			Selectable s = current.getComponentByType( Selectable.class );
 			
 			// Process unselected entities later
-			if( s.button < 0 || s.event == null ) {
+			if( s.event == null || s.button < 0 ) {
 				// If it's not, process later
 				unprocessed.add( current );
 				continue;
@@ -58,11 +62,10 @@ public class PointerSystem extends GameSystem {
 			// Check the state of the event
 			PointerEvent evt = states[ s.button ];
 			
-			used[ s.button ] = true;
-			
 			// If the state is still down update the current event
-			if( evt.isDown ) {
+			if( evt != null && evt.isDown ) {
 				s.event = evt;
+				used[ s.button ] = true;
 			}
 			// Otherwise release the object
 			else {
@@ -122,6 +125,9 @@ public class PointerSystem extends GameSystem {
 				// This event is used so remove it from the unused ones
 				it.remove();
 				break;
+			} else {
+				s.button = -1;
+				s.event = null;
 			}
 		}
 		
