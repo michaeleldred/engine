@@ -27,5 +27,10 @@ public class MovieAnimation extends Animation {
 		
 		this.source.imName = frames[ frameNum ];
 	}
+	
+	@Override
+	public boolean over() {
+		return total >= length; 
+	}
 
 }

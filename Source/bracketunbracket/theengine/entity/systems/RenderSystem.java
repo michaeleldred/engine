@@ -51,17 +51,19 @@ public class RenderSystem extends GameSystem {
 		// rendered
 		for( Entity current : entities ) {
 			PositionComponent position = current.getComponentByType( PositionComponent.class );
-			RenderComponent render = current.getComponentByType( RenderComponent.class );
+			List<RenderComponent> renderObjects = current.getAllComponentsByType( RenderComponent.class );
 			
 			// Check for the correct components before going any further
-			if( render == null || position == null ) {
+			if( renderObjects == null || renderObjects.size() <= 0 || position == null ) {
 				continue;
 			}
 			
-			// update the position of the object
-			render.obj.position = position.position;
-			
-			root.addChild( render.obj );
+			for( RenderComponent render : renderObjects ) {
+				// update the position of the object
+				render.obj.position = position.position;
+				
+				root.addChild( render.obj );
+			}
 		}
 		
 		// Render tilemaps

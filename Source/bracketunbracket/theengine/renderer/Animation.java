@@ -22,4 +22,5 @@ public abstract class Animation {
 	}
 	
 	public abstract void update( float delta );
+	public abstract boolean over();
 }

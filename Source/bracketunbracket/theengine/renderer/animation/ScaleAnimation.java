@@ -32,5 +32,10 @@ public class ScaleAnimation extends Animation {
 			source.scale = end;
 		}
 	}
+	
+	@Override
+	public boolean over() {
+		return total >= length; 
+	}
 
 }

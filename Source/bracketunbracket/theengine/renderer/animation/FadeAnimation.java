@@ -30,4 +30,8 @@ public class FadeAnimation extends Animation {
 		}
 	}
 
+	@Override
+	public boolean over() {
+		return total >= length; 
+	}
 }

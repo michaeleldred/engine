@@ -9,7 +9,7 @@ import java.util.List;
 import bracketunbracket.theengine.math.Vector2;
 
 public class RenderObject {
-	public Vector2 position;
+	public Vector2 position = new Vector2();
 	public float width;
 	public float height;
 	public int layer = 0;
@@ -21,6 +21,7 @@ public class RenderObject {
 	public String effect = null;
 	public float scale = 1.0f;
 	public List<Animation> animations = new ArrayList<Animation>();
+	public List<Animation> newAnimations = new ArrayList<Animation>();
 	
 	public RenderObject parent;
 	
@@ -55,7 +56,7 @@ public class RenderObject {
 	 * @param animation
 	 */
 	public void addAnimation( Animation animation ) {
-		animations.add( animation );
+		newAnimations.add( animation );
 		animation.setSource( this );
 	}
 	

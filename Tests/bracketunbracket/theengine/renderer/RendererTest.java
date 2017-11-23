@@ -237,9 +237,27 @@ public class RendererTest {
 		renderer.add( obj );
 		
 		renderer.render();
+		renderer.render();
 		
 		assertNotEquals( 0.0f , anim.delta , 0.01f );
 	}
+	
+	@Test
+	public void AnimationsGetAdded() {
+		Renderer renderer = new Renderer( new MockRenderContext() );
+		
+		RenderObject obj = new RenderObject( null , null , 0 , 0 , 0 );
+		MockAnimation anim = new MockAnimation( obj , 100.0f );
+		obj.addAnimation( anim );
+		
+		renderer.add( obj );
+		
+		renderer.render();
+		
+		assertTrue( obj.animations.contains( anim ) );
+	}
+	
+	
 	
 }
 
@@ -254,6 +272,12 @@ class MockAnimation extends Animation {
 	@Override
 	public void update( float delta ) {
 		this.delta += delta;
+	}
+
+	@Override
+	public boolean over() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

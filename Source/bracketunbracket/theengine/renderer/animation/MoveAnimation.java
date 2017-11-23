@@ -31,5 +31,8 @@ public class MoveAnimation extends Animation {
 		}
 	}
 	
-
+	@Override
+	public boolean over() {
+		return total >= length; 
+	}
 }

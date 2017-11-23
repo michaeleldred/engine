@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 /**
@@ -99,9 +100,19 @@ public class Renderer {
 				command.shader = shaders.get( obj.effect );
 			}
 			
-			// Update the anumation
-			for( Animation anim : obj.animations )
+			for( Animation newAnim : obj.newAnimations ) {
+				obj.animations.add( newAnim );
+			}
+			obj.newAnimations.clear();
+			
+			// Update the animation
+			for( ListIterator<Animation> it = obj.animations.listIterator();it.hasNext(); ) {
+				Animation anim = it.next();
 				anim.update( 0.016666667f );
+				
+				if( anim.over() )
+					it.remove();
+			}
 			
 			// Add the object to the command
 			command.add( obj );
