@@ -229,16 +229,12 @@ class GLRenderer implements GLSurfaceView.Renderer {
 				
 				// Get the width and height of the new object
 				if( image != null ) {
-					w = image.w / 2.0f;
-					h = image.h / 2.0f;
+					w = image.w / 2.0f * current.getScale();
+					h = image.h / 2.0f * current.getScale();
 				} else {
-					w = current.width / 2.0f;
-					h = current.height / 2.0f;
+					w = current.getWidth() / 2.0f;
+					h = current.getHeight() / 2.0f;
 				}
-				
-				// Set the scale
-				w *= current.scale;
-				h *= current.scale;
 				
 				vertData[ vert++ ] = pos.x - w; vertData[ vert++ ] = pos.y + h;
 				vertData[ vert++ ] = pos.x - w; vertData[ vert++ ] = pos.y - h;

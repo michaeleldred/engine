@@ -66,9 +66,13 @@ public class RenderObject {
 	}
 
 	public Vector2 getAbsolutePosition() {
+		
 		if( parent == null )
 			return position;
-		return parent.getAbsolutePosition().clone().add( position );
+		
+		Vector2 add = position.clone().mult( parent.getScale() );
+		
+		return parent.getAbsolutePosition().clone().add( add );
 	}
 	
 	public Color getColor() {
@@ -79,15 +83,15 @@ public class RenderObject {
 	
 	public void set( RenderObject source ) {
 		this.position = source.position;
-		this.width = source.width;
-		this.height = source.height;
+		this.width = source.getWidth();
+		this.height = source.getHeight();
 		this.layer = source.layer;
 		if( source.color != null )
 			this.color = new Color( source.getColor() );
 		this.imName = source.imName;
 		this.rotation = source.rotation;
 		this.image = source.image;
-		this.scale = source.scale;
+		this.scale = source.getScale();
 	}
 	
 	@Override
@@ -135,6 +139,27 @@ public class RenderObject {
 		} else {
 			return false;
 		}
+	}
+	
+	public float getScale() {
+		if( parent == null )
+			return scale;
+		
+		return parent.getScale() * scale;
+	}
+	
+	public float getWidth() {
+		if( parent == null )
+			return width;
+		
+		return parent.getScale() * width;
+	}
+	
+	public float getHeight() {
+		if( parent == null )
+			return height;
+		
+		return parent.getScale() * height;
 	}
 
 	public void clearChildren() {
