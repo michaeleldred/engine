@@ -26,7 +26,7 @@ public class ScreenManager implements EventListener {
 	public void setScreen( Screen screen ) {
 		// If there is an old screen, remove the parent
 		while( !screens.empty() ) {
-			screens.pop();
+			screens.pop().remove();
 		}
 		
 		screen.setParent( window );
@@ -41,7 +41,7 @@ public class ScreenManager implements EventListener {
 	}
 	
 	public void popScreen() {
-		screens.pop();
+		screens.pop().remove();
 	}
 
 	public Screen getCurrentScreen() {
@@ -65,5 +65,12 @@ public class ScreenManager implements EventListener {
 	public void receive( Event event ) {
 		if( !screens.empty() )
 			screens.peek().receive( event );
+	}
+	
+	public void destroy() {
+		// If there is an old screen, remove the parent
+		while( !screens.empty() ) {
+			screens.pop().remove();
+		}
 	}
 }

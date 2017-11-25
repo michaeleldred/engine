@@ -55,4 +55,6 @@ public abstract class Screen {
 	public GameWindow getParent() {
 		return parent;
 	}
+	public void remove() {
+	}
 }

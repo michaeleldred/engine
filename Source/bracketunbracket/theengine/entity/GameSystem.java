@@ -27,6 +27,8 @@ public abstract class GameSystem {
 	
 	public void init() {
 	}
+	public void destroy() {
+	}
 	
 	public void receive( Event event ) {
 		events.add( event );

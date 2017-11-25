@@ -124,6 +124,7 @@ public class EntityManager implements EventListener {
 	}
 	
 	public void removeSystem( GameSystem system ) {
+		system.destroy();
 		systems.remove( system );
 	}
 
@@ -134,5 +135,11 @@ public class EntityManager implements EventListener {
 	@Override
 	public void receive( Event event ) {
 		newEvents.add( event );
+	}
+	
+	public void destroy() {
+		for( GameSystem system : systems) {
+			system.destroy();
+		}
 	}
 }
