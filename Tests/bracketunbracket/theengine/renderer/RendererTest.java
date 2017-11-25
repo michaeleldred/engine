@@ -276,7 +276,6 @@ class MockAnimation extends Animation {
 
 	@Override
 	public boolean over() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

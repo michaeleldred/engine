@@ -38,8 +38,6 @@ public class MockAudioContext extends AudioContext {
 
 	@Override
 	public void setPause(boolean pause) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

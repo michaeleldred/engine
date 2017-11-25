@@ -43,12 +43,9 @@ public class MockRenderContext extends RenderContext {
 	}
 	@Override
 	public void setOffset(Vector2 offset) {
-		// TODO Auto-generated method stub
-		
 	}
 	@Override
 	public Shader newShader(String frag, String vert) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

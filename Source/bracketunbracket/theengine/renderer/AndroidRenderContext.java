@@ -99,7 +99,6 @@ public class AndroidRenderContext extends RenderContext {
 
 	@Override
 	public void setOffset(Vector2 offset) {
-		// TODO Auto-generated method stub
 		
 	}
 
