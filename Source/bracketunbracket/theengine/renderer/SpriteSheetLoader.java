@@ -28,7 +28,6 @@ public class SpriteSheetLoader implements ResourceLoader {
 	 */
 	@Override
 	public void create( ResourceManager manager, Map<String, String> vals ) throws Exception {
-		System.out.println( "File: " + vals.get( "filename" ) );
 		JSONObject root = null;
 		
 		// Load the text file from disk

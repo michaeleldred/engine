@@ -36,7 +36,6 @@ public class SoundLoader implements ResourceLoader {
 		} else if( vals.get( "type" ).equalsIgnoreCase( "soundevent" ) ) {
 			engine.runner.load( vals.get( "name" ), vals.get( "action" ) );
 		} else if( vals.get( "type" ).equalsIgnoreCase( "music" ) ) {
-			System.out.println( vals.get( "name" ) );
 			Music track = context.newMusicTrack( vals.get( "filename" ) );
 			context.add( vals.get( "name" ) , track );
 		}

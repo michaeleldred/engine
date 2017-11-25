@@ -83,8 +83,8 @@ public class RenderObject {
 	
 	public void set( RenderObject source ) {
 		this.position = source.position;
-		this.width = source.getWidth();
-		this.height = source.getHeight();
+		this.width = source.width;
+		this.height = source.height;
 		this.layer = source.layer;
 		if( source.color != null )
 			this.color = new Color( source.getColor() );
