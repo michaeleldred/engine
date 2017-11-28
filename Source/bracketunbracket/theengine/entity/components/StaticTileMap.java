@@ -138,7 +138,7 @@ public class StaticTileMap {
 
 		
 		
-		// Get the last pasable tile
+		// Get the last passable tile
 		for( int j = tiles[ 0 ].length - 1; j >= 0; j-- ) {
 			for( int i = 0; i < tiles.length; i++ ) {
 				if( tiles[ i ][ j ] != null && 

@@ -43,7 +43,6 @@ public class DynamicTileMap extends StaticTileMap {
 				tiles[ i ] = Arrays.copyOf( tiles[ i ] , y + 1 );
 			}
 			
-			height = y + 1;
 		} else if( y < 0 ) {
 			for( int i = 0; i < tiles.length; i++ ) {
 				Tile[] newArray = new Tile[ height - y ];
@@ -52,9 +51,8 @@ public class DynamicTileMap extends StaticTileMap {
 			}
 			
 			y = 0;
-			this.height = tiles[ 0 ].length;
 		}
-		
+		this.height = tiles[ 0 ].length;
 		// update tile
 		updateTiles();
 		super.add( tile , x , y );

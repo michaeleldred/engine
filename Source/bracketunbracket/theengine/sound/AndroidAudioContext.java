@@ -35,7 +35,7 @@ public class AndroidAudioContext extends AudioContext {
 		AndroidSound curr = (AndroidSound)get( name );
 		float vol = isMute ? 0.0f : 0.99f;
 		int s = pool.play( curr.id , vol , vol , 1, 0, 1.0f );
-		sounds[ c++ % 255 ] = s;
+		sounds[ c++ % sounds.length ] = s;
 	}
 
 	@Override
