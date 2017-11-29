@@ -83,17 +83,17 @@ public class RenderSystem extends GameSystem {
 			map.position = pos;
 			map.clearChildren();
 			
-			//TODO: Store the map for later?
-			
-			for( int i = -midX; i < midX; i++ ) {
-				for( int j = -midY; j < midY; j++ ) {
-					if( tm.get( i + midX , j + midY ) == null )
+			//TODO: Cache the map for later?
+			//System.out.println( tm.height );
+			for( int i = 0; i < tm.width; i++ ) {
+				for( int j = 0; j < tm.height; j++ ) {
+					if( tm.get( i , j ) == null )
 						continue;
 					
-					float x = i * 70;
-					float y = j * 70;
+					float x = ( i - midX ) * 70 + ( tm.width % 2 == 1 ? 0.0f : 35.0f );
+					float y = ( j - midY ) * 70;
 					
-					Tile t = tm.get( i + midX , j + midY );
+					Tile t = tm.get( i , j );
 					
 					String texture = t.getImageName();
 					
