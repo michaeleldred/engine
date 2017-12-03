@@ -1,16 +1,9 @@
 package bracketunbracket.theengine.platform;
 
-import bracketunbracket.theengine.platform.ads.AdLoader;
+import bracketunbracket.theengine.renderer.RenderContext;
+import bracketunbracket.theengine.sound.AudioContext;
 
-/**
- * @author Michael Eldred
- */
-public abstract class Platform {
-	
-	protected static Platform platform = null;
-	
-	public abstract AdLoader getAdLoader();
-	public static Platform getPlatform() {
-		return platform;
-	}
+public interface Platform {
+	public RenderContext getRenderContext();
+	public AudioContext getAudioContext();
 }

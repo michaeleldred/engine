@@ -28,8 +28,8 @@ public class ResourceParserTest {
 	
 	@Test
 	public void ResourcesCreatedInParser() {
-		ResourceManager res = new ResourceManager();
 		ResourceParser parser = new ResourceParser();
+		ResourceManager res = new ResourceManager( parser );
 		MockLoader loader = new MockLoader();
 		parser.addLoader( "mock" , loader );
 		
@@ -40,8 +40,8 @@ public class ResourceParserTest {
 	
 	@Test
 	public void ResourceLoaderGetsProperties() {
-		ResourceManager res = new ResourceManager();
 		ResourceParser parser = new ResourceParser();
+		ResourceManager res = new ResourceManager( parser );
 		MockLoader loader = new MockLoader();
 		parser.addLoader( "mock" , loader );
 		

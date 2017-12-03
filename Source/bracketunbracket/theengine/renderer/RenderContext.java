@@ -33,4 +33,6 @@ public abstract class RenderContext {
 	public Image getImage( String name ) {
 		return images.get( name );
 	}
+
+	public abstract void setGameWindow(GameWindow gameWin);
 }

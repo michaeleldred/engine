@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bracketunbracket.theengine.math.Vector2;
+import bracketunbracket.theengine.renderer.GameWindow;
 import bracketunbracket.theengine.renderer.Image;
 import bracketunbracket.theengine.renderer.RenderCommand;
 import bracketunbracket.theengine.renderer.RenderContext;
@@ -47,6 +48,11 @@ public class MockRenderContext extends RenderContext {
 	@Override
 	public Shader newShader(String frag, String vert) {
 		return null;
+	}
+	@Override
+	public void setGameWindow(GameWindow gameWin) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

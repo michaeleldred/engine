@@ -14,7 +14,7 @@ public class ResourceManagerTest {
 	@Test
 	public void AddResourceToManager() {
 		MockResource r = new MockResource();
-		ResourceManager m = new ResourceManager();
+		ResourceManager m = new ResourceManager( null );
 		
 		m.add( "Test" , r );
 		
