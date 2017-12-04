@@ -44,7 +44,7 @@ public class LWJGLRenderContext extends RenderContext {
 	@SuppressWarnings("unused")
 	private GLFWWindowSizeCallback callback;
 
-	public LWJGLRenderContext( GameWindow gameWin , float winwidth , float winheight ) {
+	public LWJGLRenderContext( float winwidth , float winheight ) {
 		this.winwidth = winwidth;
 		this.winheight = winheight;
 		
@@ -74,16 +74,6 @@ public class LWJGLRenderContext extends RenderContext {
 		
 		GL.createCapabilities();
 		
-		
-		this.gameWindow = gameWin;
-		gameWin.resize( winwidth , winheight );
-		
-		Vector2 dim = gameWindow.getScaledDimensions();
-		
-		float width = dim.x;
-		float height = dim.y;
-		
-		glOrtho( -(width/2) , (width/2) , (height/2) , -(height/2) , -1 , 1 );
 		glDisable( GL_DEPTH_TEST );
 		glEnable( GL_BLEND );
 		glBlendFunc( GL_SRC_ALPHA , GL_ONE_MINUS_SRC_ALPHA );
@@ -96,6 +86,19 @@ public class LWJGLRenderContext extends RenderContext {
 		for( LWJGLTexture tex : textures.values() ) {
 			tex.load();
 		}
+	}
+	
+	@Override
+	public void setGameWindow( GameWindow gameWin ) {
+		this.gameWindow = gameWin;
+		gameWin.resize( winwidth , winheight );
+		
+		Vector2 dim = gameWindow.getScaledDimensions();
+		
+		float width = dim.x;
+		float height = dim.y;
+		
+		glOrtho( -(width/2) , (width/2) , (height/2) , -(height/2) , -1 , 1 );
 	}
 	
 	public GameWindow getWindow() {
@@ -115,6 +118,9 @@ public class LWJGLRenderContext extends RenderContext {
 		int color = 0;
 		int tex = 0;
 		int rot = 0;
+		
+		if( gameWindow == null )
+			return;
 		
 		FloatBuffer buffer = getOrtho();
 		

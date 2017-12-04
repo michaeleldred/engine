@@ -12,6 +12,11 @@ import java.util.Map;
 public class ResourceManager {
 	
 	private final Map< String , Resource > resources = new HashMap< String , Resource >();
+	public final ResourceParser parser;
+	
+	public ResourceManager( ResourceParser parser ) {
+		this.parser = parser;
+	}
 	
 	public void add( String name , Resource r ) {
 		resources.put( name , r );

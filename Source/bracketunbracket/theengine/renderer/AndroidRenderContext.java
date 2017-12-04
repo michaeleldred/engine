@@ -38,9 +38,9 @@ public class AndroidRenderContext extends RenderContext {
 	public final GLSurfaceView view;
 	public final GLRenderer renderer;
 	
-	public AndroidRenderContext( Activity activity , GameWindow window ) {
+	public AndroidRenderContext( Activity activity ) {
 		AndroidTexture.context = activity;
-		renderer = new GLRenderer( this , window );
+		renderer = new GLRenderer( this );
 		
 		view = new GLSurfaceView( activity );
 		view.setEGLContextClientVersion( 2 );
@@ -50,6 +50,11 @@ public class AndroidRenderContext extends RenderContext {
 
 		activity.setContentView( view );
 		
+	}
+	
+	@Override
+	public void setGameWindow( GameWindow gameWin ) {
+		renderer.setWindow( gameWin );
 	}
 	
 	public GameWindow getWindow() {
@@ -91,7 +96,7 @@ public class AndroidRenderContext extends RenderContext {
 	}
 
 	@Override
-	public void execute(RenderCommand command) {
+	public void execute( RenderCommand command ) {
 		synchronized( lock ) {
 			addCommands.add( command );
 		}
@@ -167,11 +172,18 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	FrameTracker tracker = new FrameTracker( "RENDERFPS" );
 	
 	
-	public GLRenderer( AndroidRenderContext context , GameWindow window ) {
+	public GLRenderer( AndroidRenderContext context ) {
 		this.context = context;
-		this.window = window;
+		this.window = new GameWindow( 1.0f , 1.0f );
 	}
 	
+	public void setWindow(GameWindow gameWin) {
+		int width = (int) window.getWidth();
+		int height = (int) window.getHeight();
+		this.window = gameWin;
+		onSurfaceChanged( null , width , height );
+	}
+
 	public void onDrawFrame( GL10 gl ) {
 		glClear( GL_COLOR_BUFFER_BIT );
 		glViewport( 0 , 0 , (int)window.getWidth() , (int)window.getHeight() );

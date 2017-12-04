@@ -69,7 +69,7 @@ public class LWJGLAudioContext extends AudioContext {
 	}
 	
 	@Override
-	public void play(String name) {
+	public void play( String name ) {
 		int source = sources[ c++ % sources.length ];
 		LWJGLSound s = (LWJGLSound)get( name );
 		alSourcei( source , AL_BUFFER , s.buffer );
@@ -93,6 +93,7 @@ public class LWJGLAudioContext extends AudioContext {
 		
 		alSourcePlay( source );
 	}
+	
 	
 	@Override
 	public void playMusic( String name ) {
