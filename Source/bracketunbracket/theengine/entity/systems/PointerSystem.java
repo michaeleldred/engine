@@ -37,10 +37,10 @@ public class PointerSystem extends GameSystem {
 		for( int i = 0; i < states.length; i++ ) {
 			states[ i ] = null;
 		}
+		
 		for( Event e : events ) {
 			if( e instanceof PointerEvent ) {
 				PointerEvent evt = (PointerEvent)e;
-				
 				states[ evt.button ] = evt;
 			}
 		}
@@ -54,7 +54,7 @@ public class PointerSystem extends GameSystem {
 			
 			// Process unselected entities later
 			if( s.event == null || s.button < 0 ) {
-				// If it's not, process later
+				// The entity does not have an event, deal with it later
 				unprocessed.add( current );
 				continue;
 			}
@@ -73,7 +73,6 @@ public class PointerSystem extends GameSystem {
 				s.button = -1;
 				s.event = null;
 			}
-			
 		}
 		
 		// Update unused

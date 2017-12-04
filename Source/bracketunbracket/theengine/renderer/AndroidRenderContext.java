@@ -48,7 +48,7 @@ public class AndroidRenderContext extends RenderContext {
 		view.setRenderer( renderer );
 		view.setRenderMode( GLSurfaceView.RENDERMODE_CONTINUOUSLY );
 
-		//activity.setContentView( view );
+		activity.setContentView( view );
 		
 	}
 	
