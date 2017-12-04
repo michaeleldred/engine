@@ -96,7 +96,7 @@ public class AndroidRenderContext extends RenderContext {
 	}
 
 	@Override
-	public void execute(RenderCommand command) {
+	public void execute( RenderCommand command ) {
 		synchronized( lock ) {
 			addCommands.add( command );
 		}

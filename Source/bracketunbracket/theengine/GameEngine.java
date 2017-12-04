@@ -1,5 +1,6 @@
 package bracketunbracket.theengine;
 
+import android.util.Log;
 import bracketunbracket.theengine.event.EventManager;
 import bracketunbracket.theengine.platform.Platform;
 import bracketunbracket.theengine.renderer.FontLoader;
@@ -38,7 +39,8 @@ public class GameEngine {
 		window.renderer = new Renderer( platform.getRenderContext() );
 		window.audioEngine = engine;
 		window.renderContext.setGameWindow( window );
-		eventManager.addListener( window.screenManager );
+		eventManager.addListener( window.screenManager 
+				);
 		
 		ResourceParser parser = new ResourceParser();
 		ShaderLoader loader = new ShaderLoader( window.renderer );
