@@ -60,20 +60,20 @@ public class AndroidInputManager implements View.OnTouchListener {
 				y *= ( v.y / 2.0f );
 				
 				manager.sendEvent( new PointerEvent( d , x , y , isDown ) );
-				//Log.d( "POINT" , new PointerEvent( d , x , y , isDown ).toString() );
+				Log.d( "POINT" , "MOVE: " + new PointerEvent( d , x , y , isDown ).toString() );
 			}
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
 		case MotionEvent.ACTION_DOWN:
 			isDown = true;
 			manager.sendEvent( new PointerEvent( id , x , y , isDown ) );
-			Log.d( "POINT" , new PointerEvent( id , x , y , isDown ).toString() );
+			Log.d( "POINT" , "DOWN:" + new PointerEvent( id , x , y , isDown ).toString() );
 			break;
 		case MotionEvent.ACTION_POINTER_UP:
 		case MotionEvent.ACTION_UP:
 			isDown = false;
 			manager.sendEvent( new PointerEvent( id , x , y , isDown ) );
-			Log.d( "POINT" , new PointerEvent( id , x , y , isDown ).toString() );
+			Log.d( "POINT" , "UP:" + new PointerEvent( id , x , y , isDown ).toString() );
 			break;
 		default:
 			return true;

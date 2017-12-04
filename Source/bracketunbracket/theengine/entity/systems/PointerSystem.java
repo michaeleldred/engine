@@ -34,9 +34,6 @@ public class PointerSystem extends GameSystem {
 	public void tick(List<Entity> entities) {
 		// Go through events and update states
 		
-		for( int i = 0; i < states.length; i++ ) {
-			states[ i ] = null;
-		}
 		for( Event e : events ) {
 			if( e instanceof PointerEvent ) {
 				PointerEvent evt = (PointerEvent)e;
