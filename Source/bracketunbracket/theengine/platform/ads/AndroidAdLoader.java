@@ -6,6 +6,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 /**
@@ -36,6 +37,7 @@ public class AndroidAdLoader implements AdLoader {
 		child.addView( adView , lp );
 		this.parent = layout;
 		parent.addView( child );
+		adView.setVisibility( View.INVISIBLE );
 	}
 	
 	@Override
@@ -46,14 +48,12 @@ public class AndroidAdLoader implements AdLoader {
 	
 	@Override
 	public void showAd() {
-		// TODO: Show ads
-		//parent.addView( child );
+		adView.setVisibility( View.VISIBLE );
 	}
 
 	@Override
 	public void hideAd() {
-		// TODO: Show ads
-		//parent.removeView( child );
+		adView.setVisibility( View.INVISIBLE );
 	}
 
 }
