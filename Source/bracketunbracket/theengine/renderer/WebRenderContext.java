@@ -6,7 +6,6 @@ import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.typedarrays.Float32Array;
 import org.teavm.jso.webgl.WebGLBuffer;
 import org.teavm.jso.webgl.WebGLRenderingContext;
-import org.teavm.jso.webgl.WebGLShader;
 import org.teavm.jso.webgl.WebGLUniformLocation;
 
 import static org.teavm.jso.webgl.WebGLRenderingContext.*;
@@ -23,37 +22,62 @@ public class WebRenderContext extends RenderContext {
 	private Vector2 offset = new Vector2();
 	
 	public final static String vertexShaderCode =
-	        "attribute vec2 pos;\n" +
-	        "attribute vec4 color;\n" +
-	        "uniform mat4 ortho;\n" +
-	        "varying vec4 v_color;\n" +
-	        "void main() {\n" +
-	        "  v_color = color;\n" +
-	        "  gl_Position = vec4( pos , 0 , 1 ) * ortho;\n" +
-	        "}\n";
+			"attribute vec2 pos;\n" +
+			        "attribute vec4 color;\n" +
+			        "attribute vec2 texCoord;\n" +
+			        "attribute vec3 rot;\n" +
+			        "varying vec4 v_color;\n" +
+			        "varying vec2 v_texCoord;\n" +
+			        "uniform mat4 ortho;\n" +
+			        "void main() {\n" +
+			        "  vec2 npos = pos - rot.xy;\n" +
+			        "  float s = sin( rot.z );\n" +
+			        "  float c = cos( rot.z );\n" +
+			        "  mat2 r = mat2( c , -s , s , c );\n" +
+					"  npos = r * npos;\n" +
+			        "  npos += rot.xy;\n" +
+			        "  gl_Position = vec4( npos.xy , 0 , 1 ) * ortho;\n" +
+			        "  v_color = color;\n" +
+			        "  v_texCoord = texCoord;\n" +
+			        "}\n";
 	
 	public final static String fragmentShaderCode =
 			"#ifdef GL_ES\n" +
-	        "  precision mediump float;\n" +
-			"#endif\n" +
-	        "uniform sampler2D img;\n" +
-	        "varying vec2 v_texCoord;\n" +
-	        "varying vec4 v_color;\n" +
-	        "void main() {\n" +
-	        "  gl_FragColor = texture2D( img , v_texCoord ) * v_color;\n" +
-	        "}\n";
+			        "  precision mediump float;\n" +
+					"#endif\n" +
+			        "uniform sampler2D img;\n" +
+			        "varying vec2 v_texCoord;\n" +
+			        "varying vec4 v_color;\n" +
+			        "void main() {\n" +
+			        "  gl_FragColor = texture2D( img , v_texCoord ) * v_color;\n" +
+			        "}\n";
+			
 	
 	    
 	public final static String fragmentNoTexShaderCode =
-	    		"#ifdef GL_ES\n" +
-	    		"  precision mediump float;\n" +
-	    		"#endif\n" +
-	    		"varying vec4 v_color;\n" +
-		        "void main() {\n" +
-		        "  gl_FragColor = v_color;\n" +
-		        "}\n";
+    		"#ifdef GL_ES\n" +
+    		"  precision mediump float;\n" +
+    		"#endif\n" +
+	        "varying vec2 v_texCoord;\n" +
+	        "varying vec4 v_color;\n" +
+	        "void main() {\n" +
+	        "  vec4 t = v_color;" +
+	        "  gl_FragColor = t;\n" +
+	        "}\n";
 	
 	private WebShader progNoTex;
+	private WebShader progTex;
+	
+	// Vertex data stored here so it doesn't have to be recreated
+	private Float32Array vertData = Float32Array.create( 12 * RenderCommand.MAX_OBJECTS );
+	private Float32Array colorData = Float32Array.create( 24 * RenderCommand.MAX_OBJECTS );
+	private Float32Array texData = Float32Array.create( 12 * RenderCommand.MAX_OBJECTS );
+	private Float32Array rotData = Float32Array.create( 18 * RenderCommand.MAX_OBJECTS );
+	
+	private WebGLBuffer vertBuffer;
+	private WebGLBuffer colorBuffer;
+	private WebGLBuffer texBuffer;
+	private WebGLBuffer rotBuffer;
 	
 	public WebRenderContext( float winwidth , float winheight ) {
 		
@@ -67,9 +91,16 @@ public class WebRenderContext extends RenderContext {
 		gl.clearColor( 1.0f , 0.0f , 0.0f , 1.0f );
 		gl.clear( COLOR_BUFFER_BIT );
 		
+		gl.disable( DEPTH_TEST );
+		gl.enable( BLEND );
+		gl.enable( TEXTURE_2D );
+		gl.blendFunc( SRC_ALPHA , ONE_MINUS_SRC_ALPHA );
+		
 		progNoTex = new WebShader( gl ,  vertexShaderCode , fragmentNoTexShaderCode );
+		progTex = new WebShader( gl , vertexShaderCode , fragmentShaderCode );
 		
 		progNoTex.load();
+		progTex.load();
 	}
 	@Override
 	public void render() {
@@ -79,13 +110,12 @@ public class WebRenderContext extends RenderContext {
 	@Override
 	public void execute( RenderCommand command ) {
 		
-		Float32Array vertData = Float32Array.create( 12 * RenderCommand.MAX_OBJECTS );
-		Float32Array colorData = Float32Array.create( 24 * RenderCommand.MAX_OBJECTS );
-		
 		float w,h;
 		
 		int vert = 0;
 		int color = 0;
+		int tex = 0;
+		int rot = 0;
 		
 		if( gameWindow == null ) {
 			return;
@@ -130,27 +160,73 @@ public class WebRenderContext extends RenderContext {
 			colorData.set( color++ , r );colorData.set( color++ , g );colorData.set( color++ , b );colorData.set( color++ , a );
 			colorData.set( color++ , r );colorData.set( color++ , g );colorData.set( color++ , b );colorData.set( color++ , a );
 			colorData.set( color++ , r );colorData.set( color++ , g );colorData.set( color++ , b );colorData.set( color++ , a );
+			
+			rotData.set( rot++ , pos.x );rotData.set( rot++ , pos.y );rotData.set( rot++ , rotation );
+			rotData.set( rot++ , pos.x );rotData.set( rot++ , pos.y );rotData.set( rot++ , rotation );
+			rotData.set( rot++ , pos.x );rotData.set( rot++ , pos.y );rotData.set( rot++ , rotation );
+			
+			rotData.set( rot++ , pos.x );rotData.set( rot++ , pos.y );rotData.set( rot++ , rotation );
+			rotData.set( rot++ , pos.x );rotData.set( rot++ , pos.y );rotData.set( rot++ , rotation );
+			rotData.set( rot++ , pos.x );rotData.set( rot++ , pos.y );rotData.set( rot++ , rotation );
+			
+			if( image != null ) {
+				texData.set( tex++ , image.x1 );texData.set( tex++ , image.y2 );
+				texData.set( tex++ , image.x1 );texData.set( tex++ , image.y1 );
+				texData.set( tex++ , image.x2 );texData.set( tex++ , image.y1 );
+				
+				texData.set( tex++ , image.x1 );texData.set( tex++ , image.y2 );
+				texData.set( tex++ , image.x2 );texData.set( tex++ , image.y1 );
+				texData.set( tex++ , image.x2 );texData.set( tex++ , image.y2 );
+			}
 		}
 		
 		// Actually draw
-		WebGLBuffer vertBuffer = gl.createBuffer();
-		gl.bindBuffer( ARRAY_BUFFER , vertBuffer );
-		gl.bufferData( ARRAY_BUFFER , vertData , STATIC_DRAW );
 		
-		WebGLBuffer colorBuffer = gl.createBuffer();
-		gl.bindBuffer( ARRAY_BUFFER , colorBuffer );
-		gl.bufferData( ARRAY_BUFFER , colorData , STATIC_DRAW );
+		// Load up buffers if they haven't been loaded already
+		if( vertBuffer == null ) {
+			vertBuffer = gl.createBuffer();
+			gl.bindBuffer( ARRAY_BUFFER , vertBuffer );
+			gl.bufferData( ARRAY_BUFFER , vertData , STREAM_DRAW );
+		}
+		
+		if( colorBuffer == null ) {
+			colorBuffer = gl.createBuffer();
+			gl.bindBuffer( ARRAY_BUFFER , colorBuffer );
+			gl.bufferData( ARRAY_BUFFER , colorData , STREAM_DRAW );
+		}
+		
+		if( texBuffer == null ) {
+			texBuffer = gl.createBuffer();
+			gl.bindBuffer( ARRAY_BUFFER , texBuffer );
+			gl.bufferData( ARRAY_BUFFER , texData , STREAM_DRAW );
+		}
+		
+		if( rotBuffer == null ) {
+			rotBuffer = gl.createBuffer();
+			gl.bindBuffer( ARRAY_BUFFER , rotBuffer );
+			gl.bufferData( ARRAY_BUFFER , rotData , STREAM_DRAW );
+		}
 		
 		WebShader prog = progNoTex;
 		
-		Vector2 dim = gameWindow.getScaledDimensions();
-		float width = dim.x;
-		float height = dim.y;
+		if( command.texture != null ) {
+			WebTexture texture = (WebTexture)command.texture;
+			gl.activeTexture( TEXTURE0 );
+			gl.bindTexture( TEXTURE_2D , texture.texture );
+			prog = progTex;
+			
+		}
+		if( command.shader != null ) {
+			prog = (WebShader)command.shader;
+		}
 		
 		gl.useProgram( prog.program );
 		
 		WebGLUniformLocation loc = gl.getUniformLocation( prog.program , "ortho" );
 		gl.uniformMatrix4fv( loc , false , getOrtho() );
+		
+		WebGLUniformLocation texLoc = gl.getUniformLocation( prog.program , "img" );
+		gl.uniform1i( texLoc , 0 );
 		
 		gl.bindBuffer( ARRAY_BUFFER , vertBuffer ); 
 		int vertHandle = gl.getAttribLocation( prog.program , "pos" );
@@ -162,47 +238,31 @@ public class WebRenderContext extends RenderContext {
 		gl.enableVertexAttribArray( colorHandle );
 		gl.vertexAttribPointer( colorHandle , 4 , FLOAT , false , 0 , 0 );
 		
+		gl.bindBuffer( ARRAY_BUFFER , texBuffer );
+		int texHandle = gl.getAttribLocation( prog.program , "texCoord" );
+		gl.enableVertexAttribArray( texHandle );
+		gl.vertexAttribPointer( texHandle , 2 , FLOAT , false , 0 , 0 );
+		
+		gl.bindBuffer( ARRAY_BUFFER , rotBuffer );
+		int rotHandle = gl.getAttribLocation( prog.program , "rot" );
+		gl.enableVertexAttribArray( rotHandle );
+		gl.vertexAttribPointer( rotHandle , 3 , FLOAT , false , 0 , 0 );
+		
 		gl.drawArrays( TRIANGLES , 0 , command.getObjects().size() * 6 );
 		
+		gl.disableVertexAttribArray( rotHandle );
+		gl.disableVertexAttribArray( texHandle );
 		gl.disableVertexAttribArray( colorHandle );
 		gl.disableVertexAttribArray( vertHandle );
 		
 		//System.out.println( "NO ERROR: " + ( gl.getError() == NO_ERROR ) );
-		
-		/*WebShader prog = progNoTex;
-		
-		int vertPosLoc = gl.getAttribLocation( prog.program , "pos" );
-		
-		WebGLBuffer posBuffer = gl.createBuffer();
-		
-		gl.bindBuffer( ARRAY_BUFFER , posBuffer );
-		
-		Float32Array positions = Float32Array.create( 6 );
-		int pos = 0;
-		
-		positions.set( pos++ , 0.0f );positions.set( pos++ , 0.0f );
-		positions.set( pos++ , 0.0f );positions.set( pos++ , 50.0f );
-		positions.set( pos++ , 70.0f );positions.set( pos++ , 0.0f );
-		
-		WebGLUniformLocation loc = gl.getUniformLocation( prog.program , "ortho" );
-		
-		gl.bufferData( ARRAY_BUFFER , positions , STATIC_DRAW ); 
-		
-		gl.useProgram( prog.program );
-		gl.bindBuffer( ARRAY_BUFFER , posBuffer );
-		gl.enableVertexAttribArray( vertPosLoc );
-		gl.uniformMatrix4fv( loc , false , getOrtho() );
-		
-		gl.vertexAttribPointer( vertPosLoc , 2 , FLOAT , false , 0 , 0 );
-		
-		gl.drawArrays( TRIANGLES , 0 , 3 );*/
 		
 	}
 
 	@Override
 	public Texture create( String filename ) {
 		// TODO Auto-generated method stub
-		return null;
+		return new WebTexture( gl , filename );
 	}
 
 	@Override
