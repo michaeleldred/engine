@@ -3,6 +3,7 @@
  */
 package bracketunbracket.theengine.renderer;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,10 +28,12 @@ public class ShaderLoader implements ResourceLoader {
 	@Override
 	public void create(ResourceManager manager, Map<String, String> vals) throws Exception {
 		if( vals.get( "type" ).equalsIgnoreCase( "vert" ) ) {
-			String shader = FileLoader.loadFilenameAsString( "Shaders/" + vals.get( "filename" ) );
+			InputStream in = FileLoader.loadFilenameAsStream( "Shaders/" + vals.get( "filename" ) );
+			String shader = FileLoader.streamToString( in );
 			verts.put( vals.get( "name" ) , shader );
 		} else if( vals.get( "type" ).equalsIgnoreCase( "frag" ) ) {
-			String shader = FileLoader.loadFilenameAsString( "Shaders/" + vals.get( "filename" ) );
+			InputStream in = FileLoader.loadFilenameAsStream( "Shaders/" + vals.get( "filename" ) );
+			String shader = FileLoader.streamToString( in );
 			frags.put( vals.get( "name" ) , shader );
 		} else if( vals.get( "type" ).equalsIgnoreCase( "shader" ) ) {
 			Shader s = renderer.context.newShader( verts.get( vals.get( "vert" ) ) , frags.get( vals.get( "frag" ) ) );

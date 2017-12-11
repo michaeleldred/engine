@@ -53,4 +53,13 @@ public class Color {
 	public Color mult( Color other ) {
 		return new Color( red * other.red , green * other.green, blue * other.blue , alpha * other.alpha );
 	}
+	
+	/**
+	 * Multiplies all of te colors by num, bur leaves the alpha unchanged.
+	 * @param num
+	 * @return
+	 */
+	public Color mult( float num ) {
+		return new Color( red * num , green * num , blue * num );
+	}
 }

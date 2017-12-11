@@ -62,7 +62,6 @@ public class Renderer {
 		for( int i = 0; i < objects.size(); i++ ) {
 			RenderObject obj = objects.get( i );
 			
-			
 			// First check for children to draw before this
 			if( obj.children.size() > 0 && !added.contains( obj ) ) {
 				

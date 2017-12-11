@@ -3,6 +3,7 @@
  */
 package bracketunbracket.theengine.renderer;
 
+import java.io.InputStream;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -32,7 +33,8 @@ public class SpriteSheetLoader implements ResourceLoader {
 		
 		// Load the text file from disk
 		try {
-			root = new JSONObject( FileLoader.loadFilenameAsString( "Images/" + vals.get( "filename" ) ) );
+			InputStream in = FileLoader.loadFilenameAsStream( "Images/" + vals.get( "filename" ) );
+			root = new JSONObject( FileLoader.streamToString( in ) );
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;

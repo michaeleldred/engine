@@ -1,4 +1,5 @@
 package bracketunbracket.theengine.renderer;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -31,7 +32,8 @@ public class FontLoader implements ResourceLoader {
 		
 		JSONObject root = null;
 		try {
-			root = new JSONObject( FileLoader.loadFilenameAsString( "Fonts/" + vals.get( "filename" ) ) );
+			InputStream in = FileLoader.loadFilenameAsStream( "Fonts/" + vals.get( "filename" ) );
+			root = new JSONObject( FileLoader.streamToString( in ) );
 		} catch( Exception exc ) {
 			exc.printStackTrace();
 			return;

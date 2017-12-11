@@ -13,6 +13,9 @@ buildscript {
 
 repositories {
 	mavenCentral();
+	maven {
+    	url 'https://dl.bintray.com/konsoletyper/teavm/'
+    }
 	flatDir {
 		dirs "Lib"
 	}
@@ -29,6 +32,13 @@ dependencies {
 	compile files( "Lib/json-20160212.jar" )
 	compile files( "Lib/luaj-jse-3.0.1.jar" )
 	compile files( "Lib/lwjgl.jar" )
+	compile 'org.teavm:teavm-core:0.6.0-dev-451'
+    compile 'org.teavm:teavm-classlib:0.6.0-dev-451'
+    compile 'org.teavm:teavm-jso:0.6.0-dev-451'
+    compile 'org.teavm:teavm-jso-apis:0.6.0-dev-451'
+    compile 'org.teavm:teavm-jso-impl:0.6.0-dev-451'
+    compile 'org.teavm:teavm-platform:0.6.0-dev-451'
+    compile 'org.teavm:teavm-tooling:0.6.0-dev-451'
 	testCompile "junit:junit:4.11"
 }
 

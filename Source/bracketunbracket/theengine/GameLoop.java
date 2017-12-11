@@ -22,9 +22,13 @@ public class GameLoop implements EventListener {
 	
 	public void run() {
 		while( !close ) {
-			for( Tickable t : tickables ) {
-				t.tick();
-			}
+			tick();
+		}
+	}
+	
+	public void tick() {
+		for( Tickable t : tickables ) {
+			t.tick();
 		}
 	}
 
