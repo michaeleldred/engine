@@ -49,7 +49,7 @@ public class WebRenderContext extends RenderContext {
 			        "varying vec2 v_texCoord;\n" +
 			        "varying vec4 v_color;\n" +
 			        "void main() {\n" +
-			        "  gl_FragColor = texture2D( img , v_texCoord ) * v_color;\n" +
+			        "  gl_FragColor = texture2D( img , v_texCoord );\n" +
 			        "}\n";
 			
 	
@@ -93,7 +93,7 @@ public class WebRenderContext extends RenderContext {
 		
 		gl.disable( DEPTH_TEST );
 		gl.enable( BLEND );
-		gl.enable( TEXTURE_2D );
+		//gl.enable( TEXTURE_2D );
 		gl.blendFunc( SRC_ALPHA , ONE_MINUS_SRC_ALPHA );
 		
 		progNoTex = new WebShader( gl ,  vertexShaderCode , fragmentNoTexShaderCode );
@@ -134,7 +134,7 @@ public class WebRenderContext extends RenderContext {
 			
 			Image image = current.image;
 			
-			float rotation = (float)Math.toRadians( current.rotation );
+			float rotation = 0;// = (float)Math.toRadians( current.rotation );
 			
 			// Get the width and height of the new object
 			if( image != null ) {
@@ -177,6 +177,7 @@ public class WebRenderContext extends RenderContext {
 				texData.set( tex++ , image.x1 );texData.set( tex++ , image.y2 );
 				texData.set( tex++ , image.x2 );texData.set( tex++ , image.y1 );
 				texData.set( tex++ , image.x2 );texData.set( tex++ , image.y2 );
+				//System.out.println( "image.x2=" + image.x2 + "\ntexData.get(4)=" + texData.get(4) );
 			}
 		}
 		
@@ -185,27 +186,31 @@ public class WebRenderContext extends RenderContext {
 		// Load up buffers if they haven't been loaded already
 		if( vertBuffer == null ) {
 			vertBuffer = gl.createBuffer();
-			gl.bindBuffer( ARRAY_BUFFER , vertBuffer );
-			gl.bufferData( ARRAY_BUFFER , vertData , STREAM_DRAW );
 		}
 		
 		if( colorBuffer == null ) {
 			colorBuffer = gl.createBuffer();
-			gl.bindBuffer( ARRAY_BUFFER , colorBuffer );
-			gl.bufferData( ARRAY_BUFFER , colorData , STREAM_DRAW );
 		}
 		
 		if( texBuffer == null ) {
 			texBuffer = gl.createBuffer();
-			gl.bindBuffer( ARRAY_BUFFER , texBuffer );
-			gl.bufferData( ARRAY_BUFFER , texData , STREAM_DRAW );
 		}
 		
 		if( rotBuffer == null ) {
 			rotBuffer = gl.createBuffer();
-			gl.bindBuffer( ARRAY_BUFFER , rotBuffer );
-			gl.bufferData( ARRAY_BUFFER , rotData , STREAM_DRAW );
 		}
+		
+		gl.bindBuffer( ARRAY_BUFFER , vertBuffer );
+		gl.bufferData( ARRAY_BUFFER , vertData , STREAM_DRAW );
+		
+		gl.bindBuffer( ARRAY_BUFFER , colorBuffer );
+		gl.bufferData( ARRAY_BUFFER , colorData , STREAM_DRAW );
+		
+		gl.bindBuffer( ARRAY_BUFFER , rotBuffer );
+		gl.bufferData( ARRAY_BUFFER , rotData , STREAM_DRAW );
+		
+		gl.bindBuffer( ARRAY_BUFFER , texBuffer );
+		gl.bufferData( ARRAY_BUFFER , texData , STREAM_DRAW );
 		
 		WebShader prog = progNoTex;
 		
