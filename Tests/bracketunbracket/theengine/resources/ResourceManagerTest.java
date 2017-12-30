@@ -1,23 +1,40 @@
-/*
- * Soli Deo gloria
- */
 package bracketunbracket.theengine.resources;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+
 import org.junit.Test;
 
 /**
- * @author Michael Eldred
+ * @author Michael
  */
 public class ResourceManagerTest {
 	@Test
-	public void AddResourceToManager() {
-		MockResource r = new MockResource();
-		ResourceManager m = new ResourceManager( null );
+	public void AddingResourceIncrementsUnloadedAmount() {
+		ResourceManager manager = new ResourceManager();
+		manager.add( new Resource( null ) {} );
 		
-		m.add( "Test" , r );
-		
-		assertEquals( r , m.getResource( "Test" ) );
+		assertEquals( 1 , manager.getUnloaded() );
 	}
+	
+	@Test
+	public void WhenLoadedAddToLoaded() {
+		ResourceManager manager = new ResourceManager();
+		MockResource resource = new MockResource( null );
+		manager.add( resource );
+		
+		resource.finished();
+		
+		assertEquals( 1 , manager.getLoaded() );
+		assertEquals( 0 , manager.getUnloaded() );
+	}
+}
+
+class MockResource extends Resource {
+
+	public MockResource(HashMap<String, String> values) {
+		super(values);
+	}
+	
 }

@@ -48,8 +48,10 @@ public class Renderer {
 	
 	public void render() {
 		// Don't bother drawing if there are no objects
-		if( objects.size() <= 0 )
+		if( objects.size() <= 0 ) {
+			System.out.println( "Empty Batch" );
 			return;
+		}
 		
 		// Sort the sprites
 		Collections.sort( objects , spriteSorter );

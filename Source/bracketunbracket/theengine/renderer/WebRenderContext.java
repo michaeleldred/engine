@@ -260,13 +260,10 @@ public class WebRenderContext extends RenderContext {
 		gl.disableVertexAttribArray( colorHandle );
 		gl.disableVertexAttribArray( vertHandle );
 		
-		//System.out.println( "NO ERROR: " + ( gl.getError() == NO_ERROR ) );
-		
 	}
 
 	@Override
 	public Texture create( String filename ) {
-		// TODO Auto-generated method stub
 		return new WebTexture( gl , filename );
 	}
 

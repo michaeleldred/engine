@@ -23,7 +23,6 @@ public class WebTexture implements Texture , EventListener<Event> {
 	private HTMLDocument document; 
 	
 	public WebTexture( WebGLRenderingContext gl , String filename ) {
-		System.out.println( "Loading: " + filename );
 		this.gl = gl;
 		texture = gl.createTexture();
 		this.texID = id++;
@@ -47,11 +46,9 @@ public class WebTexture implements Texture , EventListener<Event> {
 		
 		gl.texParameteri( TEXTURE_2D , TEXTURE_MAG_FILTER , LINEAR );
 		gl.texParameteri( TEXTURE_2D , TEXTURE_MIN_FILTER , LINEAR );
+		System.err.println( "TEXTURE Loaded" );
 	}
 	
-	public void load() {
-		
-	}
 	@Override
 	public int getID() {
 		return texID;

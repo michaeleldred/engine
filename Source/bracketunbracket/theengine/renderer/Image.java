@@ -29,4 +29,9 @@ public class Image {
 		
 		this.texture = t;
 	}
+	
+	@Override
+	public String toString() {
+		return "(" + name + " , " + x1 + " , " + x2 + " , " + y1 + " , " + y2 + ")";
+	}
 }
