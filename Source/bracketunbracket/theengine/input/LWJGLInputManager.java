@@ -97,6 +97,8 @@ public class LWJGLInputManager {
 		
 		if( state == GLFW_PRESS )
 			manager.sendEvent( new PointerEvent( PointerEvent.RIGHT , x , y , true ) );
+		else
+			manager.sendEvent( new PointerEvent( PointerEvent.RIGHT , x , y , false ) );
 		
 		
 		/////////////////////////////////////////

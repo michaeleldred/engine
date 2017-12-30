@@ -84,6 +84,7 @@ public class WebRenderContext extends RenderContext {
 		HTMLCanvasElement canvas = document.createElement( "canvas" ).cast();
 		canvas.setAttribute( "width" , Integer.toString( (int)winwidth ) );
 		canvas.setAttribute( "height" , Integer.toString( (int)winheight ) );
+		canvas.setAttribute( "id" , "game" );
 		
 		document.getBody().appendChild( canvas );
 		gl = (WebGLRenderingContext)canvas.getContext( "webgl" );
