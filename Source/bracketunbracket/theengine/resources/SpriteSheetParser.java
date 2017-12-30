@@ -58,11 +58,9 @@ public class SpriteSheetParser extends ResourceParser {
 				
 				float x2 = x1 + (float)frame.getDouble( "w" );
 				float y2 = y1 + (float)frame.getDouble( "h" );
-				System.out.println( "TEXTURE: " + texture );
 				Image image = new Image( texture , x1 / w , x2 / w , y1 / h , y2 / h , x2 - x1 , y2 - y1 );
 				
 				context.addImage( currentImage.getString( "filename" ) , image);
-				System.out.println( "Loaded: " + image );
 			}
 			
 			finished();

@@ -178,7 +178,6 @@ public class WebRenderContext extends RenderContext {
 				texData.set( tex++ , image.x1 );texData.set( tex++ , image.y2 );
 				texData.set( tex++ , image.x2 );texData.set( tex++ , image.y1 );
 				texData.set( tex++ , image.x2 );texData.set( tex++ , image.y2 );
-				//System.out.println( "image.x2=" + image.x2 + "\ntexData.get(4)=" + texData.get(4) );
 			}
 		}
 		
@@ -223,11 +222,12 @@ public class WebRenderContext extends RenderContext {
 			
 		}
 		if( command.shader != null ) {
-			prog = (WebShader)command.shader;
+			//prog = (WebShader)command.shader;
 		}
 		
 		gl.useProgram( prog.program );
 		
+		//System.out.println( prog.);
 		WebGLUniformLocation loc = gl.getUniformLocation( prog.program , "ortho" );
 		gl.uniformMatrix4fv( loc , false , getOrtho() );
 		

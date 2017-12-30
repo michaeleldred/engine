@@ -46,12 +46,18 @@ public class WebTexture implements Texture , EventListener<Event> {
 		
 		gl.texParameteri( TEXTURE_2D , TEXTURE_MAG_FILTER , LINEAR );
 		gl.texParameteri( TEXTURE_2D , TEXTURE_MIN_FILTER , LINEAR );
-		System.err.println( "TEXTURE Loaded" );
 	}
 	
 	@Override
 	public int getID() {
 		return texID;
+	}
+	
+	@Override
+	public String toString() {
+		if( image != null )
+			return image.getSrc();
+		return "";
 	}
 
 }
