@@ -3,6 +3,7 @@ package bracketunbracket.theengine.platform;
 import bracketunbracket.theengine.renderer.RenderContext;
 import bracketunbracket.theengine.renderer.WebRenderContext;
 import bracketunbracket.theengine.sound.AudioContext;
+import bracketunbracket.theengine.sound.WebAudioContext;
 
 /**
  * @author Michael
@@ -22,8 +23,7 @@ public class WebPlatform implements Platform {
 
 	@Override
 	public AudioContext getAudioContext() {
-		// TODO Auto-generated method stub
-		return null;
+		return new WebAudioContext();
 	}
 	
 }

@@ -17,6 +17,9 @@ public class WebInputManager {
 	private static HTMLDocument document = Window.current().getDocument();
 	private EventManager manager;
 	private GameWindow gameWindow;
+	
+	private boolean[] states = new boolean[ 4 ];
+	
 	public WebInputManager( EventManager manager , GameWindow window ) {
 		this.manager = manager;
 		this.gameWindow = window;
@@ -38,7 +41,28 @@ public class WebInputManager {
 				x *= ( v.x / 2.0f );
 				y *= ( v.y / 2.0f );
 				
+				states[ button ] = true;
+				
 				manager.sendEvent( new PointerEvent( button , x , y , true ) );
+			}
+		} );
+		
+		document.getElementById( "game" ).addEventListener( "mousemove" , new EventListener<MouseEvent>() {
+			@Override
+			public void handleEvent(MouseEvent event) {
+				
+				int button = event.getButton();
+				float x = event.getClientX() - gameWindow.getWidth() / 2.0f;
+				float y = event.getClientY() - gameWindow.getHeight() / 2.0f;
+				
+				x /= gameWindow.getWidth() / 2.0f;
+				y /= gameWindow.getHeight() / 2.0f;
+				
+				Vector2 v = gameWindow.getScaledDimensions();
+				x *= ( v.x / 2.0f );
+				y *= ( v.y / 2.0f );
+				
+				manager.sendEvent( new PointerEvent( button , x , y , states[ button ] ) );
 			}
 		} );
 		
@@ -56,6 +80,8 @@ public class WebInputManager {
 				Vector2 v = gameWindow.getScaledDimensions();
 				x *= ( v.x / 2.0f );
 				y *= ( v.y / 2.0f );
+				
+				states[ button ] = false;
 				
 				manager.sendEvent( new PointerEvent( button , x , y , false ) );
 			}

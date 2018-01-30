@@ -21,50 +21,6 @@ public class WebRenderContext extends RenderContext {
 	private GameWindow gameWindow;
 	private Vector2 offset = new Vector2();
 	
-	public final static String vertexShaderCode =
-			"attribute vec2 pos;\n" +
-			        "attribute vec4 color;\n" +
-			        "attribute vec2 texCoord;\n" +
-			        "attribute vec3 rot;\n" +
-			        "varying vec4 v_color;\n" +
-			        "varying vec2 v_texCoord;\n" +
-			        "uniform mat4 ortho;\n" +
-			        "void main() {\n" +
-			        "  vec2 npos = pos - rot.xy;\n" +
-			        "  float s = sin( rot.z );\n" +
-			        "  float c = cos( rot.z );\n" +
-			        "  mat2 r = mat2( c , -s , s , c );\n" +
-					"  npos = r * npos;\n" +
-			        "  npos += rot.xy;\n" +
-			        "  gl_Position = vec4( npos.xy , 0 , 1 ) * ortho;\n" +
-			        "  v_color = color;\n" +
-			        "  v_texCoord = texCoord;\n" +
-			        "}\n";
-	
-	public final static String fragmentShaderCode =
-			"#ifdef GL_ES\n" +
-			        "  precision mediump float;\n" +
-					"#endif\n" +
-			        "uniform sampler2D img;\n" +
-			        "varying vec2 v_texCoord;\n" +
-			        "varying vec4 v_color;\n" +
-			        "void main() {\n" +
-			        "  gl_FragColor = texture2D( img , v_texCoord );\n" +
-			        "}\n";
-			
-	
-	    
-	public final static String fragmentNoTexShaderCode =
-    		"#ifdef GL_ES\n" +
-    		"  precision mediump float;\n" +
-    		"#endif\n" +
-	        "varying vec2 v_texCoord;\n" +
-	        "varying vec4 v_color;\n" +
-	        "void main() {\n" +
-	        "  vec4 t = v_color;" +
-	        "  gl_FragColor = t;\n" +
-	        "}\n";
-	
 	private WebShader progNoTex;
 	private WebShader progTex;
 	
@@ -94,11 +50,10 @@ public class WebRenderContext extends RenderContext {
 		
 		gl.disable( DEPTH_TEST );
 		gl.enable( BLEND );
-		//gl.enable( TEXTURE_2D );
 		gl.blendFunc( SRC_ALPHA , ONE_MINUS_SRC_ALPHA );
 		
-		progNoTex = new WebShader( gl ,  vertexShaderCode , fragmentNoTexShaderCode );
-		progTex = new WebShader( gl , vertexShaderCode , fragmentShaderCode );
+		progNoTex = new WebShader( gl ,  GLRenderer.vertexShaderCode , GLRenderer.fragmentNoTexShaderCode );
+		progTex = new WebShader( gl , GLRenderer.vertexShaderCode , GLRenderer.fragmentShaderCode );
 		
 		progNoTex.load();
 		progTex.load();
@@ -222,12 +177,11 @@ public class WebRenderContext extends RenderContext {
 			
 		}
 		if( command.shader != null ) {
-			//prog = (WebShader)command.shader;
+			prog = (WebShader)command.shader;
 		}
 		
 		gl.useProgram( prog.program );
 		
-		//System.out.println( prog.);
 		WebGLUniformLocation loc = gl.getUniformLocation( prog.program , "ortho" );
 		gl.uniformMatrix4fv( loc , false , getOrtho() );
 		
