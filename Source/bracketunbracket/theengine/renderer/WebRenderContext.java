@@ -3,12 +3,18 @@ package bracketunbracket.theengine.renderer;
 import org.teavm.jso.browser.Window;
 import org.teavm.jso.dom.html.HTMLCanvasElement;
 import org.teavm.jso.dom.html.HTMLDocument;
+import org.teavm.jso.json.JSON;
 import org.teavm.jso.typedarrays.Float32Array;
 import org.teavm.jso.webgl.WebGLBuffer;
 import org.teavm.jso.webgl.WebGLRenderingContext;
 import org.teavm.jso.webgl.WebGLUniformLocation;
 
 import static org.teavm.jso.webgl.WebGLRenderingContext.*;
+
+import org.json.JSONObject;
+import org.teavm.jso.JSObject;
+import org.teavm.jso.JSProperty;
+
 import bracketunbracket.theengine.math.Vector2;
 
 /**
@@ -17,7 +23,7 @@ import bracketunbracket.theengine.math.Vector2;
 public class WebRenderContext extends RenderContext {
 	
 	private static HTMLDocument document = Window.current().getDocument();
-	private WebGLRenderingContext gl;
+	public WebGLRenderingContext gl;
 	private GameWindow gameWindow;
 	private Vector2 offset = new Vector2();
 	
@@ -38,19 +44,24 @@ public class WebRenderContext extends RenderContext {
 	public WebRenderContext( float winwidth , float winheight ) {
 		
 		HTMLCanvasElement canvas = document.createElement( "canvas" ).cast();
+		canvas.setAttribute( "style", "background: red;" );
 		canvas.setAttribute( "width" , Integer.toString( (int)winwidth ) );
 		canvas.setAttribute( "height" , Integer.toString( (int)winheight ) );
 		canvas.setAttribute( "id" , "game" );
 		
 		document.getBody().appendChild( canvas );
-		gl = (WebGLRenderingContext)canvas.getContext( "webgl" );
+
+		gl = (WebGLRenderingContext)canvas.getContext( "webgl" , JSON.parse( "{ \"alpha\": false , \"premultipliedAlpha\" : false }" ) );
 		gl.viewport( 0 ,  0 , (int)winwidth , (int)winheight );
-		gl.clearColor( 1.0f , 0.0f , 0.0f , 1.0f );
+		gl.clearColor( 1.0f , 1.0f , 1.0f , 1.0f );
 		gl.clear( COLOR_BUFFER_BIT );
 		
-		gl.disable( DEPTH_TEST );
+		gl.colorMask( true , true , true , false );
+		
 		gl.enable( BLEND );
 		gl.blendFunc( SRC_ALPHA , ONE_MINUS_SRC_ALPHA );
+		
+		gl.disable( DEPTH_TEST );
 		
 		progNoTex = new WebShader( gl ,  GLRenderer.vertexShaderCode , GLRenderer.fragmentNoTexShaderCode );
 		progTex = new WebShader( gl , GLRenderer.vertexShaderCode , GLRenderer.fragmentShaderCode );
@@ -60,7 +71,7 @@ public class WebRenderContext extends RenderContext {
 	}
 	@Override
 	public void render() {
-		//gl.clear( COLOR_BUFFER_BIT );
+		
 	}
 
 	@Override
@@ -214,7 +225,6 @@ public class WebRenderContext extends RenderContext {
 		gl.disableVertexAttribArray( texHandle );
 		gl.disableVertexAttribArray( colorHandle );
 		gl.disableVertexAttribArray( vertHandle );
-		
 	}
 
 	@Override

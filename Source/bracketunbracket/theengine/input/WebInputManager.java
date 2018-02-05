@@ -15,17 +15,15 @@ import bracketunbracket.theengine.renderer.GameWindow;
  */
 public class WebInputManager {
 	private static HTMLDocument document = Window.current().getDocument();
-	private EventManager manager;
+	private final EventManager manager;
 	private GameWindow gameWindow;
 	
 	private boolean[] states = new boolean[ 4 ];
 	
-	public WebInputManager( EventManager manager , GameWindow window ) {
-		this.manager = manager;
+	public WebInputManager( EventManager eventManager , GameWindow window ) {
+		this.manager = eventManager;
 		this.gameWindow = window;
-	}
-	
-	public void update() {
+		
 		document.getElementById( "game" ).addEventListener( "mousedown" , new EventListener<MouseEvent>() {
 			@Override
 			public void handleEvent(MouseEvent event) {
@@ -100,5 +98,9 @@ public class WebInputManager {
 				manager.sendEvent( new WindowEvent( WindowEvent.WINDOW_FOCUSED ) );
 			}
 		} );
+	}
+	
+	public void update() {
+		
 	}
 }

@@ -39,6 +39,7 @@ public class WebTexture implements Texture , EventListener<Event> {
 	public void handleEvent( Event evt ) {
 		// Load the texture
 		gl.bindTexture( TEXTURE_2D , texture );
+		//gl.pixelStorei( UNPACK_PREMULTIPLY_ALPHA_WEBGL , 1 );
 		gl.texImage2D( TEXTURE_2D , 0 , RGBA , RGBA , UNSIGNED_BYTE , image );
 		
 		gl.texParameterf( TEXTURE_2D , TEXTURE_WRAP_S , CLAMP_TO_EDGE );
