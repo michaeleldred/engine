@@ -80,6 +80,8 @@ public class LWJGLAudioContext extends AudioContext {
 		alSourcePlay( source );
 	}
 	
+	// TODO:
+	/*
 	public void play( ScriptedSound sound ) {
 		int source = sources[ c++ % sources.length ];
 		LWJGLSound s = (LWJGLSound)get( sound.sound );
@@ -92,7 +94,7 @@ public class LWJGLAudioContext extends AudioContext {
 			alSourcef( source , AL_GAIN , 0.0f );
 		
 		alSourcePlay( source );
-	}
+	}*/
 	
 	
 	@Override

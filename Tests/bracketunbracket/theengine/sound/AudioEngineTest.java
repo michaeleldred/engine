@@ -14,7 +14,7 @@ public class AudioEngineTest {
 	@Test
 	public void CreateEngineWithContext() {
 		MockAudioContext c = new MockAudioContext();
-		AudioEngine engine = new AudioEngine( c , null );
+		AudioEngine engine = new AudioEngine( c );
 		
 		assertEquals( c , engine.audioContext );
 	}
@@ -22,7 +22,7 @@ public class AudioEngineTest {
 	@Test
 	public void PlaySoundFromContext() {
 		MockAudioContext c = new MockAudioContext();
-		AudioEngine engine = new AudioEngine( c , null );
+		AudioEngine engine = new AudioEngine( c );
 		
 		engine.play( "test" );
 		

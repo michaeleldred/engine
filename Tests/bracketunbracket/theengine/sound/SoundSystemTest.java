@@ -26,11 +26,10 @@ public class SoundSystemTest {
 		e.swapEvents();
 		
 		MockAudioContext context = new MockAudioContext();
-		MockScriptRunner r = new MockScriptRunner();
 		
-		SoundSystem system = new SoundSystem( new AudioEngine( context , r ) );
+		SoundSystem system = new SoundSystem( new AudioEngine( context ) );
 		system.process( e );
 		
-		assertEquals( "act_splash" , r.lastScript );
+		assertEquals( "act_splash" , context.lastSound );
 	}
 }

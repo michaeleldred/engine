@@ -6,6 +6,6 @@ package bracketunbracket.theengine.sound;
 /**
  * @author Michael Eldred
  */
-public class AndroidSound implements Sound {
+public class AndroidSound extends Sound {
 	public int id = -1;
 }

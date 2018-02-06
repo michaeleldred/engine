@@ -6,7 +6,7 @@ package bracketunbracket.theengine.sound;
 /**
  * @author Michael Eldred
  */
-public class LWJGLSound implements Sound {
+public class LWJGLSound extends Sound {
 	public final int buffer;
 	
 	public LWJGLSound( int buffer ) {

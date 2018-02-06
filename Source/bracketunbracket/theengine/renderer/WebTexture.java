@@ -5,7 +5,6 @@ import org.teavm.jso.dom.events.Event;
 import org.teavm.jso.dom.events.EventListener;
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLImageElement;
-import org.teavm.jso.typedarrays.ArrayBuffer;
 import org.teavm.jso.typedarrays.Uint8Array;
 import org.teavm.jso.webgl.WebGLRenderingContext;
 import org.teavm.jso.webgl.WebGLTexture;
@@ -22,7 +21,7 @@ public class WebTexture implements Texture , EventListener<Event> {
 	private static int id;
 	private int texID;
 	private HTMLImageElement image;
-	private HTMLDocument document; 
+	private static HTMLDocument document; 
 	
 	public WebTexture( WebGLRenderingContext gl , String filename ) {
 		this.gl = gl;

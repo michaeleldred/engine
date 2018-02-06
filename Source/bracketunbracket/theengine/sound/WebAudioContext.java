@@ -1,5 +1,7 @@
 package bracketunbracket.theengine.sound;
 
+import org.teavm.jso.dom.html.HTMLAudioElement;
+
 /**
  * @author Michael
  */
@@ -12,8 +14,12 @@ public class WebAudioContext extends AudioContext {
 	 */
 	@Override
 	public void play(String name) {
-		// TODO Auto-generated method stub
-
+		WebSound sound = (WebSound)sounds.get( name );
+		if( sound != null ) {
+			((HTMLAudioElement)sound.audioElement.cloneNode( true )).play();
+		} else {
+			System.out.println( "No Sound for: " + name );
+		}
 	}
 
 	/**
@@ -21,8 +27,9 @@ public class WebAudioContext extends AudioContext {
 	 */
 	@Override
 	public void playMusic(String name) {
-		// TODO Auto-generated method stub
-
+		WebMusic music = (WebMusic)tracks.get( name );
+		music.audioElement.setLoop( true );
+		music.audioElement.play();
 	}
 
 	/**
@@ -39,8 +46,7 @@ public class WebAudioContext extends AudioContext {
 	 */
 	@Override
 	public Sound newSound(String filename) {
-		// TODO Auto-generated method stub
-		return null;
+		return new WebSound( filename );
 	}
 
 	/**
@@ -48,8 +54,7 @@ public class WebAudioContext extends AudioContext {
 	 */
 	@Override
 	public Music newMusicTrack(String filename) {
-		// TODO Auto-generated method stub
-		return null;
+		return new WebMusic( filename );
 	}
 
 	/**

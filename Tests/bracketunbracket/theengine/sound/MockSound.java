@@ -1,5 +1,5 @@
 package bracketunbracket.theengine.sound;
 
-public class MockSound implements Sound {
+public class MockSound extends Sound {
 
 }

@@ -11,10 +11,6 @@ import org.teavm.jso.webgl.WebGLUniformLocation;
 
 import static org.teavm.jso.webgl.WebGLRenderingContext.*;
 
-import org.json.JSONObject;
-import org.teavm.jso.JSObject;
-import org.teavm.jso.JSProperty;
-
 import bracketunbracket.theengine.math.Vector2;
 
 /**
@@ -76,6 +72,11 @@ public class WebRenderContext extends RenderContext {
 
 	@Override
 	public void execute( RenderCommand command ) {
+		
+		// Don't render an empty batch
+		if( command.getObjects().size() <= 0 ) {
+			return;
+		}
 		
 		float w,h;
 		

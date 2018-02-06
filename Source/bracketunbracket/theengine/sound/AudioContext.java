@@ -9,9 +9,6 @@ public abstract class AudioContext {
 	protected final Map< String , Music > tracks = new HashMap< String , Music >();
 	
 	public abstract void play( String name );
-	public void play( ScriptedSound sound ) {
-		play( sound.sound );
-	}
 	public abstract void playMusic( String name );
 	public abstract void setPause( boolean pause );
 	public abstract Sound newSound( String filename );

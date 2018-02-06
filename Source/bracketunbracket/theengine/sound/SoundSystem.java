@@ -39,7 +39,7 @@ public class SoundSystem extends GameSystem {
 			if( evt instanceof GameEvent ) {
 				String name = ((GameEvent)evt).name;
 				if( c.responses.containsKey( name ) ) {
-					engine.doScript( c.responses.get( name ) );
+					engine.play( c.responses.get( name ) );
 				}
 			}
 		}
