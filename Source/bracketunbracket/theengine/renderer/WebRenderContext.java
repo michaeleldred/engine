@@ -101,7 +101,7 @@ public class WebRenderContext extends RenderContext {
 			
 			Image image = current.image;
 			
-			float rotation = 0;// = (float)Math.toRadians( current.rotation );
+			float rotation = (float)Math.toRadians( current.rotation );
 			
 			// Get the width and height of the new object
 			if( image != null ) {
