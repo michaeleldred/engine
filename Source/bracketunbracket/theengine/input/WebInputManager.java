@@ -24,6 +24,20 @@ public class WebInputManager {
 		this.manager = eventManager;
 		this.gameWindow = window;
 		
+		Window.current().addEventListener( "blur" , new EventListener<Event>() {
+			@Override
+			public void handleEvent( Event event ) {
+				manager.sendEvent( new WindowEvent( WindowEvent.WINDOW_UNFOCUSED ) );
+			}
+		});
+		
+		Window.current().addEventListener( "focus" , new EventListener<Event>() {
+			@Override
+			public void handleEvent( Event event ) {
+				manager.sendEvent( new WindowEvent( WindowEvent.WINDOW_FOCUSED ) );
+			}
+		});
+		
 		document.getElementById( "game" ).addEventListener( "mousedown" , new EventListener<MouseEvent>() {
 			@Override
 			public void handleEvent(MouseEvent event) {

@@ -88,7 +88,6 @@ public class ShaderParser extends ResourceParser {
 				Shader s = renderer.context.newShader( vertText , fragText );
 				s.load();
 				
-				System.out.println( "Loaded: " + values.get( "name" ) );
 				renderer.shaders.put( values.get( "name" ) , s );
 				finished();
 			}

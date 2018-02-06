@@ -5,6 +5,8 @@ import org.teavm.jso.dom.events.Event;
 import org.teavm.jso.dom.events.EventListener;
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLImageElement;
+import org.teavm.jso.typedarrays.ArrayBuffer;
+import org.teavm.jso.typedarrays.Uint8Array;
 import org.teavm.jso.webgl.WebGLRenderingContext;
 import org.teavm.jso.webgl.WebGLTexture;
 
@@ -33,13 +35,20 @@ public class WebTexture implements Texture , EventListener<Event> {
 		image.getStyle().setProperty( "display" , "none" );
 		image.setSrc( "Images/" + filename );
 		image.addEventListener( "load" , this );
+		
+		Uint8Array pixel = Uint8Array.create( 4 );
+		pixel.set( 0 , (short)255 );
+		pixel.set( 1 , (short)0 );
+		pixel.set( 2 , (short)255 );
+		pixel.set( 3 , (short)255 );
+		gl.bindTexture( TEXTURE_2D , texture );
+		gl.texImage2D( TEXTURE_2D , 0 , RGBA , 1 , 1 , 0 , RGBA , UNSIGNED_BYTE , pixel );
 	}
 	
 	@Override
 	public void handleEvent( Event evt ) {
 		// Load the texture
 		gl.bindTexture( TEXTURE_2D , texture );
-		//gl.pixelStorei( UNPACK_PREMULTIPLY_ALPHA_WEBGL , 1 );
 		gl.texImage2D( TEXTURE_2D , 0 , RGBA , RGBA , UNSIGNED_BYTE , image );
 		
 		gl.texParameterf( TEXTURE_2D , TEXTURE_WRAP_S , CLAMP_TO_EDGE );

@@ -26,15 +26,15 @@ public class DynamicTileMap extends StaticTileMap {
 			for( int i = width; i < tiles.length; i++ ) {
 				tiles[ i ] = new Tile[ height ];
 			}
-			this.width = tiles.length;
 		} else if( x < 0 ) {
 			Tile[][] newArray = new Tile[ width - x ][ height ];
 			System.arraycopy( tiles , 0 , newArray , -x , tiles.length );
 			
 			x = 0;
 			this.tiles = newArray;
-			this.width = tiles.length;
 		}
+		
+		this.width = tiles.length;
 		
 		
 		if( y >= height ) {
@@ -46,7 +46,12 @@ public class DynamicTileMap extends StaticTileMap {
 		} else if( y < 0 ) {
 			for( int i = 0; i < tiles.length; i++ ) {
 				Tile[] newArray = new Tile[ height - y ];
-				System.arraycopy( tiles[ i ] , 0 , newArray , -y , tiles[ i ].length );
+				try {
+					System.arraycopy( tiles[ i ] , 0 , newArray , -y , tiles[ i ].length );
+				} catch( Exception exc ) {
+					// This catch seems to fix something on the web build, so
+					// I'm leaving it in here
+				}
 				tiles[ i ] = newArray;
 			}
 			
