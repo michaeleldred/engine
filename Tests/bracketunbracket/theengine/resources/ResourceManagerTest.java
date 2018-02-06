@@ -13,7 +13,7 @@ public class ResourceManagerTest {
 	@Test
 	public void AddingResourceIncrementsUnloadedAmount() {
 		ResourceManager manager = new ResourceManager();
-		manager.add( new Resource( null ) {} );
+		manager.add( new Resource( null , manager ) {} );
 		
 		assertEquals( 1 , manager.getUnloaded() );
 	}
@@ -21,7 +21,7 @@ public class ResourceManagerTest {
 	@Test
 	public void WhenLoadedAddToLoaded() {
 		ResourceManager manager = new ResourceManager();
-		MockResource resource = new MockResource( null );
+		MockResource resource = new MockResource( null , manager );
 		manager.add( resource );
 		
 		resource.finished();
@@ -33,8 +33,8 @@ public class ResourceManagerTest {
 
 class MockResource extends Resource {
 
-	public MockResource(HashMap<String, String> values) {
-		super(values);
+	public MockResource(HashMap<String, String> values, ResourceManager resourceManager ) {
+		super(values , resourceManager );
 	}
 	
 }

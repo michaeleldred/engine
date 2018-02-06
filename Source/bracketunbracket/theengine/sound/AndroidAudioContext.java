@@ -10,6 +10,7 @@ import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
+import bracketunbracket.theengine.event.EventListener;
 
 /**
  * @author Michael Eldred
@@ -39,13 +40,15 @@ public class AndroidAudioContext extends AudioContext {
 	}
 
 	@Override
-	public Sound newSound(String filename) {
+	public Sound newSound(String filename , EventListener listener ) {
 		AndroidSound ret = new AndroidSound();
+		ret.addEventListener( listener );
 		try {
 			AssetFileDescriptor fd = manager.openFd( "Sounds/" + filename );
 			Log.d( "SOUND", "FD=" + fd );
 			int id = pool.load( fd , 1 );
 			ret.id = id;
+			ret.loaded();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,14 +56,15 @@ public class AndroidAudioContext extends AudioContext {
 	}
 
 	@Override
-	public Music newMusicTrack(String filename) {
+	public Music newMusicTrack(String filename,  EventListener listener ) {
 		AndroidMusic retVal = null;
-		
+		retVal.addEventListener( listener );
 		try {
 			AssetFileDescriptor fd = manager.openFd( "Sounds/" + filename );
 			Log.d( "SOUND", "FD=" + fd );
 			int id = pool.load( fd , 1 );
 			retVal = new AndroidMusic( id );
+			retVal.loaded();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -2,6 +2,8 @@ package bracketunbracket.theengine.sound;
 
 import org.teavm.jso.dom.html.HTMLAudioElement;
 
+import bracketunbracket.theengine.event.EventListener;
+
 /**
  * @author Michael
  */
@@ -45,16 +47,16 @@ public class WebAudioContext extends AudioContext {
 	 * @see bracketunbracket.theengine.sound.AudioContext#newSound(java.lang.String)
 	 */
 	@Override
-	public Sound newSound(String filename) {
-		return new WebSound( filename );
+	public Sound newSound(String filename , EventListener listener ) {
+		return new WebSound( filename , listener );
 	}
 
 	/**
 	 * @see bracketunbracket.theengine.sound.AudioContext#newMusicTrack(java.lang.String)
 	 */
 	@Override
-	public Music newMusicTrack(String filename) {
-		return new WebMusic( filename );
+	public Music newMusicTrack(String filename , EventListener listener ) {
+		return new WebMusic( filename , listener );
 	}
 
 	/**

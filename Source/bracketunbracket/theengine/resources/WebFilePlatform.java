@@ -11,12 +11,10 @@ public class WebFilePlatform implements FilePlatform {
 	public class WebTextData extends TextData implements ReadyStateChangeHandler {
 		
 		private XMLHttpRequest request;
+		private String filename;
 		
 		public WebTextData( String filename ) {
-			request = XMLHttpRequest.create();
-			request.open( "GET" , filename );
-			request.setOnReadyStateChange( this );
-			request.send();
+			this.filename = filename;
 		}
 
 		@Override
@@ -25,6 +23,14 @@ public class WebFilePlatform implements FilePlatform {
 				this.data = request.getResponseText();
 				finished();
 			}
+		}
+
+		@Override
+		public void load() {
+			request = XMLHttpRequest.create();
+			request.open( "GET" , filename );
+			request.setOnReadyStateChange( this );
+			request.send();
 		}
 	}
 	

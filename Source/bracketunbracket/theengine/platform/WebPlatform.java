@@ -2,6 +2,8 @@ package bracketunbracket.theengine.platform;
 
 import bracketunbracket.theengine.renderer.RenderContext;
 import bracketunbracket.theengine.renderer.WebRenderContext;
+import bracketunbracket.theengine.resources.FilePlatform;
+import bracketunbracket.theengine.resources.WebFilePlatform;
 import bracketunbracket.theengine.sound.AudioContext;
 import bracketunbracket.theengine.sound.WebAudioContext;
 
@@ -24,6 +26,11 @@ public class WebPlatform implements Platform {
 	@Override
 	public AudioContext getAudioContext() {
 		return new WebAudioContext();
+	}
+
+	@Override
+	public FilePlatform getFilePlatform() {
+		return new WebFilePlatform();
 	}
 	
 }

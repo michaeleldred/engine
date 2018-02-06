@@ -1,5 +1,7 @@
 package bracketunbracket.theengine.sound;
 
+import bracketunbracket.theengine.event.EventListener;
+
 public class MockAudioContext extends AudioContext {
 	public String lastSound = "";
 
@@ -9,12 +11,12 @@ public class MockAudioContext extends AudioContext {
 	}
 
 	@Override
-	public Sound newSound( String filename ) {
+	public Sound newSound( String filename , EventListener listener ) {
 		return null;
 	}
 
 	@Override
-	public Music newMusicTrack(String filename) {
+	public Music newMusicTrack(String filename , EventListener listener ) {
 		return null;
 	}
 

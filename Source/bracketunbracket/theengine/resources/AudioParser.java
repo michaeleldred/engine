@@ -16,10 +16,9 @@ public class AudioParser extends ResourceParser {
 	private final AudioContext audioContext;
 	
 	private class MusicResource extends Resource implements EventListener {
-		public MusicResource(HashMap<String, String> values) {
-			super( values );
-			Music music = audioContext.newMusicTrack( values.get( "filename" ) );
-			music.addEventListener( this );
+		public MusicResource(HashMap<String, String> values, ResourceManager resourceManager ) {
+			super( values , resourceManager );
+			Music music = audioContext.newMusicTrack( values.get( "filename" ) , this );
 			
 			audioContext.add( values.get( "name" ) , music );
 		}
@@ -32,10 +31,10 @@ public class AudioParser extends ResourceParser {
 	
 	private class SoundResource extends Resource implements EventListener {
 		
-		public SoundResource(HashMap<String, String> values) {
-			super(values);
+		public SoundResource(HashMap<String, String> values , ResourceManager resourceManager ) {
+			super( values , resourceManager );
 			
-			Sound sound = audioContext.newSound( values.get( "filename" ) );
+			Sound sound = audioContext.newSound( values.get( "filename" ) , this );
 			audioContext.add( values.get( "name" ) , sound );
 			
 			sound.addEventListener( this );
@@ -56,11 +55,10 @@ public class AudioParser extends ResourceParser {
 	@Override
 	public Resource load(HashMap<String, String> values) {
 		if( values.get( "type" ).equalsIgnoreCase( "music" ) ) {
-			return new MusicResource( values ); 
+			return new MusicResource( values , resourceManager ); 
 		} else if( values.get( "type" ).equalsIgnoreCase( "sound" ) ) {
-			return new SoundResource( values );
+			return new SoundResource( values , resourceManager );
 		}
-		System.out.println( "TEST" );
 		return null;
 	}
 

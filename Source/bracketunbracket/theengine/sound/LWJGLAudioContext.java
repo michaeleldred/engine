@@ -13,6 +13,7 @@ import org.lwjgl.openal.ALC;
 import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.stb.STBVorbisInfo;
 
+import bracketunbracket.theengine.event.EventListener;
 import bracketunbracket.theengine.resources.FileLoader;
 
 import static org.lwjgl.openal.AL10.*;
@@ -111,7 +112,7 @@ public class LWJGLAudioContext extends AudioContext {
 	}
 
 	@Override
-	public Sound newSound( String filename ) {
+	public Sound newSound( String filename , EventListener listener ) {
 		int b = alGenBuffers();
 		
 		STBVorbisInfo info = STBVorbisInfo.malloc();
@@ -121,11 +122,13 @@ public class LWJGLAudioContext extends AudioContext {
 		alBufferData( b , format , pcm , info.sample_rate() );
 		
 		LWJGLSound s = new LWJGLSound( b );
+		s.addEventListener( listener );
+		s.loaded();
 		return s; 
 	}
 	
 	@Override
-	public Music newMusicTrack( String filename ) {
+	public Music newMusicTrack( String filename , EventListener listener ) {
 		int b = alGenBuffers();
 		
 		STBVorbisInfo info = STBVorbisInfo.malloc();
@@ -135,6 +138,8 @@ public class LWJGLAudioContext extends AudioContext {
 		alBufferData( b , format , pcm , info.sample_rate() );
 		
 		LWJGLMusic s = new LWJGLMusic( b );
+		s.addEventListener( listener );
+		s.loaded();
 		return s; 
 	}
 	

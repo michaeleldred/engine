@@ -13,8 +13,9 @@ public abstract class Resource {
 	
 	private ResourceManager resourceManager;
 	
-	public Resource( HashMap< String , String > values ) {
+	public Resource( HashMap< String , String > values , ResourceManager manager ) {
 		this.values = values;
+		this.resourceManager = manager;
 	}
 	
 	/**

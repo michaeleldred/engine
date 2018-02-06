@@ -18,6 +18,7 @@ public class FileSystem {
 	public static TextData loadData( String filename , EventListener listener ) {
 		TextData returnVal = filePlatform.getTextData( filename );
 		returnVal.addListener( listener );
+		returnVal.load();
 		return returnVal;
 	}
 }

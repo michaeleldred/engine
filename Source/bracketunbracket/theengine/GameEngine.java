@@ -4,6 +4,7 @@ import bracketunbracket.theengine.event.EventManager;
 import bracketunbracket.theengine.platform.Platform;
 import bracketunbracket.theengine.renderer.GameWindow;
 import bracketunbracket.theengine.renderer.Renderer;
+import bracketunbracket.theengine.resources.FileSystem;
 import bracketunbracket.theengine.sound.AudioEngine;
 
 /**
@@ -17,6 +18,8 @@ public class GameEngine {
 	public GameEngine( Platform platform ) throws Exception {
 		
 		this.platform = platform;
+		FileSystem.filePlatform = platform.getFilePlatform();
+		
 		// Set up audio
 		AudioEngine engine = new AudioEngine( platform.getAudioContext() );
 		eventManager.addListener( engine );

@@ -20,8 +20,8 @@ public class SpriteSheetParser extends ResourceParser {
 	
 	private class SpriteSheetResource extends Resource implements EventListener {
 
-		public SpriteSheetResource( HashMap<String, String> values ) {
-			super(values);
+		public SpriteSheetResource( HashMap<String, String> values , ResourceManager manager ) {
+			super( values , manager );
 			
 			String spritesheetName = values.get( "filename" );
 			
@@ -74,6 +74,6 @@ public class SpriteSheetParser extends ResourceParser {
 	}
 	
 	public Resource load( HashMap< String , String > values ) {	
-		return new SpriteSheetResource( values );
+		return new SpriteSheetResource( values , resourceManager );
 	}
 }

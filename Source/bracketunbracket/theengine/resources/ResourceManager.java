@@ -37,7 +37,7 @@ public class ResourceManager implements EventListener {
 	 * @param parser The object that parses
 	 */
 	public void addParser( ResourceParser parser ) {
-		
+		parser.resourceManager = this;
 		// Register the parser for each of the types
 		for( String type : parser.types ) {
 			resParsers.put( type , parser );
@@ -91,7 +91,9 @@ public class ResourceManager implements EventListener {
 	
 	public void add( Resource resource ) {
 		resource.setManager( this );
-		unloaded.add( resource );
+		if( !loaded.contains( resource ) ) {
+			unloaded.add( resource );
+		}
 	}
 	
 	public int getLoaded() {

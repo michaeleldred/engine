@@ -39,7 +39,7 @@ public class FileLoader {
 		public LocalStorage getLocalStorage();
 	}
 	
-	private static ByteLoader loader = null;
+	public static ByteLoader loader = null;
 	
 	public static void setByteLoader( ByteLoader l ) {
 		loader = l;

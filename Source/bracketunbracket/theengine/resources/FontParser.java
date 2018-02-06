@@ -25,8 +25,8 @@ public class FontParser extends ResourceParser {
 		private String fontData;
 		private Texture fontTexture;
 		
-		public FontResource( HashMap<String, String> values ) {
-			super(values);
+		public FontResource( HashMap<String, String> values , ResourceManager manager ) {
+			super(values , resourceManager );
 			FileSystem.loadData( "Fonts/" + values.get( "filename" ) , this );
 		}
 
@@ -97,7 +97,7 @@ public class FontParser extends ResourceParser {
 	
 	@Override
 	public Resource load(HashMap<String, String> values) {
-		return new FontResource( values );
+		return new FontResource( values , resourceManager );
 	}
 
 }

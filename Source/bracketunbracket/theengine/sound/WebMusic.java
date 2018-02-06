@@ -12,7 +12,8 @@ import org.teavm.jso.dom.html.HTMLDocument;
 public class WebMusic extends Music implements EventListener<Event> {
 	public final HTMLAudioElement audioElement;
 	private static HTMLDocument document; 
-	public WebMusic( String filename ) {
+	public WebMusic( String filename , bracketunbracket.theengine.event.EventListener listener ) {
+		addEventListener( listener );
 		
 		document = Window.current().getDocument();
 		

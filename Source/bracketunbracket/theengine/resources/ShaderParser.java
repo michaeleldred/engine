@@ -22,9 +22,10 @@ public class ShaderParser extends ResourceParser {
 		private List<EventListener> listeners = new ArrayList<EventListener>();
 		
 		public String data;
+		public TextData textData;
 		
-		public ShaderPartResource( HashMap<String, String> values ) {
-			super(values);
+		public ShaderPartResource( HashMap<String, String> values , ResourceManager resourceManager ) {
+			super(values , resourceManager );
 			FileSystem.loadData( "Shaders/" + values.get( "filename" ) , this );
 		}
 
@@ -37,8 +38,8 @@ public class ShaderParser extends ResourceParser {
 			} else {
 				return;
 			}
-			
-			this.data = ((TextData)data).getData();
+			this.textData = ((TextData)data);
+			this.data = textData.getData();
 			
 			// Create a shader
 			for( EventListener listener : listeners ) {
@@ -57,20 +58,23 @@ public class ShaderParser extends ResourceParser {
 		private String vertText;
 		private String fragText;
 		
-		public FinishedShaderResource(HashMap<String, String> values , ShaderPartResource vert , ShaderPartResource frag ) {
-			super(values);
+		public FinishedShaderResource(HashMap<String, String> values , ShaderPartResource vert , ShaderPartResource frag , ResourceManager resourceManager  ) {
+			super(values , resourceManager);
 			
 			// If the resources have already been loaded, just use the cached
 			// data. Otherwise. Wait for the load event.
 			if( vert.isLoaded )
-				this.vertText = vert.data;
+				receive( new ShaderHandledEvent( "vert" , vert.textData ) );
 			else
 				vert.addEventListener( this );
 			
 			if( frag.isLoaded )
-				this.fragText = frag.data;
+				receive( new ShaderHandledEvent( "frag" , frag.textData ) );
 			else
 				frag.addEventListener( this );
+			
+			if( vert.isLoaded && frag.isLoaded ) {
+			}
 		}
 
 		@Override
@@ -105,10 +109,10 @@ public class ShaderParser extends ResourceParser {
 		if( values.get( "type" ).equalsIgnoreCase( "shader" ) ) {
 			ShaderPartResource vert = shaders.get( values.get( "vert" ) );
 			ShaderPartResource frag = shaders.get( values.get( "frag" ) );
-			return new FinishedShaderResource( values , vert , frag );
+			return new FinishedShaderResource( values , vert , frag , resourceManager  );
 		}
 			
-		ShaderPartResource returnVal = new ShaderPartResource( values );
+		ShaderPartResource returnVal = new ShaderPartResource( values , resourceManager );
 		shaders.put( values.get( "name" ), returnVal );
 		return returnVal;
 			

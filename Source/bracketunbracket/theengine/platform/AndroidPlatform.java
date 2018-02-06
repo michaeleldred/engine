@@ -3,6 +3,7 @@ package bracketunbracket.theengine.platform;
 import android.app.Activity;
 import bracketunbracket.theengine.renderer.AndroidRenderContext;
 import bracketunbracket.theengine.renderer.RenderContext;
+import bracketunbracket.theengine.resources.FilePlatform;
 import bracketunbracket.theengine.sound.AndroidAudioContext;
 import bracketunbracket.theengine.sound.AudioContext;
 
@@ -33,6 +34,11 @@ public class AndroidPlatform implements Platform {
 	@Override
 	public AudioContext getAudioContext() {
 		return audioContext;
+	}
+
+	@Override
+	public FilePlatform getFilePlatform() {
+		return null;
 	}
 
 }

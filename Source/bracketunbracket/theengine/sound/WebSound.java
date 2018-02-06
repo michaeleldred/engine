@@ -14,7 +14,8 @@ public class WebSound extends Sound implements EventListener<Event> {
 	
 	public final HTMLAudioElement audioElement;
 	private static HTMLDocument document; 
-	public WebSound( String filename ) {
+	public WebSound( String filename , bracketunbracket.theengine.event.EventListener listener ) {
+		addEventListener( listener );
 		
 		document = Window.current().getDocument();
 		

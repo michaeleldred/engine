@@ -3,6 +3,8 @@ package bracketunbracket.theengine.sound;
 import java.util.HashMap;
 import java.util.Map;
 
+import bracketunbracket.theengine.event.EventListener;
+
 public abstract class AudioContext {
 	
 	protected final Map< String , Sound > sounds = new HashMap< String , Sound >();
@@ -11,8 +13,8 @@ public abstract class AudioContext {
 	public abstract void play( String name );
 	public abstract void playMusic( String name );
 	public abstract void setPause( boolean pause );
-	public abstract Sound newSound( String filename );
-	public abstract Music newMusicTrack( String filename );
+	public abstract Sound newSound( String filename , EventListener listener );
+	public abstract Music newMusicTrack( String filename , EventListener listener );
 	public abstract void mute();
 	public abstract void unmute();
 	public abstract boolean isMute();

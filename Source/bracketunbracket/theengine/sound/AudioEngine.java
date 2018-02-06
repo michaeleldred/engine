@@ -6,6 +6,7 @@ import java.util.Map;
 import bracketunbracket.theengine.event.Event;
 import bracketunbracket.theengine.event.EventListener;
 import bracketunbracket.theengine.input.WindowEvent;
+import bracketunbracket.theengine.resources.FileLoader;
 
 public class AudioEngine implements EventListener {
 
@@ -25,6 +26,7 @@ public class AudioEngine implements EventListener {
 	}
 	
 	public void setMute( boolean mute ) {
+		FileLoader.getLocalStorage().put( "mute" , Boolean.toString( mute ) );
 		if( mute ) {
 			audioContext.mute();
 		} else {
