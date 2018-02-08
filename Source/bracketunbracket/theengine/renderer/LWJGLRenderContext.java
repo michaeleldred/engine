@@ -19,6 +19,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 
+import bracketunbracket.theengine.event.EventListener;
 import bracketunbracket.theengine.math.Vector2;
 
 /**
@@ -282,12 +283,13 @@ public class LWJGLRenderContext extends RenderContext {
 	}
 
 	@Override
-	public Texture create( String filename ) {
+	public Texture create( String filename , EventListener listener ) {
 		if( textures.containsKey( filename ) ) {
 			return textures.get( filename );
 		}
 		
 		LWJGLTexture t = new LWJGLTexture( filename );
+		t.addEventListener( listener );
 		t.load();
 		textures.put( filename , t );
 		

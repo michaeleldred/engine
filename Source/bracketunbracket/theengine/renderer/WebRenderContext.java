@@ -11,6 +11,7 @@ import org.teavm.jso.webgl.WebGLUniformLocation;
 
 import static org.teavm.jso.webgl.WebGLRenderingContext.*;
 
+import bracketunbracket.theengine.event.EventListener;
 import bracketunbracket.theengine.math.Vector2;
 
 /**
@@ -229,8 +230,10 @@ public class WebRenderContext extends RenderContext {
 	}
 
 	@Override
-	public Texture create( String filename ) {
-		return new WebTexture( gl , filename );
+	public Texture create( String filename , EventListener listener ) {
+		WebTexture t = new WebTexture( gl , filename );
+		t.addEventListener( listener );
+		return t;
 	}
 
 	@Override

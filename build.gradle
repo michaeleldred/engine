@@ -30,7 +30,6 @@ dependencies {
 	compileOnly name: "android"
 	compileOnly files( "Lib/admob.jar" )
 	compile files( "Lib/json-20160212.jar" )
-	compile files( "Lib/luaj-jse-3.0.1.jar" )
 	compile files( "Lib/lwjgl.jar" )
 	compile 'org.teavm:teavm-core:0.6.0-dev-451'
     compile 'org.teavm:teavm-classlib:0.6.0-dev-451'

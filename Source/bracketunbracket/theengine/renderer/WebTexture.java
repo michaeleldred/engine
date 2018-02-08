@@ -14,7 +14,7 @@ import static org.teavm.jso.webgl.WebGLRenderingContext.*;
 /**
  * @author Michael
  */
-public class WebTexture implements Texture , EventListener<Event> {
+public class WebTexture extends Texture implements EventListener<Event> {
 
 	private WebGLRenderingContext gl;
 	public WebGLTexture texture;
@@ -39,7 +39,7 @@ public class WebTexture implements Texture , EventListener<Event> {
 		pixel.set( 0 , (short)255 );
 		pixel.set( 1 , (short)0 );
 		pixel.set( 2 , (short)255 );
-		pixel.set( 3 , (short)255 );
+		pixel.set( 3 , (short)0 );
 		gl.bindTexture( TEXTURE_2D , texture );
 		gl.texImage2D( TEXTURE_2D , 0 , RGBA , 1 , 1 , 0 , RGBA , UNSIGNED_BYTE , pixel );
 	}
@@ -55,6 +55,7 @@ public class WebTexture implements Texture , EventListener<Event> {
 		
 		gl.texParameteri( TEXTURE_2D , TEXTURE_MAG_FILTER , LINEAR );
 		gl.texParameteri( TEXTURE_2D , TEXTURE_MIN_FILTER , LINEAR );
+		loaded();
 	}
 	
 	@Override

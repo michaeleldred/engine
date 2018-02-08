@@ -6,6 +6,7 @@ package bracketunbracket.theengine.entity.systems;
 import java.util.ArrayList;
 import java.util.List;
 
+import bracketunbracket.theengine.event.EventListener;
 import bracketunbracket.theengine.math.Vector2;
 import bracketunbracket.theengine.renderer.GameWindow;
 import bracketunbracket.theengine.renderer.Image;
@@ -28,7 +29,7 @@ public class MockRenderContext extends RenderContext {
 		
 	}
 	@Override
-	public Texture create(String filename) {
+	public Texture create(String filename , EventListener listener ) {
 		return null;
 	}
 

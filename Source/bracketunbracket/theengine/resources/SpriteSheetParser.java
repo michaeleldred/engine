@@ -35,6 +35,7 @@ public class SpriteSheetParser extends ResourceParser {
 			if( event instanceof DataHandledEvent ) {
 				data = ((DataHandledEvent)event).data;
 			} else {
+				finished();
 				return;
 			}
 			
@@ -43,7 +44,7 @@ public class SpriteSheetParser extends ResourceParser {
 			// Go through the file and load the texture
 			String filename = root.getJSONObject( "meta" ).getString( "image" );
 			// TODO: Add listener to this.
-			Texture texture = context.create( filename );
+			Texture texture = context.create( filename , this );
 			
 			// Go through the images
 			float w = root.getJSONObject( "meta" ).getJSONObject( "size" ).getInt( "w" );
@@ -63,7 +64,7 @@ public class SpriteSheetParser extends ResourceParser {
 				context.addImage( currentImage.getString( "filename" ) , image);
 			}
 			
-			finished();
+			//finished();
 		}
 		
 	}

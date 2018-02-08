@@ -15,7 +15,7 @@ import bracketunbracket.theengine.resources.FileLoader;
 /**
  * @author Michael Eldred
  */
-public class LWJGLTexture implements Texture {
+public class LWJGLTexture extends Texture {
 	
 	public final float width;
 	public final float height;
@@ -65,6 +65,7 @@ public class LWJGLTexture implements Texture {
 		glDisable( GL_TEXTURE_2D );
 		
 		image = null;
+		loaded();
 	}
 
 	@Override

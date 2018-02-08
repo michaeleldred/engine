@@ -6,6 +6,7 @@ package bracketunbracket.theengine.renderer;
 import java.util.HashMap;
 import java.util.Map;
 
+import bracketunbracket.theengine.event.EventListener;
 import bracketunbracket.theengine.math.Vector2;
 
 /**
@@ -19,7 +20,7 @@ public abstract class RenderContext {
 	
 	public abstract void execute( RenderCommand command );
 	
-	public abstract Texture create( String filename );
+	public abstract Texture create( String filename , EventListener listener );
 	
 	public abstract void setOffset( Vector2 offset );
 	

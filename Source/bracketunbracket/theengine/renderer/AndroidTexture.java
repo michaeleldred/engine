@@ -16,7 +16,7 @@ import static android.opengl.GLES20.*;
 /**
  * @author Michael Eldred
  */
-public class AndroidTexture implements Texture {
+public class AndroidTexture extends Texture {
 	int texID;
 	
 	public static Activity context = null;
@@ -66,6 +66,7 @@ public class AndroidTexture implements Texture {
 		bmp = null;
 		
 		isLoaded = true;
+		loaded();
 	}
 	
 	public boolean isLoaded() {

@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
+import bracketunbracket.theengine.event.EventListener;
 import bracketunbracket.theengine.math.Vector2;
 
 import static android.opengl.GLES20.*;
@@ -83,13 +84,14 @@ public class AndroidRenderContext extends RenderContext {
 	}
 
 	@Override
-	public Texture create(String filename) {
+	public Texture create( String filename , EventListener listener ) {
 		synchronized( texLock ) {
 			if( textures.containsKey( filename ) ) {
 				return textures.get( filename );
 			}
 			
 			AndroidTexture t = new AndroidTexture( filename );
+			t.addEventListener( listener );
 			textures.put( filename , t );
 			return t;
 		}

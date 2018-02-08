@@ -37,6 +37,8 @@ public class FontParser extends ResourceParser {
 			if( event instanceof DataHandledEvent ) {
 				data = ((DataHandledEvent)event).data;
 			} else {
+				// Loaded the font texture
+				finished();
 				return;
 			}
 			
@@ -47,7 +49,7 @@ public class FontParser extends ResourceParser {
 			
 			
 			JSONObject root = new JSONObject( fontData );
-			fontTexture = renderContext.create( root.getString( "file" ) );
+			fontTexture = renderContext.create( root.getString( "file" ) , this );
 			
 			float width = (float)root.getDouble( "width" );
 			float height = (float)root.getDouble( "height" );
@@ -85,7 +87,7 @@ public class FontParser extends ResourceParser {
 			
 			Font.font = retVal;
 			
-			finished();
+			//finished();
 		}
 		
 	}
