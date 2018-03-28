@@ -39,7 +39,7 @@ public class LWJGLAudioContext extends AudioContext {
 	public LWJGLAudioContext() {
 		device = alcOpenDevice( (ByteBuffer)null );
 		if( device == NULL ) {
-			System.out.println( "VASD" );
+			System.err.println( "Error: could not open audio context" );
 		}
 		
 		ALCCapabilities deviceCaps = ALC.createCapabilities( device );
@@ -81,21 +81,20 @@ public class LWJGLAudioContext extends AudioContext {
 		alSourcePlay( source );
 	}
 	
-	// TODO:
-	/*
-	public void play( ScriptedSound sound ) {
+	@Override
+	public void play( SoundResponse sound ) {
 		int source = sources[ c++ % sources.length ];
-		LWJGLSound s = (LWJGLSound)get( sound.sound );
+		LWJGLSound s = (LWJGLSound)get( sound.getSound() );
 		alSourcei( source , AL_BUFFER , s.buffer );
 		alSourcei( source , AL_LOOPING,  AL_FALSE );
-		alSourcef( source , AL_PITCH , sound.pitch );
-		
+		float pitch = sound.getPitch();
+		alSourcef( source , AL_PITCH , pitch );
 		
 		if( isMute )
 			alSourcef( source , AL_GAIN , 0.0f );
 		
 		alSourcePlay( source );
-	}*/
+	}
 	
 	
 	@Override

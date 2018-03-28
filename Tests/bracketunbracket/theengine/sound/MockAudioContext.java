@@ -9,6 +9,11 @@ public class MockAudioContext extends AudioContext {
 	public void play(String name) {
 		this.lastSound = name;
 	}
+	
+	@Override
+	public void play(SoundResponse response) {
+		this.lastSound = response.getSound();
+	}
 
 	@Override
 	public Sound newSound( String filename , EventListener listener ) {

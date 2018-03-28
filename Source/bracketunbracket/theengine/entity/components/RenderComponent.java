@@ -20,6 +20,10 @@ public class RenderComponent extends Component {
 		this( new RenderObject( new Vector2() , color , width , height , layer ) );
 	}
 	
+	public RenderComponent( String texture  ) {
+		this( texture , 0 , 0 , 0 );
+	}
+	
 	public RenderComponent( String texture , float width , float height ) {
 		this( texture , width , height , 0 );
 	}

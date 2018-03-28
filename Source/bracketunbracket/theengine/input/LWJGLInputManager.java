@@ -38,6 +38,10 @@ public class LWJGLInputManager {
 	private Object lock = new Object();
 	
 	public LWJGLInputManager( long window , EventManager manager , GameWindow gameWin ) {
+		this( window , manager , gameWin , false );
+	}
+	
+	public LWJGLInputManager( long window , EventManager manager , GameWindow gameWin , boolean grab ) {
 		this.window = window;
 		xPos = BufferUtils.createDoubleBuffer( 1 );
 		yPos = BufferUtils.createDoubleBuffer( 1 );
@@ -75,6 +79,7 @@ public class LWJGLInputManager {
 		
 		// Get Mouse input
 		glfwGetCursorPos( window , xPos , yPos );
+		//System.out.println( xPos.get( 0 ) + " , " + yPos.get( 0 ) );
 		
 		double x = xPos.get( 0 ) - gameWin.getWidth() / 2.0f;
 		double y = yPos.get( 0 ) - gameWin.getHeight() / 2.0f;

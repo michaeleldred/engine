@@ -27,4 +27,9 @@ public class PositionComponent extends Component {
 	public PositionComponent( PositionComponent c ) {
 		this( c.position.x , c.position.y );
 	}
+	
+	@Override
+	public PositionComponent clone() {
+		return new PositionComponent( position.x , position.y );
+	}
 }

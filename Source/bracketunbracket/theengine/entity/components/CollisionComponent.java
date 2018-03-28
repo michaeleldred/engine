@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bracketunbracket.theengine.entity.Component;
+import bracketunbracket.theengine.math.Rectangle;
 
 /**
  * @author Michael Eldred
  */
 public class CollisionComponent extends Component {
-	public float height;
-	public float width;
-	
 	public String tag;
+	
+	public Rectangle rect = new Rectangle();
 	
 	/**
 	 * Each CollisionComponent will hold a list of the collisions that it was
@@ -25,7 +25,14 @@ public class CollisionComponent extends Component {
 	
 	public CollisionComponent( String tag , float width, float height ) {
 		this.tag = tag;
-		this.width = width;
-		this.height = height;
+		rect.setBounds( 0 , 0 , width , height );
+	}
+	
+	public float getHeight() {
+		return rect.h;
+	}
+	
+	public float getWidth() {
+		return rect.w;
 	}
 }

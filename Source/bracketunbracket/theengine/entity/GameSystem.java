@@ -55,4 +55,43 @@ public abstract class GameSystem {
 		
 		return sortedEntities;
 	}
+	
+	/**
+	 * Checks to see if a type of event has been passed to this system in the
+	 * last frame.
+	 * 
+	 * @param  eventType The type of event to check for
+	 * @return {@code true} if the system has received an event of the
+	 *         {@code eventType} class.
+	 */
+	public boolean containsClass( Class< ? extends Event> eventType ) {
+		for( Event evt : events ) {
+			
+			if( eventType.isInstance( evt ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks to see if a type of event has been passed to this system in the
+	 * last frame.
+	 * 
+	 * @param  eventType The type of event to check for
+	 * @return {@code true} if the system has received an event of the
+	 *         {@code eventType} class.
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends Event> List< T > getEventsByClass( Class< T > eventType ) {
+		List< T > retVal = new ArrayList< T >();
+		
+		for( Event evt : events ) {
+			
+			if( eventType.isInstance( evt ) ) {
+				retVal.add( (T)evt );
+			}
+		}
+		return retVal;
+	}
 }

@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import bracketunbracket.theengine.entity.components.CollisionComponent;
 import bracketunbracket.theengine.entity.components.PositionComponent;
-import bracketunbracket.theengine.entity.components.QuadTree;
 import bracketunbracket.theengine.math.Rectangle;
 
 public class QuadTreeTest {

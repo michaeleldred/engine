@@ -89,4 +89,16 @@ public class EntityTest {
 		
 		assertFalse( entity.getAllComponents().contains( c ) );
 	}
+	
+	@Test
+	public void CloneEntityNotEqual() {
+		Entity entity = new Entity();
+		MockComponent mc = new MockComponent();
+		entity.add( mc );
+		
+		Entity clone = entity.clone();
+		
+		assertNotEquals( entity , clone );
+		assertTrue( mc.cloned );
+	}
 }

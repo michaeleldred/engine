@@ -10,13 +10,14 @@ public class LWJGLFilePlatform implements FilePlatform {
 	
 	public class LWJGLTextData extends TextData {
 		private String filename;
+		private InputStream stream;
 		public LWJGLTextData( String filename ) {
 			this.filename = filename;
 		}
 
 		@Override
 		public void load() {
-			InputStream stream = null;
+			stream = null;
 			try {
 				stream = FileLoader.loadFilenameAsStream( filename );
 			} catch (Exception e) {
@@ -25,6 +26,7 @@ public class LWJGLFilePlatform implements FilePlatform {
 			}
 			
 			try {
+				@SuppressWarnings("resource")
 				Scanner s = new Scanner(stream).useDelimiter("\\A");
 				this.data = s.hasNext() ? s.next() : "";
 				s.close();

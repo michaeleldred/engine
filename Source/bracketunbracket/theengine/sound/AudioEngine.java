@@ -21,6 +21,10 @@ public class AudioEngine implements EventListener {
 		audioContext.play( sound_effect );
 	}
 	
+	public void play( SoundResponse response ) {
+		audioContext.play( response );
+	}
+	
 	public void playMusic( String soundtrack ) {
 		audioContext.playMusic( soundtrack );
 	}

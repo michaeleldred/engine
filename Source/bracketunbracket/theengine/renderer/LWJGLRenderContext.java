@@ -12,9 +12,11 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
@@ -56,6 +58,7 @@ public class LWJGLRenderContext extends RenderContext {
 		
 		window = glfwCreateWindow( (int)winwidth , (int)winheight , "TEST" , NULL , NULL );
 		
+		
 		if( window == NULL ) {
 			throw new RuntimeException( "window == NULL" );
 		}
@@ -92,7 +95,12 @@ public class LWJGLRenderContext extends RenderContext {
 	@Override
 	public void setGameWindow( GameWindow gameWin ) {
 		this.gameWindow = gameWin;
-		gameWin.resize( winwidth , winheight );
+		// glfwCreateWindow doesn't take into account the title bar in it's
+		// calculations, so get the actual buffer size and resize the window
+		IntBuffer w = BufferUtils.createIntBuffer( 1 );
+		IntBuffer h = BufferUtils.createIntBuffer( 1 ); 
+		glfwGetWindowSize( window , w , h );
+		gameWindow.resize( w.get( 0 ) , h.get( 0 ) );
 		
 		Vector2 dim = gameWindow.getScaledDimensions();
 		
@@ -146,8 +154,8 @@ public class LWJGLRenderContext extends RenderContext {
 				w = image.w / 2.0f * current.getScale();
 				h = image.h / 2.0f * current.getScale();
 			} else {
-				w = current.getWidth() / 2.0f;
-				h = current.getHeight() / 2.0f;
+				w = current.getWidth() / 2.0f * current.getScale();
+				h = current.getHeight() / 2.0f * current.getScale();
 			}
 			
 			vertData[ vert++ ] = pos.x - w; vertData[ vert++ ] = pos.y + h;

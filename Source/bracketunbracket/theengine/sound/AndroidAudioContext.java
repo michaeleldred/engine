@@ -58,12 +58,12 @@ public class AndroidAudioContext extends AudioContext {
 	@Override
 	public Music newMusicTrack(String filename,  EventListener listener ) {
 		AndroidMusic retVal = null;
-		retVal.addEventListener( listener );
 		try {
 			AssetFileDescriptor fd = manager.openFd( "Sounds/" + filename );
 			Log.d( "SOUND", "FD=" + fd );
 			int id = pool.load( fd , 1 );
 			retVal = new AndroidMusic( id );
+			retVal.addEventListener( listener );
 			retVal.loaded();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -112,6 +112,12 @@ public class AndroidAudioContext extends AudioContext {
 			pool.autoPause();
 		else
 			pool.autoResume();
+	}
+
+	@Override
+	public void play(SoundResponse name) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

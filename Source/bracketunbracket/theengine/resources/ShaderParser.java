@@ -21,7 +21,6 @@ public class ShaderParser extends ResourceParser {
 		
 		private List<EventListener> listeners = new ArrayList<EventListener>();
 		
-		public String data;
 		public TextData textData;
 		
 		public ShaderPartResource( HashMap<String, String> values , ResourceManager resourceManager ) {
@@ -39,7 +38,6 @@ public class ShaderParser extends ResourceParser {
 				return;
 			}
 			this.textData = ((TextData)data);
-			this.data = textData.getData();
 			
 			// Create a shader
 			for( EventListener listener : listeners ) {

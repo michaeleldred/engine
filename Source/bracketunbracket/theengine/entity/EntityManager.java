@@ -78,6 +78,7 @@ public class EntityManager implements EventListener {
 		
 		//System.out.println("Called: " + Entity.numCalls );
 		Entity.numCalls = 0;
+		//System.out.println( entities.size() );
 	}
 	
 	/**
@@ -89,12 +90,27 @@ public class EntityManager implements EventListener {
 		// entity to the list of entities
 		if( !updating ) {
 			this.entities.add( newEntity );
+			newEntity.setParent( this );
 		}
 		
 		// If the manager is updating systems, add the new entity to be added
 		// after the systems have updated. 
 		else {
 			this.addedEntities.add( newEntity );
+			newEntity.setParent( this );
+		}
+	}
+	
+	/**
+	 * Convenience method to add a list of entities. Just calls {@link
+	 * #add(Entity)} for each of the entities in the list.
+	 * 
+	 * @param entities The list of entities to add.
+	 */
+	public void addAll( List<Entity> entities ) {
+		// Just add all of the entities individually
+		for( int i = 0; i < entities.size(); i++ ) {
+			add( entities.get( i ) );
 		}
 	}
 	

@@ -1,5 +1,8 @@
 package bracketunbracket.theengine.sound;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.teavm.jso.dom.html.HTMLAudioElement;
 
 import bracketunbracket.theengine.event.EventListener;
@@ -11,6 +14,19 @@ public class WebAudioContext extends AudioContext {
 
 	private boolean isMute = false;
 	
+	private List<HTMLAudioElement> elements = new ArrayList<HTMLAudioElement>();
+	private org.teavm.jso.dom.events.EventListener<org.teavm.jso.dom.events.Event>
+		audioEnded = 
+		new org.teavm.jso.dom.events.EventListener<org.teavm.jso.dom.events.Event>() {
+
+		@Override
+		public void handleEvent(org.teavm.jso.dom.events.Event event) {
+			System.out.println( "TEST" );
+			elements.remove( event.getTarget().cast() );
+		}
+		
+	};
+	
 	/**
 	 * @see bracketunbracket.theengine.sound.AudioContext#play(java.lang.String)
 	 */
@@ -18,7 +34,35 @@ public class WebAudioContext extends AudioContext {
 	public void play(String name) {
 		WebSound sound = (WebSound)sounds.get( name );
 		if( sound != null ) {
-			((HTMLAudioElement)sound.audioElement.cloneNode( true )).play();
+			HTMLAudioElement audio = ((HTMLAudioElement)sound.audioElement.cloneNode( true ));
+			elements.add( audio );
+			audio.addEventListener( "ended" , audioEnded );
+			if( isMute ) {
+				audio.setVolume( 0.0f );
+			}
+			audio.play();
+		} else {
+			System.out.println( "No Sound for: " + name );
+		}
+	}
+	
+
+	@Override
+	public void play( SoundResponse response ) {
+		String name = response.getSound();
+		
+		WebSound sound = (WebSound)sounds.get( name );
+		
+		if( sound != null ) {
+			HTMLAudioElement audio = ((HTMLAudioElement)sound.audioElement.cloneNode( true ));
+			// Set properties
+			audio.setPlaybackRate( response.getPitch() );
+			elements.add( audio );
+			audio.addEventListener( "ended" , audioEnded );
+			if( isMute ) {
+				audio.setVolume( 0.0f );
+			}
+			audio.play();
 		} else {
 			System.out.println( "No Sound for: " + name );
 		}
@@ -31,6 +75,13 @@ public class WebAudioContext extends AudioContext {
 	public void playMusic(String name) {
 		WebMusic music = (WebMusic)tracks.get( name );
 		music.audioElement.setLoop( true );
+		elements.add( music.audioElement );
+		music.audioElement.addEventListener( "ended" , audioEnded );
+		
+		if( isMute ) {
+			music.audioElement.setVolume( 0.0f );
+		}
+		
 		music.audioElement.play();
 	}
 
@@ -65,6 +116,10 @@ public class WebAudioContext extends AudioContext {
 	@Override
 	public void mute() {
 		isMute = true;
+		for( HTMLAudioElement current : elements ) {
+			current.setVolume( 0.0f );
+		}
+		System.out.println( "MUTE" + elements.size() );
 	}
 
 	/**
@@ -73,6 +128,9 @@ public class WebAudioContext extends AudioContext {
 	@Override
 	public void unmute() {
 		isMute = false;
+		for( HTMLAudioElement current : elements ) {
+			current.setVolume( 1.0f );
+		}
 	}
 
 	/**
@@ -83,4 +141,5 @@ public class WebAudioContext extends AudioContext {
 		return isMute;
 	}
 
+	
 }

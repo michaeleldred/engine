@@ -4,6 +4,7 @@
 package bracketunbracket.theengine.entity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ public class Entity {
 	public List<Event> events = new ArrayList<Event>();
 	public List<Event> added = new ArrayList<Event>();
 	
+	public EntityManager entityManager;
+	
 	/**
 	 * Adds a new component to the entity
 	 * 
@@ -34,15 +37,6 @@ public class Entity {
 	public void add( Component comp ) {
 		
 		comp.parent = this;
-		/*
-		List<Component> c = components.get( comp.getClass() );
-		if( c == null ) {
-			c = new ArrayList<Component>();
-			c.add( comp );
-			components.put( comp.getClass() , c );
-		} else {
-			c.add( comp );
-		}*/
 		
 		Class<?> insertClass = comp.getClass();
 		while( insertClass != Object.class && insertClass != null ) {
@@ -137,5 +131,24 @@ public class Entity {
 		events = added;
 		added = temp;
 		added.clear();
+	}
+	
+	public void setParent( EntityManager manager ) {
+		this.entityManager = manager;
+	}
+	
+	@Override
+	public Entity clone() {
+		Entity retVal = new Entity();
+		
+		Collection<List<Component>> cloneList = components.values();
+		
+		for( List<Component> current : cloneList ) {
+			for( int j = 0; j < current.size(); j++ ) {
+				retVal.add( current.get( j ).clone() );
+			}
+		}
+		
+		return retVal;
 	}
 }

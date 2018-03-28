@@ -104,7 +104,7 @@ public class PointerSystem extends GameSystem {
 		PositionComponent p = e.getComponentByType( PositionComponent.class );
 		Selectable s = e.getComponentByType( Selectable.class );
 		
-		Rectangle bounds = new Rectangle( p.position.x - ( c.width  / 2 ) , p.position.y - ( c.height  / 2 ) , c.width , c.height );
+		Rectangle bounds = new Rectangle( p.position.x - ( c.getWidth()  / 2 ) , p.position.y - ( c.getHeight()  / 2 ) , c.getWidth() , c.getHeight() );
 		
 		// Match all of the entities with a pointer that has not been consumed
 		for( Iterator<PointerEvent> it = unused.iterator(); it.hasNext(); ) {

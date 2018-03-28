@@ -9,7 +9,6 @@ import bracketunbracket.theengine.entity.Entity;
 import bracketunbracket.theengine.entity.GameSystem;
 import bracketunbracket.theengine.entity.components.CollisionComponent;
 import bracketunbracket.theengine.entity.components.PositionComponent;
-import bracketunbracket.theengine.entity.components.QuadTree;
 
 /**
  * @author Michael Eldred
@@ -18,23 +17,16 @@ public class CollisionSystem extends GameSystem {
 
 	@Override
 	public void tick(List<Entity> entities) {
+		QuadTree qt = new QuadTree(-2000 , -2000 , 4000 , 4000 );
 		
-		QuadTree qt = new QuadTree(-500 , -500 , 1000 , 1000 );
+		List<Entity> sorted = sort( entities , CollisionComponent.class , PositionComponent.class );
 		
-		for( Entity current : entities ) {
+		for( Entity current : sorted ) {
 				
 			PositionComponent position = current.getComponentByType( PositionComponent.class );
-
-			if( position == null ) {
-				continue;
-			}
 			
 			// Add all of the position components
 			List<CollisionComponent> colliders = current.getAllComponentsByType( CollisionComponent.class );
-			
-			if( colliders == null ) {
-				continue;
-			}
 			
 			for( CollisionComponent collider : colliders ) {
 				collider.collisions.clear();

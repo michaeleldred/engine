@@ -46,18 +46,18 @@ public class QuadTree {
 	}
 	
 	public void add( CollisionComponent c , PositionComponent p ) {
+		float minX = p.position.x - c.getWidth() / 2.0f;
+		float maxX = p.position.x + c.getWidth() / 2.0f;
 		
-		float minX = p.position.x - c.width / 2.0f;
-		float maxX = p.position.x + c.width / 2.0f;
-		
-		float minY = p.position.y - c.height / 2.0f;
-		float maxY = p.position.y + c.height / 2.0f;
+		float minY = p.position.y - c.getHeight() / 2.0f;
+		float maxY = p.position.y + c.getHeight() / 2.0f;
 		
 		if( minX > dimensions.x + dimensions.w ||
 			maxX < dimensions.x ||
 			
 			minY > dimensions.y + dimensions.h ||
 			maxY < dimensions.y ) {
+
 			
 			return;
 		}
@@ -86,7 +86,6 @@ public class QuadTree {
 	}
 	
 	public void runCollisions() {
-		
 		// If the object has children, run the collisions for each child
 		if( hasChildren ) {
 			for( int i = 0; i < children.length; i++ ) {
@@ -95,32 +94,32 @@ public class QuadTree {
 			return;
 		}
 		
-		// System.out.println( "Checking " + objects.size() + " objects" );
+		//System.out.println( "Checking " + objects.size() + " objects" );
 		
 		for( int i = 0; i < objects.size(); i++ ) {
 			
 			PositionComponent p = objects.get( i ).p;
 			CollisionComponent c = objects.get( i ).c;
 			
-			float minX = p.position.x - c.width / 2.0f;
-			float maxX = p.position.x + c.width / 2.0f;
+			// Create an bounding box
 			
-			float minY = p.position.y - c.height / 2.0f;
-			float maxY = p.position.y + c.height / 2.0f;
+			
+			float minX = p.position.x - c.getWidth() / 2.0f;
+			
+			float minY = p.position.y - c.getHeight() / 2.0f;
+			Rectangle orig = new Rectangle( minX , minY , c.getWidth() , c.getHeight() );
 			
 			for( int j = i+1; j < objects.size(); j++ ) {
 				PositionComponent p2 = objects.get( j ).p;
 				CollisionComponent c2 = objects.get( j ).c;
 				
-				if( minX > p2.position.x + c2.width / 2.0f ||
-					maxX < p2.position.x - c2.width / 2.0f ||
-					
-					minY > p2.position.y + c2.height / 2.0f ||
-					maxY < p2.position.y - c2.height / 2.0f ) {
-					continue;
-				} else {
-					c2.collisions.add( new Collision( c ) );
-					c.collisions.add( new Collision( c2 ) );
+				Rectangle newRect = new Rectangle( p2.position.x - ( c2.getWidth() / 2.0f ) , p2.position.y - ( c2.getHeight() / 2.0f ) , c2.getWidth() , c2.getHeight() );
+				
+				Rectangle intersection = orig.intersection( newRect );
+				
+				if( Math.abs( intersection.w ) > 0.01f && Math.abs( intersection.h ) > 0.01f ) {
+					c2.collisions.add( new Collision( c , intersection ) );
+					c.collisions.add( new Collision( c2 , intersection ) );
 				}
 				
 			}

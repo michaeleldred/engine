@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import bracketunbracket.theengine.event.Event;
+
 public class GameSystemTest {
 	@Test
 	public void SortEntities() {
@@ -27,4 +29,33 @@ public class GameSystemTest {
 		assertTrue( sortedEntities.contains( e1 ) );
 		
 	}
+	
+	@Test
+	public void ContainsEvent() {
+		
+		class TestEvent extends Event {}
+		
+		MockGameSystem gameSystem = new MockGameSystem();
+		gameSystem.receive( new TestEvent() );
+		gameSystem.receive( new TestEvent() );
+		
+		assertTrue( gameSystem.containsClass( TestEvent.class ) );
+	}
+	
+	@Test
+	public void GetAllEventsByClass() {
+		
+		class TestEvent extends Event {}
+		
+		MockGameSystem gameSystem = new MockGameSystem();
+		gameSystem.receive( new TestEvent() );
+		gameSystem.receive( new TestEvent() );
+		gameSystem.receive( new Event() );
+		gameSystem.receive( new Event() );
+		
+		List<TestEvent> events = gameSystem.getEventsByClass( TestEvent.class ); 
+		
+		assertEquals( 2 , events.size() );
+	}
 }
+

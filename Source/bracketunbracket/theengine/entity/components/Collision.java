@@ -3,13 +3,17 @@
  */
 package bracketunbracket.theengine.entity.components;
 
+import bracketunbracket.theengine.math.Rectangle;
+
 /**
  * @author Michael Eldred
  */
 public class Collision {
-	public CollisionComponent other;
+	public final CollisionComponent other;
+	public final Rectangle intersection;
 	
-	public Collision( CollisionComponent other ) {
+	public Collision( CollisionComponent other , Rectangle intersection ) {
 		this.other = other;
+		this.intersection = intersection;
 	}
 }

@@ -16,8 +16,8 @@ public class LWJGLPlatform implements Platform {
 	private final LWJGLAudioContext audioContext;
 	private final FilePlatform platform;
 	
-	public LWJGLPlatform() throws Exception {
-		this.context = new LWJGLRenderContext( 1024 , 600 );
+	public LWJGLPlatform( float width , float height ) throws Exception {
+		this.context = new LWJGLRenderContext( width , height );
 		this.audioContext = new LWJGLAudioContext();
 		this.platform = new LWJGLFilePlatform();
 	}

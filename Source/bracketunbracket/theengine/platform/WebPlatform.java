@@ -14,8 +14,8 @@ public class WebPlatform implements Platform {
 	
 	private final WebRenderContext renderContext;
 
-	public WebPlatform() {
-		this.renderContext = new WebRenderContext( 800 , 600 );
+	public WebPlatform( float width , float height ) {
+		this.renderContext = new WebRenderContext( width , height );
 	}
 	
 	@Override

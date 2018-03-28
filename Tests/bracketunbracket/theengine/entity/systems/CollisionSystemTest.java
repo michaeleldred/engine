@@ -93,4 +93,16 @@ public class CollisionSystemTest {
 		
 		assertEquals( 2 , e1.getComponentByType( CollisionComponent.class ).collisions.size() );
 	}
+	
+	@Test
+	public void GetCollisionPoint() {
+		entities.add( e1 );
+		entities.add( e2 );
+		system.tick( entities );
+		
+		assertEquals( 1 , e1.getComponentByType( CollisionComponent.class ).collisions.size() );
+		assertEquals( 1 , e2.getComponentByType( CollisionComponent.class ).collisions.size() );
+		
+		entities.clear();
+	}
 }

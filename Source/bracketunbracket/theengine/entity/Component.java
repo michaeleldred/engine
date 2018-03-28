@@ -11,11 +11,21 @@ package bracketunbracket.theengine.entity;
  * 
  * @author Michael Eldred
  */
-public class Component {
+public class Component implements Cloneable {
 	
 	/**
 	 * The parent is the entity that this component belongs to. 
 	 */
 	public Entity parent = null;
+	
+	@Override
+	public Component clone() {
+		try {
+			return (Component)super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }
