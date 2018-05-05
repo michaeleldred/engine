@@ -56,12 +56,20 @@ public class Vector2 implements Cloneable {
 	
 	@Override
 	public boolean equals( Object other ) {
+		return equals( other , VECTOR_DIFF );
+	}
+	
+	public boolean equals( Object other , float tolerance ) {
 		if( other instanceof Vector2 ) {
 			Vector2 v = (Vector2)other;
-			return ( Math.abs( x - v.x ) < VECTOR_DIFF &&
-					 Math.abs( y - v.y ) < VECTOR_DIFF );
+			return ( Math.abs( x - v.x ) < tolerance &&
+					 Math.abs( y - v.y ) < tolerance );
 		}
 		return false;
+	}
+	
+	public Vector2 normalise() {
+		return new Vector2( x / dist() , y / dist() );
 	}
 	
 	@Override

@@ -31,6 +31,14 @@ public class GameSystemTest {
 	}
 	
 	@Test
+	public void SortEMptyList() {
+		GameSystem sys = new MockGameSystem();
+		sys.sort( new ArrayList<Entity>() , MockComponent.class );
+		
+		assertTrue( true );
+	}
+	
+	@Test
 	public void ContainsEvent() {
 		
 		class TestEvent extends Event {}
