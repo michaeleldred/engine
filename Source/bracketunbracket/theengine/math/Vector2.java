@@ -43,6 +43,12 @@ public class Vector2 implements Cloneable {
 		this.y = vec.y;
 	}
 	
+	public void set( float x , float y ) {
+		this.x = x;
+		this.y = y;
+		
+	}
+	
 	public float dist() {
 		return (float)Math.sqrt( this.x * this.x + this.y * this.y );
 	}

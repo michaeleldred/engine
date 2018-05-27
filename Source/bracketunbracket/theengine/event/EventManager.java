@@ -67,7 +67,6 @@ public class EventManager {
 	public void sendEvent( Event event ) {
 		
 		add = false;
-		
 		// Get the event type and give this event to listeners that ask for it.
 		List<EventListener> typeList = evListeners.get( event.getClass() );
 		

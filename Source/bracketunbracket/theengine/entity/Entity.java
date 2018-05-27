@@ -36,7 +36,7 @@ public class Entity {
 	@SuppressWarnings("unchecked")
 	public void add( Component comp ) {
 		
-		comp.parent = this;
+		comp.setParent( this );
 		
 		Class<?> insertClass = comp.getClass();
 		while( insertClass != Object.class && insertClass != null ) {

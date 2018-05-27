@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import bracketunbracket.theengine.event.Event;
+import bracketunbracket.theengine.event.GameEvent;
 
 public class GameSystemTest {
 	@Test
@@ -64,6 +65,18 @@ public class GameSystemTest {
 		List<TestEvent> events = gameSystem.getEventsByClass( TestEvent.class ); 
 		
 		assertEquals( 2 , events.size() );
+	}
+	
+	@Test
+	public void TestEventIsThere() {
+		
+		MockGameSystem gameSystem = new MockGameSystem();
+		gameSystem.events.add( new Event() );
+		
+		assertFalse( gameSystem.containsClass( GameEvent.class ) );
+		
+		gameSystem.events.add( new GameEvent( "test" ) );
+		assertTrue( gameSystem.containsClass( GameEvent.class ) );
 	}
 }
 

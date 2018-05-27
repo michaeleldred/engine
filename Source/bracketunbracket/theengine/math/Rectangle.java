@@ -31,6 +31,13 @@ public class Rectangle {
 		this.h = h;
 	}
 	
+	public Rectangle( Vector2 center , float w , float h ) {
+		this.x = center.x - w/2;
+		this.y = center.y - h/2;
+		this.w = w;
+		this.h = h;
+	}
+	
 	public void setLocation( float x , float y ) {
 		this.x = x;
 		this.y = y;

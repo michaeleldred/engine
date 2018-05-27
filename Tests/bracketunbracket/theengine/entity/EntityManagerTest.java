@@ -185,11 +185,69 @@ public class EntityManagerTest {
 		
 		assertTrue( mock.init );
 	}
+	
+	@Test
+	public void SystemsGetKilledOnRemoval() {
+		EntityManager manager = new EntityManager();
+		MockSystem mock = new MockSystem();
+		
+		manager.addSystem( mock );
+		manager.removeSystem( mock );
+		
+		assertTrue( mock.destroyed );
+	}
+	
+	@Test
+	public void AllSystemsGetDestroyedOnManagerDestroyed() {
+		EntityManager manager = new EntityManager();
+		MockSystem mock1 = new MockSystem();
+		MockSystem mock2 = new MockSystem();
+		
+		manager.addSystem( mock1 );
+		manager.addSystem( mock2 );
+		manager.destroy();
+		
+		assertTrue( mock1.destroyed );
+		assertTrue( mock2.destroyed );
+	}
+	
+	@Test
+	public void AllEntitiesGetEventOnUpdate() {
+		EntityManager manager = new EntityManager();
+		GameEvent gameEvent = new GameEvent( "TEST" );
+		
+		Entity entity = new Entity();
+		manager.add( entity );
+		
+		manager.receive( gameEvent );
+		
+		manager.update();
+		
+		assertTrue( entity.events.contains( gameEvent ) );
+	}
+	
+	@Test
+	public void AllEntitiesGetAdded() {
+		EntityManager manager = new EntityManager();
+		
+		Entity e1 = new Entity();
+		Entity e2 = new Entity();
+		
+		List<Entity> entities = new ArrayList<Entity>();
+		entities.add( e1 );
+		entities.add( e2 );
+		
+		manager.addAll( entities );
+		
+		assertTrue( manager.entities.contains( e1 ) );
+		assertTrue( manager.entities.contains( e2 ) );
+	}
 }
 
 class MockSystem extends GameSystem {
 	public List<Event> received = new ArrayList<Event>();
 	public boolean init = false;
+	public boolean destroyed = false;
 	@Override
 	public void init() {
 		this.init = true;
@@ -198,5 +256,10 @@ class MockSystem extends GameSystem {
 	public void tick(List<Entity> entities) {
 		received.addAll( this.events );
 		
+	}
+	
+	@Override
+	public void destroy() {
+		this.destroyed = true;
 	}
 }

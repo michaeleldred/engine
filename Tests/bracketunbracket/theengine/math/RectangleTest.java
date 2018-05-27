@@ -32,4 +32,12 @@ public class RectangleTest {
 		
 		assertEquals( new Rectangle( 0 , 0 , 10 , 10 ) , rect1.intersection( rect2 ) );
 	}
+	@Test
+	public void createRectangleWithCenter() {
+		Rectangle rect = new Rectangle( new Vector2( -25 , -35 ) , 50 , 100 );
+		assertEquals( -50.0f , rect.x , 0.1f );
+		assertEquals( -85.0f , rect.y , 0.1f );
+		assertEquals( 50.0f , rect.w , 0.1f );
+		assertEquals( 100.0f , rect.h , 0.1f );
+	}
 }

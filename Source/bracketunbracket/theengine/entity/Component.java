@@ -18,6 +18,10 @@ public class Component implements Cloneable {
 	 */
 	public Entity parent = null;
 	
+	public void setParent( Entity parent ) {
+		this.parent = parent;
+	}
+	
 	@Override
 	public Component clone() {
 		try {
