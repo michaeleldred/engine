@@ -52,7 +52,7 @@ public class LWJGLRenderContext extends RenderContext {
 		this.winheight = winheight;
 		
 		glfwSetErrorCallback( GLFWErrorCallback.createPrint( System.err ) );
-		
+	
 		glfwInit();
 		glfwDefaultWindowHints();
 		

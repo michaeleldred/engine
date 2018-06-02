@@ -27,7 +27,7 @@ public class EntityManager implements EventListener {
 	 * A list of the systems that are run by this manager
 	 */
 	public final List<GameSystem> systems = new ArrayList<GameSystem>();
-	
+
 	private boolean updating = false;
 	
 	private final List<Entity> addedEntities = new ArrayList<Entity>();

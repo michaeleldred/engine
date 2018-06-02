@@ -118,6 +118,11 @@ public class Entity {
 			c.clear();
 	}
 	
+	public <T extends Component> void remove( Class<T> classType , T object ) {
+		List<Component> c = components.get( classType );
+		c.remove( object );
+	}
+	
 	public void receiveEvent( Event event ) {
 		added.add( event );
 	}
