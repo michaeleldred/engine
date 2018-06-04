@@ -9,6 +9,7 @@ package bracketunbracket.theengine.renderer;
 public class Color {
 	
 	public final static Color WHITE = new Color( 1.0f , 1.0f , 1.0f );
+	public final static Color BLACK = new Color( 0.0f , 0.0f , 0.0f );
 	
 	public float red = 0.0f;
 	public float green = 0.0f;
