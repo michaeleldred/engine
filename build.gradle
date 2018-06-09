@@ -1,4 +1,6 @@
 buildscript {
+    project.ext.roboVMVersion = "2.3.3"
+    project.ext.roboVMGradleVersion = "2.3.3"
 	repositories {
 		jcenter();
 		maven {

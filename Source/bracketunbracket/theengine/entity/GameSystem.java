@@ -65,6 +65,18 @@ public abstract class GameSystem {
 	 *         {@code eventType} class.
 	 */
 	public boolean containsClass( Class< ? extends Event> eventType ) {
+		return containsClass(eventType , this.events );
+	}
+	
+	/**
+	 * Checks to see if a type of event is in the list
+	 * last frame.
+	 * 
+	 * @param  eventType The type of event to check for
+	 * @return {@code true} if the system has received an event of the
+	 *         {@code eventType} class.
+	 */
+	public boolean containsClass( Class< ? extends Event> eventType , List<Event> events ) {
 		for( Event evt : events ) {
 			
 			if( eventType.isInstance( evt ) ) {
@@ -82,8 +94,20 @@ public abstract class GameSystem {
 	 * @return {@code true} if the system has received an event of the
 	 *         {@code eventType} class.
 	 */
-	@SuppressWarnings("unchecked")
 	public <T extends Event> List< T > getEventsByClass( Class< T > eventType ) {
+		return getEventsByClass( eventType , this.events );
+	}
+	
+	/**
+	 * Checks to see if a type of event has been passed to this system in the
+	 * last frame.
+	 * 
+	 * @param  eventType The type of event to check for
+	 * @return {@code true} if the system has received an event of the
+	 *         {@code eventType} class.
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends Event> List< T > getEventsByClass( Class< T > eventType , List<Event> events ) {
 		List< T > retVal = new ArrayList< T >();
 		
 		for( Event evt : events ) {
