@@ -27,6 +27,8 @@ public class WebSound extends Sound implements EventListener<Event> {
 		document.getBody().appendChild( audioElement );
 		
 		audioElement.addEventListener( "loadeddata" , this );
+		// TODO: Safari doesn't load ogg's, set errors to load
+		audioElement.addEventListener( "error" , this );
 	}
 	@Override
 	public void handleEvent(Event event) {
