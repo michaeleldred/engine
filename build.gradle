@@ -43,8 +43,8 @@ dependencies {
     compileOnly 'org.teavm:teavm-jso-impl:0.6.0-dev-451'
     compileOnly 'org.teavm:teavm-platform:0.6.0-dev-451'
     compileOnly 'org.teavm:teavm-tooling:0.6.0-dev-451'
-    compile group: 'com.mobidevelop.robovm', name: 'robovm-rt', version: project.roboVMVersion
-    compile group: 'com.mobidevelop.robovm', name: 'robovm-cocoatouch', version: project.roboVMVersion
+    compileOnly group: 'com.mobidevelop.robovm', name: 'robovm-rt', version: project.roboVMVersion
+    compileOnly group: 'com.mobidevelop.robovm', name: 'robovm-cocoatouch', version: project.roboVMVersion
 	testCompile "junit:junit:4.11"
 }
 

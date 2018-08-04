@@ -21,7 +21,6 @@ public class AnimationComponent extends Component {
 	
 	public AnimationComponent( int ticks , String...frames ) {
 		this( ticks , true , frames );
-	
 	}
 	
 	public AnimationComponent( int ticks , boolean loop , String...frames ) {
