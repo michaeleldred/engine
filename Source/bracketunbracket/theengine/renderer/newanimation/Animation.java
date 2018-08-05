@@ -9,6 +9,7 @@ import bracketunbracket.theengine.renderer.RenderObject;
  * @author Michael Eldred
  */
 public abstract class Animation {
+	
 	/**
 	 * The current tick of the frame
 	 */
@@ -18,6 +19,11 @@ public abstract class Animation {
 	 * The number of ticks the animation will run before resetting
 	 */
 	public int length = 0;
+	
+	/**
+	 * If this is set to true, then the animation will loop indefinetly
+	 */
+	public boolean loop = false;
 	
 	/**
 	 * A wrapper class for the math function that is going to be used to alter
@@ -35,9 +41,20 @@ public abstract class Animation {
 	 * @param tweener The mathematical function to alter the variables with
 	 */
 	public Animation( RenderObject destination , int length , Tweener tweener ) {
+		this( destination , length , tweener , false );
+	}
+	
+	/**
+	 * Creates a new Animation
+	 * 
+	 * @param length  The number of ticks the animation should last.
+	 * @param tweener The mathematical function to alter the variables with
+	 */
+	public Animation( RenderObject destination , int length , Tweener tweener , boolean loop ) {
 		this.destination = destination;
 		this.length = length;
 		this.tweener = tweener;
+		this.loop = loop;
 	}
 	
 	/**
@@ -47,9 +64,18 @@ public abstract class Animation {
 	 * @param ticks The number of ticks to advance in the animation.
 	 */
 	public void update( int ticks ) {
-		currentTick = ( currentTick + ticks ) % length;	
+		if( !loop && currentTick + ticks >= length ) {
+			currentTick = length;
+		} else {
+			currentTick = ( currentTick + ticks ) % length;
+		}
+		
 		// Call the subclass to do the meat work of the animation
 		doUpdate();
+	}
+	
+	public void reset() {
+		currentTick = 0;
 	}
 	
 	public abstract void doUpdate();

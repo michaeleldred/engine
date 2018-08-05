@@ -24,9 +24,11 @@ public class AnimationComponent extends Component {
 	}
 	
 	public AnimationComponent( int ticks , boolean loop , String...frames ) {
+		
 		for( String frame : frames ) {
 			this.frames.add( frame );
 		}
+		
 		ticksPerFrame = ticks;
 		currentFrame = 0;
 		this.loop = loop;

@@ -33,6 +33,6 @@ public class RenderComponent extends Component {
 	}
 	
 	public RenderComponent( String texture , float width , float height , int layer , Color color ) {
-		this( new RenderObject( null , color , width , height , texture , layer , 0.0f  ) );
+		this( new RenderObject( new Vector2() , color , width , height , texture , layer , 0.0f  ) );
 	}
 }

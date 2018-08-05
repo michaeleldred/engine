@@ -20,8 +20,8 @@ public class AnimationTest {
 	}
 	
 	@Test
-	public void ResetFrameOnAdvance() {
-		Animation anim = new MockAnimation( 3 );
+	public void ResetFrameOnAdvanceIfLooping() {
+		Animation anim = new MockAnimation( 3 , null , true );
 		anim.update( 4 );
 		
 		assertEquals( 1 , anim.currentTick );
@@ -50,6 +50,14 @@ public class AnimationTest {
 		
 		assertEquals( Tweener.linear , anim.tweener );
 	}
+	
+	@Test
+	public void NonLoopingAnimationStops() {
+		MockAnimation anim = new MockAnimation( 12 , null , false );
+		anim.update( 15 );
+		
+		assertEquals( 12 , anim.currentTick );
+	}
 }
 
 class MockAnimation extends Animation {
@@ -62,6 +70,10 @@ class MockAnimation extends Animation {
 	
 	public MockAnimation( int length , Tweener tweener ) {
 		super( null , length , tweener );
+	}
+	
+	public MockAnimation( int length , Tweener tweener , boolean loop ) {
+		super( null , length , null , loop );
 	}
 	
 

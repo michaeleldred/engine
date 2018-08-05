@@ -27,20 +27,3 @@ public class AnimationTest {
 	public void ScaleAnimationTest() {
 	}
 }
-
-abstract class TestAnimation {
-	/**
-	 * The way the data is going to be changed
-	 */
-	private Tween tweener;
-	public int currentTick = 0;
-	public final int length = 0;
-	
-	public TestAnimation() {
-		
-	}
-	
-	
-	public abstract void tick( int ticks );
-	
-}
