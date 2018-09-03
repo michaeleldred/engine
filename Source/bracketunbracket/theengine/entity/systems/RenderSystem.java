@@ -47,6 +47,7 @@ public class RenderSystem extends GameSystem {
 		
 		camera.update();
 		
+		
 		// Go through all of the entities and check for the ones that can be
 		// rendered
 		for( Entity current : entities ) {

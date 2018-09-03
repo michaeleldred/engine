@@ -18,7 +18,7 @@ public class GameEngine {
 	public GameEngine( Platform platform , float width , float height , float gameWidth , float gameHeight ) throws Exception {
 		
 		this.platform = platform;
-		FileSystem.filePlatform = platform.getFilePlatform();
+		//FileSystem.filePlatform = platform.getFilePlatform();
 		
 		// Set up audio
 		AudioEngine engine = new AudioEngine( platform.getAudioContext() );
@@ -28,7 +28,7 @@ public class GameEngine {
 		window = new GameWindow( width , height , gameWidth , gameHeight );
 		window.renderContext = platform.getRenderContext();
 		window.renderer = new Renderer( platform.getRenderContext() );
-		window.audioEngine = engine;
+		//window.audioEngine = engine;
 		window.renderContext.setGameWindow( window );
 		System.out.println( window.getScaledDimensions() );
 		eventManager.addListener( window.screenManager );

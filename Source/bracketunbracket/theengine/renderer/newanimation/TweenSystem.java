@@ -23,14 +23,18 @@ public class TweenSystem extends GameSystem {
 	public void tick(List<Entity> entities) {
 		List<Entity> sorted = sort( entities , AnimationComponent.class );
 		
+		for( GameEvent evt : getEventsByClass( GameEvent.class ) ) {
+			System.out.println( evt.name );
+		}
+		
 		for( Entity current : sorted ) {
 			List<AnimationComponent> anims = current.getAllComponentsByType( AnimationComponent.class );
 			for( AnimationComponent c : anims ) {
 				
 				for( GameEvent evt : getEventsByClass( GameEvent.class ) ) {
-					System.out.println( evt.name );
+					//System.out.println( evt.name );
 					if( evt.name.equalsIgnoreCase( c.event ) ) {
-						System.out.println( "Running event: " + c.event );
+						System.out.println( "Running event: " + c.event + " for: " + c.parent );
 						c.isActive = true;
 					}
 				}
