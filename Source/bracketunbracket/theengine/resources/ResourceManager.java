@@ -2,6 +2,7 @@ package bracketunbracket.theengine.resources;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -64,9 +65,10 @@ public class ResourceManager implements EventListener {
 			
 			// If the type has a parser, gather the infomration and send it
 			if( resParsers.containsKey( type ) ) {
-				Set<String> keys = currentResource.keySet();
+				Iterator<String> keys = currentResource.keys();
 				HashMap< String , String > values = new HashMap< String , String >(); 
-				for( String key : keys ) {
+				while( keys.hasNext() ) {
+					String key = keys.next();
 					values.put( key , currentResource.getString( key ) );
 				}
 				

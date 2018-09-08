@@ -34,6 +34,8 @@ public class IOSShader extends Shader {
 		
 		if( program == 0 )
 			System.out.println( "PROGRAM: " + glGetProgramInfoLog( program ) );
+		else
+			loaded = true;
 	}
 	
 	private int loadShader( int type , String shaderCode ) {

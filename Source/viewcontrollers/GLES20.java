@@ -9,6 +9,7 @@ import org.robovm.rt.bro.annotation.Bridge;
 import org.robovm.rt.bro.annotation.Library;
 import org.robovm.rt.bro.ptr.BytePtr;
 import org.robovm.rt.bro.ptr.BytePtr.BytePtrPtr;
+import org.robovm.rt.bro.ptr.FloatPtr;
 import org.robovm.rt.bro.ptr.IntPtr;
 
 @Library("OpenGLES")
@@ -330,6 +331,14 @@ public class GLES20 {
                 return Struct.allocate(IntPtr.class, 1);
             }
         };
+        
+        private static final ThreadLocal<FloatPtr> FOURMATRIX =
+                new ThreadLocal<FloatPtr>() {
+                    @Override
+                    protected FloatPtr initialValue() {
+                        return Struct.allocate(FloatPtr.class, 16);
+                    }
+                };
 
     private static final ThreadLocal<BytePtr> INFO_LOG =
         new ThreadLocal<BytePtr>() {
@@ -342,6 +351,16 @@ public class GLES20 {
     static {
         Bro.bind(GLES20.class);
     }
+    
+    @Bridge
+    public static native void glEnable( int flag );
+    
+    @Bridge
+    public static native void glDisable( int flag );
+    
+    @Bridge
+    public static native void glBlendFunc( int sFactor , int dFactor );
+    
 
     @Bridge
     public static native void glClearColor(float red, float green, float blue, float alpha);
@@ -365,6 +384,22 @@ public class GLES20 {
     public static int glGetUniformLocation(int program, String name) {
         return glGetUniformLocation(program, BytePtr.toBytePtrAsciiZ(name));
     }
+    
+    
+    @Bridge
+    private static native void glUniformMatrix4fv( int location , int count , boolean transpose , FloatPtr values );
+    
+    public static void glUniformMatrix4fv( int location , int count , boolean transpose , float[] values ) {
+    	FloatPtr ptr = FOURMATRIX.get();
+    	ptr.set( values );
+    	glUniformMatrix4fv( location, count, transpose, ptr);
+    }
+    
+    @Bridge 
+    public static native void glUniform2f( int location , float val1 , float val2 );
+    
+    @Bridge
+    public static native void glUniform1i( int location , int value );
 
     @Bridge
     public static native int glGenFramebuffers(int n, IntPtr framebuffers);
@@ -417,9 +452,12 @@ public class GLES20 {
     
     @Bridge
     public static native int glCreateProgram();
+    
+    @Bridge
+    public static native int glUseProgram( int program );
 
     @Bridge
-    public static native int glGenTextures(int n, IntPtr textures);
+    private static native int glGenTextures(int n, IntPtr textures);
 
     public static int glGenTextures() {
         IntPtr textures = SINGLE_VALUE.get();
@@ -431,17 +469,36 @@ public class GLES20 {
     public static native void glBindTexture( int type , int texture );
     
     @Bridge
+    public static native void glActiveTexture( int texture );
+    
+    @Bridge
     public static native void glTexParameterf( int type , int param , int value );
     
     @Bridge
     public static native void glTexImage2D(int target, int level, int internalformat, int width, int height, int border, int format, int type, IntBuffer data);
+    
+    @Bridge
+    private static native int glGetAttribLocation(int program, BytePtr name);
 
+    public static int glGetAttribLocation(int program, String name) {
+        return glGetAttribLocation(program, BytePtr.toBytePtrAsciiZ(name));
+    }
+    
+    @Bridge
+    public static native void glEnableVertexAttribArray( int handle );
+    
     @Bridge
     private static native void glVertexAttribPointer(int index, int size, int type, int normalized, int stride, Buffer pointer);
 
     public static void glVertexAttribPointer(int index, int size, int type, boolean normalized, int stride, Buffer pointer) {
         glVertexAttribPointer(index, size, type, normalized ? GL_TRUE : GL_FALSE, stride, pointer);
     }
+    
+    @Bridge
+    public static native void glDrawArrays( int type , int start , int count );
+    
+    @Bridge
+    public static native void glDisableVertexAttribArray( int handle );
     
     @Bridge
     public static native int glGetError();
