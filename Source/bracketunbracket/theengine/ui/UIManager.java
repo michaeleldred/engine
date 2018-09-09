@@ -43,6 +43,7 @@ public class UIManager {
 	public boolean receive( Event event ) {
 		for( UIObject obj : objects ) {
 			if( obj.receive( event ) ) {
+				
 				return true;
 			}
 		}

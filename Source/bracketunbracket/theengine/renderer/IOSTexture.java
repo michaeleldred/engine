@@ -42,7 +42,7 @@ public class IOSTexture extends Texture {
 			glGetError();
 			GLKTextureLoaderOptions options = new GLKTextureLoaderOptions();
 			options.setShouldApplyPremultiplication( false );
-			options.setSRGB( true );
+			//options.setSRGB( true );
 			GLKTextureInfo texture = GLKTextureLoader.createTexture( image , options );
 			texID = texture.getName();
 			isLoaded = true;

@@ -8,6 +8,7 @@ import bracketunbracket.theengine.renderer.RenderContext;
 import bracketunbracket.theengine.resources.FilePlatform;
 import bracketunbracket.theengine.resources.IOSFilePlatform;
 import bracketunbracket.theengine.sound.AudioContext;
+import bracketunbracket.theengine.sound.IOSAudioContext;
 
 /**
  * @author michaeleldred
@@ -16,6 +17,7 @@ import bracketunbracket.theengine.sound.AudioContext;
 public class IOSPlatform implements Platform {
 	
 	private IOSRenderContext renderContext = new IOSRenderContext();
+	private IOSAudioContext audioContext = new IOSAudioContext();
 	private IOSFilePlatform filePlatform = new IOSFilePlatform();
 
 	@Override
@@ -25,8 +27,7 @@ public class IOSPlatform implements Platform {
 
 	@Override
 	public AudioContext getAudioContext() {
-		// TODO Auto-generated method stub
-		return null;
+		return audioContext;
 	}
 
 	@Override

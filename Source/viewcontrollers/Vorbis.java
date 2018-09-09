@@ -10,9 +10,11 @@ import org.robovm.rt.bro.annotation.Library;
  * @author michaeleldred
  *
  */
-//@Library("Ogg")
-public class Ogg {
-	/*static {
+@Library("Vorbis")
+public class Vorbis {
+	static {
 		Bro.bind();
-	} */
+	}
+	
+	
 }

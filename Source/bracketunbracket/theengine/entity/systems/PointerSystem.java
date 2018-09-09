@@ -4,8 +4,10 @@
 package bracketunbracket.theengine.entity.systems;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import bracketunbracket.theengine.entity.Entity;
 import bracketunbracket.theengine.entity.GameSystem;
@@ -24,8 +26,8 @@ public class PointerSystem extends GameSystem {
 
 	public List<PointerEvent> unused = new ArrayList<PointerEvent>();
 	
-	public final PointerEvent[] states = new PointerEvent[ 16 ];
-	public final boolean[] used = new boolean[ 16 ];
+	public final Map<Integer,PointerEvent> states = new HashMap<Integer,PointerEvent>( 16 );
+	public final Map<Integer,Boolean> used = new HashMap<Integer,Boolean>();
 	
 	/* (non-Javadoc)
 	 * @see bracketunbracket.theengine.entity.GameSystem#tick(java.util.List)
@@ -36,7 +38,8 @@ public class PointerSystem extends GameSystem {
 		for( Event e : events ) {
 			if( e instanceof PointerEvent ) {
 				PointerEvent evt = (PointerEvent)e;
-				states[ evt.button ] = evt;
+				states.put( evt.button , evt );
+				used.put( evt.button , false );
 			}
 		}
 		
@@ -55,12 +58,13 @@ public class PointerSystem extends GameSystem {
 			}
 			
 			// Check the state of the event
-			PointerEvent evt = states[ s.button ];
+			PointerEvent evt = states.get( s.button );
 			
 			// If the state is still down update the current event
 			if( evt != null && evt.isDown ) {
 				s.event = evt;
-				used[ s.button ] = true;
+				used.put( s.button , true );
+				System.out.println( "SAVED");
 			}
 			// Otherwise release the object
 			else {
@@ -71,9 +75,9 @@ public class PointerSystem extends GameSystem {
 		}
 		
 		// Update unused
-		for( int i = 0; i < used.length; i++ ) {
-			if( !used[ i ] && states[ i ] != null ) {
-				unused.add( states[ i ] );
+		for( Integer i : used.keySet() ) {
+			if( !used.get( i.intValue() ) && states.containsKey( i ) ) {
+				unused.add( states.get( i ) );
 			}
 		}
 		
@@ -83,14 +87,16 @@ public class PointerSystem extends GameSystem {
 		}
 		
 		// Clear out lists for next process
-		for( int i = 0; i < states.length; i++ ) {
-			if( states[ i ] != null && !states[ i ].isDown ) {
-				states[ i ] = null;
+		for( Iterator<Integer> it = states.keySet().iterator(); it.hasNext(); ) {
+			int i = it.next();
+			if( !states.get( i ).isDown ) {
+				it.remove();
+				used.remove( i );
 			}
 		}
 		
-		for( int i = 0; i < used.length; i++ ) {
-			used[ i++ ] = false;
+		for( Integer i : used.keySet() ) {
+			used.put( i , false );
 		}
 		
 		unused.clear();
@@ -120,6 +126,7 @@ public class PointerSystem extends GameSystem {
 				it.remove();
 				break;
 			} else {
+				
 				s.button = -1;
 				s.event = null;
 			}
