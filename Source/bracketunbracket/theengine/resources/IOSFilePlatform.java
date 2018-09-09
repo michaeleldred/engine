@@ -1,7 +1,5 @@
 package bracketunbracket.theengine.resources;
 
-import java.util.Arrays;
-
 import org.robovm.apple.foundation.NSBundle;
 import org.robovm.apple.foundation.NSErrorException;
 import org.robovm.apple.foundation.NSString;
@@ -16,15 +14,14 @@ public class IOSFilePlatform implements FilePlatform {
 			@Override
 			public void load() {
 				try {
-					System.out.println( "Loading: " + filename );
-					//String vals[] = filename.split( Character.toString( '.' ) , 2 );
+					// Would rather do this with a split, but there seems to be
+					// a bug in the robovm implementation of String.split that
+					// splits on the first letter.
 					int index = filename.indexOf( '.' );
-					String path = filename.substring( 0 , index );
-					System.out.println( "Path: " + path );
 					
+					String path = filename.substring( 0 , index );
 					String type = filename.substring( index + 1 );
 					
-					System.out.println( "Type: " + type );
 					String location = NSBundle.getMainBundle().findResourcePath( path , type );
 					data = NSString.readFile( location , NSStringEncoding.UTF8 );
 					finished();
