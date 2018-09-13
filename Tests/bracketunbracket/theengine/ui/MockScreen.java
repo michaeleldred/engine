@@ -9,6 +9,7 @@ package bracketunbracket.theengine.ui;
 public class MockScreen extends Screen {
 	public boolean wasUpdated = false;
 	public boolean shouldUpdate = true;
+	public boolean didPostRender = false;
 
 	@Override
 	public boolean update() {
@@ -19,6 +20,11 @@ public class MockScreen extends Screen {
 	@Override
 	public void render() {
 		
+	}
+	
+	@Override
+	public void postRender() {
+		didPostRender = true;
 	}
 
 	@Override

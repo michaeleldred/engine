@@ -11,6 +11,8 @@ import bracketunbracket.theengine.event.EventListener;
  */
 public class IOSAudioContext extends AudioContext {
 
+	private boolean mute;
+	
 	/* (non-Javadoc)
 	 * @see bracketunbracket.theengine.sound.AudioContext#play(java.lang.String)
 	 */
@@ -76,8 +78,7 @@ public class IOSAudioContext extends AudioContext {
 	 */
 	@Override
 	public void mute() {
-		// TODO Auto-generated method stub
-
+		mute = true;
 	}
 
 	/* (non-Javadoc)
@@ -85,8 +86,7 @@ public class IOSAudioContext extends AudioContext {
 	 */
 	@Override
 	public void unmute() {
-		// TODO Auto-generated method stub
-
+		mute = false;
 	}
 
 	/* (non-Javadoc)
@@ -94,8 +94,7 @@ public class IOSAudioContext extends AudioContext {
 	 */
 	@Override
 	public boolean isMute() {
-		// TODO Auto-generated method stub
-		return false;
+		return mute;
 	}
 
 }

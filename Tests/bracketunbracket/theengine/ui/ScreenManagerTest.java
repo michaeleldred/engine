@@ -158,4 +158,19 @@ public class ScreenManagerTest {
 		
 		assertTrue( true );
 	}
+	
+	@Test
+	public void DontDrawUIForBackgroundScreen() {
+		ScreenManager screenManager = new ScreenManager( null );
+		MockScreen screen = new MockScreen();
+		MockScreen screen2 = new MockScreen();
+		
+		screenManager.setScreen( screen );
+		screenManager.pushScreen( screen2 );
+		
+		screenManager.update();
+		
+		assertFalse( screen.didPostRender );
+		assertTrue( screen2.didPostRender );
+	}
 }

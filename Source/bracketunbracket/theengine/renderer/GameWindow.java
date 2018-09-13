@@ -3,6 +3,7 @@
  */
 package bracketunbracket.theengine.renderer;
 
+import bracketunbracket.theengine.GameEngine;
 import bracketunbracket.theengine.math.Rectangle;
 import bracketunbracket.theengine.math.Vector2;
 import bracketunbracket.theengine.sound.AudioEngine;
@@ -42,6 +43,8 @@ public class GameWindow {
 	public ScreenManager screenManager;
 	
 	public final Rectangle bounds = new Rectangle( 0 , 0 );
+	
+	public GameEngine engine;
 	
 	public GameWindow() {
 		this( 0 , 0 );

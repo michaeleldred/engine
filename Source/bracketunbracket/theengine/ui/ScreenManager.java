@@ -57,8 +57,9 @@ public class ScreenManager implements EventListener {
 		
 		for( Screen screen : screens ) {
 			screen.render();
-			screen.postRender();
 		}
+		
+		screens.lastElement().postRender();
 	}
 
 	@Override

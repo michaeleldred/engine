@@ -14,6 +14,7 @@ public class GameEngine {
 	public final GameWindow window;
 	public final EventManager eventManager = new EventManager();
 	private final Platform platform;
+	public AdLoader loader;
 	
 	public GameEngine( Platform platform , float width , float height , float gameWidth , float gameHeight ) throws Exception {
 		
@@ -26,6 +27,7 @@ public class GameEngine {
 		
 		// Setup the Game Window
 		window = new GameWindow( width , height , gameWidth , gameHeight );
+		window.engine = this;
 		window.renderContext = platform.getRenderContext();
 		window.renderer = new Renderer( platform.getRenderContext() );
 		window.audioEngine = engine;
@@ -44,5 +46,9 @@ public class GameEngine {
 		window.screenManager.destroy();
 		//platform.getAudioContext().destroy();
 		//platform.getRenderContext().destroy();
+	}
+	
+	public AdLoader getAdLoader() {
+		return loader;
 	}
 }
