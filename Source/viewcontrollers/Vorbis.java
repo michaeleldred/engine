@@ -13,8 +13,6 @@ import org.robovm.rt.bro.annotation.Library;
 @Library("Vorbis")
 public class Vorbis {
 	static {
-		Bro.bind();
+		Bro.bind( Vorbis.class );
 	}
-	
-	
 }

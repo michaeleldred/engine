@@ -64,7 +64,6 @@ public class PointerSystem extends GameSystem {
 			if( evt != null && evt.isDown ) {
 				s.event = evt;
 				used.put( s.button , true );
-				System.out.println( "SAVED");
 			}
 			// Otherwise release the object
 			else {
