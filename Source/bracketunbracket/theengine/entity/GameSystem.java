@@ -18,7 +18,7 @@ public abstract class GameSystem {
 	
 	public EntityManager manager;
 	
-	public EventManager eventManager;
+	public EventManager eventManager = new EventManager();
 	
 	/**
 	 * Update the state of the game system

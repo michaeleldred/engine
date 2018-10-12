@@ -23,9 +23,9 @@ public class TweenSystem extends GameSystem {
 	public void tick(List<Entity> entities) {
 		List<Entity> sorted = sort( entities , AnimationComponent.class );
 		
-		for( GameEvent evt : getEventsByClass( GameEvent.class ) ) {
+		/*for( GameEvent evt : getEventsByClass( GameEvent.class ) ) {
 			System.out.println( evt.name );
-		}
+		}*/
 		
 		for( Entity current : sorted ) {
 			List<AnimationComponent> anims = current.getAllComponentsByType( AnimationComponent.class );

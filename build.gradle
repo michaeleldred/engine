@@ -1,6 +1,6 @@
 buildscript {
-    project.ext.roboVMVersion = "2.3.4"
-    project.ext.roboVMGradleVersion = "2.3.4"
+    project.ext.roboVMVersion = "2.3.5"
+    project.ext.roboVMGradleVersion = "2.3.5"
     project.ext.robopodsVersion = "2.2.1"
 	repositories {
 		jcenter();

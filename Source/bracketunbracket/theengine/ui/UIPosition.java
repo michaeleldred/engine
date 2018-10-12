@@ -41,22 +41,22 @@ public class UIPosition {
 		this.bounds = bounds;
 	}
 	
-	public void position( Rectangle screenBounds ) {
+	public void position( Rectangle screenBounds , Rectangle inset ) {
 		
 		if( ( mask & POSITION_CENTER ) != 0 ) {
 			screenPos.y = screenBounds.y + screenBounds.h / 2.0f + yOffset; 
 		} else if( ( mask & POSITION_TOP ) != 0 ) {
-			screenPos.y =  screenBounds.y + ( bounds.h ) / 2.0f + yOffset;
+			screenPos.y =  screenBounds.y + ( bounds.h ) / 2.0f + yOffset + inset.y;
 		} else if( ( mask & POSITION_BOTTOM ) != 0 ) {
-			screenPos.y = ( screenBounds.y + screenBounds.h ) - ( bounds.h ) / 2.0f - yOffset;
+			screenPos.y = ( screenBounds.y + screenBounds.h ) - ( bounds.h ) / 2.0f - yOffset - inset.h;
 		}
 		
 		if( ( mask & POSITION_MIDDLE ) != 0 ) {
 			screenPos.x = screenBounds.x + screenBounds.w / 2.0f + xOffset; 
 		} else if( ( mask & POSITION_LEFT ) != 0 ) {
-			screenPos.x =  screenBounds.x + ( bounds.w ) / 2.0f + xOffset;
+			screenPos.x =  screenBounds.x + ( bounds.w ) / 2.0f + xOffset + inset.x;
 		} else if( ( mask & POSITION_RIGHT ) != 0 ) {
-			screenPos.x =  ( screenBounds.x + screenBounds.w ) - ( bounds.w ) / 2.0f - xOffset;
+			screenPos.x =  ( screenBounds.x + screenBounds.w ) - ( bounds.w ) / 2.0f - xOffset - inset.w;
 		}
 		
 		// Update bounds

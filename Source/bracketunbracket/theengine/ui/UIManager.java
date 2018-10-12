@@ -22,7 +22,7 @@ public class UIManager {
 	}
 	
 	public void add( UIObject obj ) {
-		obj.position.position( window.bounds );
+		obj.position.position( window.bounds , window.inset );
 		objects.add( obj );
 	}
 	

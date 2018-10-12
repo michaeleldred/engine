@@ -43,6 +43,7 @@ public class GameWindow {
 	public ScreenManager screenManager;
 	
 	public final Rectangle bounds = new Rectangle( 0 , 0 );
+	public final Rectangle inset = new Rectangle( 0 , 0 , 0 , 0 );
 	
 	public GameEngine engine;
 	

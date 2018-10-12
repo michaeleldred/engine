@@ -6,7 +6,7 @@ package bracketunbracket.theengine.renderer;
 /**
  * @author Michael Eldred
  */
-public class Color {
+public class Color implements Cloneable {
 	
 	public final static Color WHITE = new Color( 1.0f , 1.0f , 1.0f );
 	public final static Color BLACK = new Color( 0.0f , 0.0f , 0.0f );
@@ -56,11 +56,16 @@ public class Color {
 	}
 	
 	/**
-	 * Multiplies all of te colors by num, bur leaves the alpha unchanged.
+	 * Multiplies all of the colors by num, but leaves the alpha unchanged.
 	 * @param num
 	 * @return
 	 */
 	public Color mult( float num ) {
 		return new Color( red * num , green * num , blue * num );
+	}
+	
+	@Override
+	public Color clone() {
+		return new Color( red , green , blue , alpha );
 	}
 }

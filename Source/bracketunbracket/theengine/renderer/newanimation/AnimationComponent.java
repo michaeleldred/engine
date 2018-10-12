@@ -14,7 +14,7 @@ public class AnimationComponent extends Component {
 	public String event;
 	public boolean isActive = false;
 	
-	public AnimationComponent( Animation animation ) {
+	protected AnimationComponent( Animation animation ) {
 		this.animation = animation;
 	}
 	
