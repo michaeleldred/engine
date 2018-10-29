@@ -250,5 +250,29 @@ public class StaticTileMap {
 		
 		return -1;
 	}
+
+	/**
+	 * Gets a list of all of the actual tile values in the map. This method
+	 * filters out all null tile locations and only returns actual tiles in
+	 * the map.
+	 * 
+	 * @return A list of all non-null tiles in the map.
+	 */
+	public List<Tile> getTiles() {
+		List<Tile> retVal = new ArrayList<Tile>(); 
+		
+		// Go through every tile location and add it to the return value if it
+		// is not null
+		for( int i = 0; i < tiles.length; i++ ) {
+			for( int j = 0; j < tiles[ i ].length; j++ ) {
+				if( tiles[ i ][ j ] != null ) {
+					retVal.add( tiles[ i ][ j ] );
+				}
+			}
+		}
+		
+		return retVal;
+	}
+	
 	
 }

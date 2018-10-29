@@ -59,7 +59,9 @@ public class ScreenManager implements EventListener {
 			screen.render();
 		}
 		
-		screens.lastElement().postRender();
+		if( screens.size() > 0 ) {
+			screens.lastElement().postRender();
+		}
 	}
 
 	@Override

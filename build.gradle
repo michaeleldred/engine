@@ -35,7 +35,6 @@ sourceCompatibility = '1.7'
 dependencies {
 	compileOnly name: "android"
 	compileOnly files( "Lib/admob.jar" )
-	compile "com.mobidevelop.robovm:robopods-google-mobile-ads-ios:$robopodsVersion"
 	compile files( "Lib/json-20160212.jar" )
 	compile files( "Lib/lwjgl.jar" )
 	compileOnly 'org.teavm:teavm-core:0.6.0-dev-451'
@@ -47,6 +46,7 @@ dependencies {
     compileOnly 'org.teavm:teavm-tooling:0.6.0-dev-451'
     compileOnly group: 'com.mobidevelop.robovm', name: 'robovm-rt', version: project.roboVMVersion
     compileOnly group: 'com.mobidevelop.robovm', name: 'robovm-cocoatouch', version: project.roboVMVersion
+    compileOnly group: 'com.mobidevelop.robovm', name: "robopods-google-mobile-ads-ios", version: "$robopodsVersion"
 	testCompile "junit:junit:4.11"
 }
 
