@@ -58,8 +58,7 @@ public class Rectangle {
 	}
 	
 	public boolean contains( Vector2 point ) {
-		return this.x < point.x && this.x + this.w > point.x &&
-				this.y < point.y && this.y + this.h > point.y;
+		return contains( point.x , point.y );
 	}
 	
 	public boolean contains( float x , float y ) {
