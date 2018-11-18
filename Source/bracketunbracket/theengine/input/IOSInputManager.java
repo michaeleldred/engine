@@ -4,6 +4,7 @@
 package bracketunbracket.theengine.input;
 
 import bracketunbracket.theengine.event.EventManager;
+import bracketunbracket.theengine.input.PointerEvent.EventType;
 import bracketunbracket.theengine.renderer.GameWindow;
 
 /**
@@ -20,7 +21,7 @@ public class IOSInputManager {
 		this.gameWindow = window;
 	}
 	
-	public void handleTouch( int button , float x , float y , boolean isDown ) {
+	public void handleTouch( int button , float x , float y , boolean isDown , EventType type  ) {
 		
 		x = x - gameWindow.getWidth() / 2.0f;
 		y = y - gameWindow.getHeight() / 2.0f;
@@ -34,6 +35,6 @@ public class IOSInputManager {
 		y *= gameWindow.getScaledDimensions().y / 2.0f;
 		
 		//System.out.println( "Final translated To: " + x + " , " + y );
-		eventManager.sendEvent( new PointerEvent(button, x, y, isDown));
+		eventManager.sendEvent( new PointerEvent(button, x, y, isDown , type ));
 	}
 }

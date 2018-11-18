@@ -17,6 +17,7 @@ import bracketunbracket.theengine.entity.components.Selectable;
 import bracketunbracket.theengine.event.Event;
 import bracketunbracket.theengine.event.GameEvent;
 import bracketunbracket.theengine.input.PointerEvent;
+import bracketunbracket.theengine.input.PointerEvent.EventType;
 import bracketunbracket.theengine.math.Rectangle;
 
 /**
@@ -61,7 +62,7 @@ public class PointerSystem extends GameSystem {
 			PointerEvent evt = states.get( s.button );
 			
 			// If the state is still down update the current event
-			if( evt != null && evt.isDown ) {
+			if( evt != null && evt.isDown  ) {
 				s.event = evt;
 				used.put( s.button , true );
 			}
@@ -116,7 +117,7 @@ public class PointerSystem extends GameSystem {
 			PointerEvent evt = it.next();
 			
 			// If the object contains the pointer event
-			if( bounds.contains( evt.x , evt.y ) && evt.isDown ) {
+			if( bounds.contains( evt.x , evt.y ) && evt.isDown && evt.type == EventType.DOWN ) {
 				// Select the selectable
 				s.button = evt.button;
 				s.event = evt;

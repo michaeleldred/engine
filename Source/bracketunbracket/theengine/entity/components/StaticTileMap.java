@@ -42,6 +42,7 @@ public class StaticTileMap {
 		tile.x = x;
 		tile.y = y;
 		tiles[ x ][ y ] = tile;
+		tile.map = this;
 	}
 	
 	/**

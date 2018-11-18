@@ -14,6 +14,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 
 import bracketunbracket.theengine.event.Event;
 import bracketunbracket.theengine.event.EventManager;
+import bracketunbracket.theengine.input.PointerEvent.EventType;
 import bracketunbracket.theengine.math.Vector2;
 import bracketunbracket.theengine.renderer.GameWindow;
 
@@ -31,7 +32,7 @@ public class LWJGLInputManager {
 	boolean pressed = false;
 	private EventManager manager;
 	private GameWindow gameWin;
-	boolean last[] = new boolean[ 5 ];
+	private boolean last[] = new boolean[ 5 ];
 	private boolean focus = true;
 	
 	private List<Event> keyEvents = new ArrayList<Event>();
@@ -39,6 +40,10 @@ public class LWJGLInputManager {
 	
 	public LWJGLInputManager( long window , EventManager manager , GameWindow gameWin ) {
 		this( window , manager , gameWin , false );
+		
+		for( int i = 0; i < last.length; i++ ) {
+			last[ i ] = false;
+		}
 	}
 	
 	public LWJGLInputManager( long window , EventManager manager , GameWindow gameWin , boolean grab ) {
@@ -93,17 +98,36 @@ public class LWJGLInputManager {
 		
 		int state = glfwGetMouseButton( window , GLFW_MOUSE_BUTTON_LEFT );
 		
-		if( state == GLFW_PRESS )
-			manager.sendEvent( new PointerEvent( PointerEvent.LEFT , x , y , true ) );
-		else
-			manager.sendEvent( new PointerEvent( PointerEvent.LEFT , x , y , false ) );
+		if( state == GLFW_PRESS ) {
+			PointerEvent.EventType type = EventType.MOVE;
+			if( !last[ GLFW_MOUSE_BUTTON_LEFT ] ) {
+				type = EventType.DOWN;
+			}
+			
+			manager.sendEvent( new PointerEvent( PointerEvent.LEFT , x , y , true , type ) );
+			
+		} else {
+			manager.sendEvent( new PointerEvent( PointerEvent.LEFT , x , y , false , EventType.UP ) );
+		}
+		
+		last[ GLFW_MOUSE_BUTTON_LEFT ] = state == GLFW_PRESS;
 		
 		state = glfwGetMouseButton( window , GLFW_MOUSE_BUTTON_RIGHT );
 		
-		if( state == GLFW_PRESS )
-			manager.sendEvent( new PointerEvent( PointerEvent.RIGHT , x , y , true ) );
+		
+		if( state == GLFW_PRESS ) {
+			PointerEvent.EventType type = EventType.MOVE;
+			if( !last[ GLFW_MOUSE_BUTTON_RIGHT ] ) {
+				type = EventType.DOWN;
+			}
+			
+			manager.sendEvent( new PointerEvent( PointerEvent.RIGHT , x , y , true , type ) );
+		}
+			
 		else
-			manager.sendEvent( new PointerEvent( PointerEvent.RIGHT , x , y , false ) );
+			manager.sendEvent( new PointerEvent( PointerEvent.RIGHT , x , y , false , EventType.UP ) );
+		
+		last[ GLFW_MOUSE_BUTTON_RIGHT ] = state == GLFW_PRESS;
 		
 		
 		/////////////////////////////////////////

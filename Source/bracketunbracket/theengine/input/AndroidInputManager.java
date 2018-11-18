@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import bracketunbracket.theengine.event.EventManager;
+import bracketunbracket.theengine.input.PointerEvent.EventType;
 import bracketunbracket.theengine.math.Vector2;
 import bracketunbracket.theengine.renderer.GameWindow;
 
@@ -44,6 +45,7 @@ public class AndroidInputManager implements View.OnTouchListener {
 		x *= ( v.x / 2.0f );
 		y *= ( v.y / 2.0f );
 		
+		
 		// Handle the event to get the correct parameters
 		switch( action ) {
 		case MotionEvent.ACTION_MOVE:
@@ -59,20 +61,20 @@ public class AndroidInputManager implements View.OnTouchListener {
 				x *= ( v.x / 2.0f );
 				y *= ( v.y / 2.0f );
 				
-				manager.sendEvent( new PointerEvent( d , x , y , isDown ) );
+				manager.sendEvent( new PointerEvent( d , x , y , isDown , EventType.MOVE ) );
 				Log.d( "POINT" , "MOVE: " + new PointerEvent( d , x , y , isDown ).toString() );
 			}
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
 		case MotionEvent.ACTION_DOWN:
 			isDown = true;
-			manager.sendEvent( new PointerEvent( id , x , y , isDown ) );
+			manager.sendEvent( new PointerEvent( id , x , y , isDown , EventType.DOWN ) );
 			Log.d( "POINT" , "DOWN:" + new PointerEvent( id , x , y , isDown ).toString() );
 			break;
 		case MotionEvent.ACTION_POINTER_UP:
 		case MotionEvent.ACTION_UP:
 			isDown = false;
-			manager.sendEvent( new PointerEvent( id , x , y , isDown ) );
+			manager.sendEvent( new PointerEvent( id , x , y , isDown , EventType.UP ) );
 			Log.d( "POINT" , "UP:" + new PointerEvent( id , x , y , isDown ).toString() );
 			break;
 		default:
